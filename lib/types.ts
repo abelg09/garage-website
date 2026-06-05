@@ -39,6 +39,7 @@ export type GarageContent = {
     introKicker: string;
     introTitle: string;
     introBody: string[];
+    garageFacade: ImageAsset;
     heroCollage: ImageAsset;
   };
   projects: Project[];

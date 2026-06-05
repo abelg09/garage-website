@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useMemo, useRef, useState } from "react";
+import type { CSSProperties } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ChevronDown,
@@ -10,7 +11,16 @@ import {
   Menu,
   X
 } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform
+} from "motion/react";
 
 import type { CrewMember, GarageContent, ImageAsset, Project } from "@/lib/types";
 
@@ -31,8 +41,6 @@ const reveal = {
   hidden: { opacity: 0, y: 44 },
   visible: { opacity: 1, y: 0 }
 };
-
-const garageEase: [number, number, number, number] = [0.76, 0, 0.24, 1];
 
 export function GarageSite({ content }: GarageSiteProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -116,32 +124,147 @@ function Header({
 }
 
 function HeroSection({ content }: { content: GarageContent }) {
-  const [open, setOpen] = useState(false);
-  const reduceMotion = useReducedMotion();
-  const transition = reduceMotion
-    ? { duration: 0 }
-    : { duration: 0.9, ease: garageEase };
+  const sectionRef = useRef<HTMLElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const heroProgress = useMotionValue(0);
+  const { scrollY } = useScroll();
+  const updateHeroProgress = useCallback(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const rootStyle = getComputedStyle(document.documentElement);
+    const stickyTop = Number.parseFloat(rootStyle.getPropertyValue("--header-height")) || 0;
+    const stage = section.querySelector<HTMLElement>(".hero-stage");
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    const stageHeight = stage?.offsetHeight ?? Math.max(1, window.innerHeight - stickyTop);
+    const start = Math.max(0, sectionTop - stickyTop);
+    const end = Math.max(start + 1, sectionTop + section.offsetHeight - stickyTop - stageHeight);
+    const nextProgress = Math.min(1, Math.max(0, (window.scrollY - start) / (end - start)));
+
+    heroProgress.set(nextProgress);
+  }, [heroProgress]);
+
+  useMotionValueEvent(scrollY, "change", updateHeroProgress);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (prefersReducedMotion === true) {
+      root.dataset.reducedMotion = "true";
+    } else {
+      delete root.dataset.reducedMotion;
+    }
+
+    return () => {
+      delete root.dataset.reducedMotion;
+    };
+  }, [prefersReducedMotion]);
+
+  useEffect(() => {
+    updateHeroProgress();
+    window.addEventListener("resize", updateHeroProgress);
+    window.addEventListener("orientationchange", updateHeroProgress);
+
+    return () => {
+      window.removeEventListener("resize", updateHeroProgress);
+      window.removeEventListener("orientationchange", updateHeroProgress);
+    };
+  }, [updateHeroProgress]);
+
+  const cameraScale = useSpring(
+    useTransform(heroProgress, [0, 0.35, 1], [1, 1.36, 1.36]),
+    { stiffness: 92, damping: 24, mass: 0.35 }
+  );
+  const cameraY = useSpring(
+    useTransform(heroProgress, [0, 0.35, 1], ["0%", "-4.5%", "-4.5%"]),
+    { stiffness: 92, damping: 24, mass: 0.35 }
+  );
+  const shutterY = useSpring(
+    useTransform(heroProgress, [0.35, 0.7], ["0%", "-112%"]),
+    { stiffness: 100, damping: 26, mass: 0.36 }
+  );
+  const portalOpacity = useTransform(heroProgress, [0.3, 0.52], [0.1, 1]);
+  const copyOpacity = useTransform(heroProgress, [0.62, 0.85], [0, 1]);
+  const copyY = useTransform(heroProgress, [0.62, 0.85], [28, 0]);
+  const backdropOpacity = useTransform(heroProgress, [0.62, 0.85], [0, 0.62]);
+  const portalStyle = {
+    "--portal-image": `url(${content.home.heroCollage.src})`
+  } as CSSProperties;
+  const openShutterStyle = { y: shutterY };
+  const cameraStyle = { scale: cameraScale, y: cameraY };
+  const copyStyle = { opacity: copyOpacity, y: copyY };
 
   return (
-    <section id="about" className="hero-section section-band" aria-label="About GARAGE">
+    <section
+      id="about"
+      className="hero-section section-band"
+      aria-label="About GARAGE"
+      ref={sectionRef}
+      data-testid="hero-scroll"
+    >
       <div className="hero-stage">
-        <Image
-          src={content.home.heroCollage.src}
-          alt={content.home.heroCollage.alt}
-          fill
-          priority
-          sizes="100vw"
-          className="hero-image"
-        />
+        <motion.div
+          className="hero-backdrop"
+          style={{ opacity: backdropOpacity }}
+          aria-hidden="true"
+        >
+          <Image
+            src={content.home.heroCollage.src}
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="hero-image"
+          />
+        </motion.div>
+        <div className="garage-scene-shell">
+          <motion.div className="garage-camera" style={cameraStyle} data-testid="garage-camera">
+            <div className="garage-facade" data-testid="garage-facade">
+              <Image
+                src={content.home.garageFacade.src}
+                alt={content.home.garageFacade.alt}
+                fill
+                priority
+                sizes="(max-width: 760px) 220vw, 130vw"
+                className="garage-facade-image"
+              />
+            </div>
+            <motion.div
+              className="garage-portal garage-portal-left"
+              style={{ ...portalStyle, opacity: portalOpacity }}
+              aria-hidden="true"
+            >
+              <motion.div
+                className="garage-shutter"
+                data-testid="garage-left-shutter"
+                style={openShutterStyle}
+              >
+                <span />
+              </motion.div>
+            </motion.div>
+            <motion.div
+              className="garage-portal garage-portal-right"
+              style={{ ...portalStyle, opacity: portalOpacity }}
+              aria-hidden="true"
+            >
+              <motion.div
+                className="garage-shutter"
+                data-testid="garage-right-shutter"
+                style={openShutterStyle}
+              >
+                <span />
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </div>
         <motion.div
           className="hero-copy"
+          data-testid="hero-copy"
           initial={false}
-          animate={open ? "visible" : "hidden"}
-          variants={{
-            hidden: { opacity: 0, y: 18 },
-            visible: { opacity: 1, y: 0 }
-          }}
-          transition={reduceMotion ? { duration: 0 } : { delay: 0.22, duration: 0.48 }}
+          style={copyStyle}
         >
           <div className="equation-mark" aria-hidden="true">
             =
@@ -152,42 +275,10 @@ function HeroSection({ content }: { content: GarageContent }) {
             <p key={paragraph}>{paragraph}</p>
           ))}
         </motion.div>
-        <AnimatePresence initial={false}>
-          {!open ? (
-            <motion.button
-              type="button"
-              className="garage-door"
-              data-testid="garage-door"
-              aria-label="Open Garage"
-              onClick={() => setOpen(true)}
-              initial={{ y: 0 }}
-              exit={{ y: "-105%" }}
-              transition={transition}
-            >
-              <span className="door-slats" aria-hidden="true">
-                {Array.from({ length: 8 }).map((_, index) => (
-                  <motion.span
-                    key={index}
-                    initial={{ x: index % 2 === 0 ? -18 : 18, opacity: 0.74 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.42,
-                      delay: reduceMotion ? 0 : index * 0.035
-                    }}
-                  />
-                ))}
-              </span>
-              <span className="door-label">
-                <span>OPEN</span>
-                <strong>GARAGE</strong>
-              </span>
-            </motion.button>
-          ) : null}
-        </AnimatePresence>
+        <a className="down-link" href="#work" aria-label="Go to Work section">
+          <ChevronDown aria-hidden="true" />
+        </a>
       </div>
-      <a className="down-link" href="#work" aria-label="Go to Work section">
-        <ChevronDown aria-hidden="true" />
-      </a>
     </section>
   );
 }

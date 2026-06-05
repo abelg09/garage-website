@@ -26,6 +26,10 @@ export const fallbackContent: GarageContent = {
       "Garage is not about square footage. It is about hunger, limited resources, unlimited belief, late nights, scrappy solutions, and work that has to earn attention because it cannot buy it.",
       "We are an ad agency built on that same principle. We start with what is real: the product, the people, the story, and the nerve to begin before everything feels ready."
     ],
+    garageFacade: {
+      src: `${ppt}garage-facade.webp`,
+      alt: "Industrial building facade with two metal garage doors"
+    },
     heroCollage: {
       src: `${ppt}hero-garage-collage.jpg`,
       alt: "Black and white collage of famous garages and early workspaces"

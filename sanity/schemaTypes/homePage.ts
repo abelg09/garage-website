@@ -25,6 +25,21 @@ export const homePage = defineType({
       validation: (rule) => rule.required().min(1)
     }),
     defineField({
+      name: "garageFacade",
+      title: "Hero Garage Facade",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          validation: (rule) => rule.required()
+        })
+      ],
+      validation: (rule) => rule.required()
+    }),
+    defineField({
       name: "heroCollage",
       title: "Hero Garage Collage",
       type: "image",
