@@ -1,0 +1,39 @@
+{
+  "name": "garage-website",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.5.2",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "build:pages": "GITHUB_PAGES=1 next build",
+    "start": "next start",
+    "lint": "eslint app lib sanity scripts tests next.config.ts sanity.config.ts playwright.config.ts postcss.config.mjs eslint.config.mjs --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "seed:sanity": "node scripts/seed-sanity.mjs"
+  },
+  "dependencies": {
+    "@sanity/client": "7.22.1",
+    "@sanity/image-url": "2.1.1",
+    "@sanity/vision": "5.30.0",
+    "lucide-react": "1.17.0",
+    "motion": "12.40.0",
+    "next": "16.2.7",
+    "next-sanity": "13.0.11",
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "sanity": "5.30.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.60.0",
+    "@tailwindcss/postcss": "4.3.0",
+    "@types/node": "25.9.1",
+    "@types/react": "19.2.16",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.7",
+    "tailwindcss": "4.3.0",
+    "typescript": "5.9.3"
+  }
+}
