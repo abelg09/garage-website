@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ChevronDown,
@@ -19,7 +19,7 @@ import {
   type MotionValue,
 } from "motion/react";
 
-import type { CrewMember, GarageContent, ImageAsset, Project } from "../lib/types";
+import type { CrewMember, GarageContent, ImageAsset, Project, Review } from "../lib/types";
 
 type GarageSiteProps = {
   content: GarageContent;
@@ -29,6 +29,7 @@ const navItems = [
   { label: "About", href: "#about" },
   { label: "Work", href: "#work" },
   { label: "Clients", href: "#clients" },
+  { label: "Reviews", href: "#reviews" },
   { label: "Crew", href: "#crew" },
   { label: "Services", href: "#services" },
   { label: "Contact", href: "#contact" }
@@ -38,6 +39,27 @@ const reveal = {
   hidden: { opacity: 0, y: 44 },
   visible: { opacity: 1, y: 0 }
 };
+
+function BlurRevealText({ text, className, id }: { text: string; className?: string; id?: string }) {
+  return (
+    <span className={className} id={id} aria-label={text}>
+      {text.split("").map((char, i) => (
+        <motion.span
+          key={i}
+          aria-hidden="true"
+          className="blur-char"
+          initial={{ opacity: 0, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, filter: "blur(0px)" }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.45, delay: i * 0.045, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: "inline-block", whiteSpace: char === " " ? "pre" : undefined }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export function GarageSite({ content }: GarageSiteProps) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -60,8 +82,9 @@ export function GarageSite({ content }: GarageSiteProps) {
         <HeroSection content={content} />
         <WorkSection projects={content.projects} />
         <ClientsSection clients={content.clients} />
+        <ReviewsSection reviews={content.reviews} />
         <CrewSection crew={content.crew} />
-        <ServicesSection services={content.services} />
+        <ExpertiseSection services={content.services} />
         <ContactSection content={content} />
       </main>
     </>
@@ -707,30 +730,85 @@ function CrewModal({
   );
 }
 
-function ServicesSection({ services }: { services: string[] }) {
-  const columns = useMemo(() => {
-    const midpoint = Math.ceil(services.length / 2);
-    return [services.slice(0, midpoint), services.slice(midpoint)];
-  }, [services]);
-
+function ExpertiseSection({ services }: { services: string[] }) {
   return (
-    <section id="services" className="section-band services-section" aria-labelledby="services-title">
-      <div className="section-inner">
-        <SectionHeading id="services-title">Services</SectionHeading>
+    <section id="services" className="section-band expertise-section" aria-labelledby="expertise-title">
+      <div className="section-inner expertise-layout">
+        <div className="expertise-left">
+          <h2 className="expertise-heading">
+            <BlurRevealText text="Expertise" id="expertise-title" />
+          </h2>
+          <motion.p
+            className="expertise-tagline"
+            variants={reveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.55, delay: 0.28 }}
+          >
+            Full-stack creative capability — from first insight to final frame.
+          </motion.p>
+        </div>
         <motion.div
-          className="services-grid"
+          className="expertise-pills"
           variants={reveal}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.55, delay: 0.18 }}
         >
-          {columns.map((column, index) => (
-            <ul key={index}>
-              {column.map((service) => (
-                <li key={service}>{service}</li>
-              ))}
-            </ul>
+          {services.map((service) => (
+            <span key={service} className="expertise-pill">{service}</span>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function ReviewsSection({ reviews }: { reviews: Review[] }) {
+  return (
+    <section id="reviews" className="section-band reviews-section" aria-labelledby="reviews-title">
+      <div className="section-inner">
+        <h2 className="section-title reviews-heading">
+          <BlurRevealText text="Reviews" id="reviews-title" />
+        </h2>
+        <motion.div
+          className="reviews-grid"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.12 }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.13 } }
+          }}
+        >
+          {reviews.map((review) => (
+            <motion.article
+              key={review.id}
+              className="review-card"
+              variants={reveal}
+            >
+              <div className="review-stars" aria-label="5 out of 5 stars">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <svg key={i} className="review-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                ))}
+              </div>
+              <blockquote className="review-quote">
+                <p>"{review.quote}"</p>
+              </blockquote>
+              <div className="reviewer">
+                <div className="reviewer-avatar" aria-hidden="true">
+                  {review.initials}
+                </div>
+                <div className="reviewer-info">
+                  <strong className="reviewer-name">{review.reviewer}</strong>
+                  <span className="reviewer-role">{review.role}</span>
+                </div>
+              </div>
+            </motion.article>
           ))}
         </motion.div>
       </div>

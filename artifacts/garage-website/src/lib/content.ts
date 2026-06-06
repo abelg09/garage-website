@@ -31,6 +31,7 @@ function mergeContent(data: MaybeContent | null): GarageContent {
     },
     projects: data.projects?.length ? data.projects : fallbackContent.projects,
     clients: data.clients?.length ? data.clients : fallbackContent.clients,
+    reviews: data.reviews?.length ? data.reviews : fallbackContent.reviews,
     crew: data.crew?.length ? data.crew : fallbackContent.crew,
     services: data.services?.length ? data.services : fallbackContent.services,
     contact: {

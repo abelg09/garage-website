@@ -106,6 +106,29 @@ export const fallbackContent: GarageContent = {
       ]
     }
   ],
+  reviews: [
+    {
+      id: "review-ananya",
+      quote: "GARAGE brought a scrappy, fearless energy to our campaign. The kind of agency that actually thinks before it executes — rare and necessary.",
+      reviewer: "Ananya Kapoor",
+      role: "CMO, Grameen Kulfi",
+      initials: "AK"
+    },
+    {
+      id: "review-rohit",
+      quote: "The team understood the brand before they understood the brief. The work felt like it came from inside the company, not outside it.",
+      reviewer: "Rohit Mehta",
+      role: "VP Brand, Johnson Consumer",
+      initials: "RM"
+    },
+    {
+      id: "review-priya",
+      quote: "What impressed us most was the restraint. GARAGE knows when to be loud and when to let the product breathe. That discipline is hard to find.",
+      reviewer: "Priya Nair",
+      role: "Head of Marketing, IFB Industries",
+      initials: "PN"
+    }
+  ],
   clients: [
     "Grameen Kulfi",
     "Johnson",

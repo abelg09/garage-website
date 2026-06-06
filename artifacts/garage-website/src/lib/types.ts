@@ -28,6 +28,14 @@ export type CrewMember = {
   bio: string[];
 };
 
+export type Review = {
+  id: string;
+  quote: string;
+  reviewer: string;
+  role: string;
+  initials: string;
+};
+
 export type GarageContent = {
   site: {
     title: string;
@@ -46,6 +54,7 @@ export type GarageContent = {
   };
   projects: Project[];
   clients: ClientLogo[];
+  reviews: Review[];
   crew: CrewMember[];
   services: string[];
   contact: {
