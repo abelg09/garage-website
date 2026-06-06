@@ -127,6 +127,27 @@ export const fallbackContent: GarageContent = {
       reviewer: "Priya Nair",
       role: "Head of Marketing, IFB Industries",
       initials: "PN"
+    },
+    {
+      id: "review-siddharth",
+      quote: "Every brief we gave them came back sharper. They don't just answer the question — they find the better question underneath it.",
+      reviewer: "Siddharth Rao",
+      role: "Brand Lead, Tata Consumer",
+      initials: "SR"
+    },
+    {
+      id: "review-meera",
+      quote: "The Jameson campaign was the most creatively confident work our brand has run in five years. GARAGE delivered without ego.",
+      reviewer: "Meera Iyer",
+      role: "Marketing Director, Pernod Ricard",
+      initials: "MI"
+    },
+    {
+      id: "review-karan",
+      quote: "They move fast and still get it right. In a category crowded with slow agencies, GARAGE is a breath of actual fresh air.",
+      reviewer: "Karan Malhotra",
+      role: "Co-founder, Plum Goodness",
+      initials: "KM"
     }
   ],
   clients: [

@@ -766,51 +766,105 @@ function ExpertiseSection({ services }: { services: string[] }) {
   );
 }
 
+function StarRow({ label = "5 out of 5 stars" }: { label?: string }) {
+  return (
+    <div className="review-stars" aria-label={label}>
+      {Array.from({ length: 5 }).map((_, i) => (
+        <svg key={i} className="review-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      ))}
+    </div>
+  );
+}
+
 function ReviewsSection({ reviews }: { reviews: Review[] }) {
+  const [paused, setPaused] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const duplicated = [...reviews, ...reviews];
+  const avatarPreviews = reviews.slice(0, 5);
+
   return (
     <section id="reviews" className="section-band reviews-section" aria-labelledby="reviews-title">
-      <div className="section-inner">
+      <div className="section-inner reviews-inner">
         <h2 className="section-title reviews-heading">
           <BlurRevealText text="Reviews" id="reviews-title" />
         </h2>
-        <motion.div
-          className="reviews-grid"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.12 }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.13 } }
-          }}
-        >
-          {reviews.map((review) => (
-            <motion.article
-              key={review.id}
-              className="review-card"
-              variants={reveal}
+        <div className="reviews-body">
+
+          {/* ── Left: Rating panel ── */}
+          <motion.div
+            className="reviews-rating-panel"
+            variants={reveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.55 }}
+          >
+            <div className="rating-score" aria-label="Rating: 4.8 out of 5">
+              <span className="rating-number">4.8</span>
+              <span className="rating-denom">/ 5</span>
+            </div>
+            <StarRow label="4.8 out of 5 stars" />
+            <p className="rating-tagline">Trusted by ambitious brands across India and beyond.</p>
+            <div className="rating-avatars" aria-label="Customers">
+              {avatarPreviews.map((r) => (
+                <div key={r.id} className="rating-avatar-chip" title={r.reviewer}>
+                  {r.initials}
+                </div>
+              ))}
+            </div>
+            <p className="rating-trust-label">82+ Trusted Worldwide</p>
+          </motion.div>
+
+          {/* ── Right: Marquee ── */}
+          <div
+            className="reviews-marquee-outer"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            aria-label="Scrolling customer reviews"
+          >
+            <div
+              className={`marquee-track${paused || prefersReducedMotion ? " marquee-paused" : ""}`}
             >
-              <div className="review-stars" aria-label="5 out of 5 stars">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} className="review-star" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                  </svg>
-                ))}
+              {duplicated.map((review, i) => (
+                <article key={`${review.id}-${i}`} className="review-card">
+                  <StarRow />
+                  <blockquote className="review-quote">
+                    <p>"{review.quote}"</p>
+                  </blockquote>
+                  <div className="reviewer">
+                    <div className="reviewer-avatar" aria-hidden="true">{review.initials}</div>
+                    <div className="reviewer-info">
+                      <strong className="reviewer-name">{review.reviewer}</strong>
+                      <span className="reviewer-role">{review.role}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Mobile-only stacked cards (shown instead of marquee at ≤760px) */}
+      <div className="reviews-mobile-list" aria-label="Customer reviews">
+        {reviews.map((review) => (
+          <article key={review.id} className="review-card review-card-mobile">
+            <StarRow />
+            <blockquote className="review-quote">
+              <p>"{review.quote}"</p>
+            </blockquote>
+            <div className="reviewer">
+              <div className="reviewer-avatar" aria-hidden="true">{review.initials}</div>
+              <div className="reviewer-info">
+                <strong className="reviewer-name">{review.reviewer}</strong>
+                <span className="reviewer-role">{review.role}</span>
               </div>
-              <blockquote className="review-quote">
-                <p>"{review.quote}"</p>
-              </blockquote>
-              <div className="reviewer">
-                <div className="reviewer-avatar" aria-hidden="true">
-                  {review.initials}
-                </div>
-                <div className="reviewer-info">
-                  <strong className="reviewer-name">{review.reviewer}</strong>
-                  <span className="reviewer-role">{review.role}</span>
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );
