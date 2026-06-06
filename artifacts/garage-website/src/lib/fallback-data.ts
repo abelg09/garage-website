@@ -51,17 +51,13 @@ export const fallbackContent: GarageContent = {
       impact:
         "Built for fast product recognition, crisp campaign recall, and easy extension into future gallery assets.",
       cover: {
-        src: `${ppt}work-grameen-kulfi.jpg`,
+        src: `${ppt}work-grameen-kulfi.png`,
         alt: "Grameen Kulfi campaign visuals"
       },
       gallery: [
         {
-          src: `${ppt}work-grameen-kulfi.jpg`,
+          src: `${ppt}work-grameen-kulfi.png`,
           alt: "Grameen Kulfi campaign page from the GARAGE deck"
-        },
-        {
-          src: `${ppt}work-overview.jpg`,
-          alt: "GARAGE work overview with three featured projects"
         }
       ]
     },
@@ -75,13 +71,13 @@ export const fallbackContent: GarageContent = {
       impact:
         "The inline detail format lets this project expand with video, stills, and copy once final assets are approved.",
       cover: {
-        src: `${ppt}work-overview.jpg`,
-        alt: "GARAGE work overview showing Johnson project thumbnail"
+        src: `${ppt}work-johnson.png`,
+        alt: "Johnson anti-skid tiles campaign visual"
       },
       gallery: [
         {
-          src: `${ppt}work-overview.jpg`,
-          alt: "Work overview slide from the GARAGE deck"
+          src: `${ppt}work-johnson.png`,
+          alt: "Johnson anti-skid tiles campaign visual"
         }
       ]
     },
@@ -95,13 +91,13 @@ export const fallbackContent: GarageContent = {
       impact:
         "Keeps the Work grid production-ready while the final campaign archive is still being assembled.",
       cover: {
-        src: `${ppt}work-placeholder-grid.jpg`,
-        alt: "Outlined work grid placeholder from the GARAGE deck"
+        src: `${ppt}work-jameson.png`,
+        alt: "Jameson Irish Whiskey campaign visual"
       },
       gallery: [
         {
-          src: `${ppt}work-placeholder-grid.jpg`,
-          alt: "Placeholder work grid from the GARAGE deck"
+          src: `${ppt}work-jameson.png`,
+          alt: "Jameson Irish Whiskey campaign visual"
         }
       ]
     }
