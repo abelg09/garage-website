@@ -1492,15 +1492,13 @@ img {
 
 .svc-right {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
 .svc-sticky-wrap {
   position: sticky;
-  margin-bottom: clamp(1.5rem, 44vh, 44vh);
-}
-
-.svc-sticky-wrap:last-child {
-  margin-bottom: 0;
 }
 
 /* ─── Service cards ──────────────────────────────────────────────────── */
@@ -1973,11 +1971,6 @@ img {
 
   .svc-sticky-wrap {
     position: static;
-    margin-bottom: 1.25rem;
-  }
-
-  .svc-sticky-wrap:last-child {
-    margin-bottom: 0;
   }
 
   /* On mobile hide the marquee, show stacked cards instead */
