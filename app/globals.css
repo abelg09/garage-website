@@ -369,7 +369,7 @@ img {
 
 .garage-origin-label {
   position: absolute;
-  top: clamp(0.55rem, 1.5vw, 1.15rem);
+  top: clamp(7.25rem, 8vw, 9rem);
   left: 50%;
   z-index: 3;
   margin: 0;
@@ -415,9 +415,13 @@ img {
   left: clamp(1rem, 10vw, 14rem);
   top: clamp(4rem, 14vh, 9rem);
   width: min(560px, calc(100% - 2rem));
+  max-height: calc(100% - clamp(4rem, 14vh, 9rem) - 1rem);
+  overflow-y: auto;
   padding: clamp(1.6rem, 3vw, 2.4rem);
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(6px);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(5, 5, 5, 0.28) transparent;
 }
 
 .hero-copy h1 {
@@ -843,6 +847,40 @@ img {
 
   .contact-collage {
     min-height: 520px;
+  }
+}
+
+@media (min-width: 761px) and (max-height: 900px) {
+  .garage-origin-label {
+    top: clamp(7.25rem, 8vw, 8.25rem);
+  }
+
+  .hero-copy {
+    top: clamp(5.5rem, 10vh, 6rem);
+    width: min(600px, calc(100% - 2rem));
+    max-height: calc(100% - clamp(5.5rem, 10vh, 6rem) - 1rem);
+    padding: clamp(1.1rem, 2vw, 1.6rem);
+  }
+
+  .hero-copy .eyebrow {
+    margin-bottom: 0.55rem;
+    font-size: clamp(1.05rem, 1.8vw, 1.55rem);
+  }
+
+  .hero-copy h1 {
+    margin-bottom: 0.78rem;
+    font-size: clamp(2.05rem, 3.35vw, 3.65rem);
+  }
+
+  .hero-copy p:not(.eyebrow) {
+    margin-bottom: 0.78rem;
+    font-size: clamp(0.86rem, 1vw, 1rem);
+    line-height: 1.48;
+  }
+
+  .equation-mark {
+    margin-bottom: 0.95rem;
+    font-size: clamp(3.5rem, 6vw, 5rem);
   }
 }
 
