@@ -583,7 +583,6 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                 <span>{member.name}</span>
                 <small>{member.role}</small>
               </span>
-              <span className="crew-name">{member.name}</span>
             </motion.button>
           ))}
         </motion.div>

@@ -736,21 +736,19 @@ img {
 }
 
 .crew-section .crew-grid {
-  gap: clamp(1rem, 2.6vw, 2.8rem);
+  gap: clamp(0.5rem, 1vw, 0.9rem);
 }
 
 .crew-section .crew-card {
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: none;
   color: var(--white);
-  padding: clamp(0.65rem, 1.1vw, 1rem);
-  transition: border-color 180ms ease, transform 180ms ease, background 180ms ease;
+  padding: 0;
+  transition: transform 180ms ease;
 }
 
 .crew-section .crew-card:hover,
 .crew-section .crew-card:focus-visible {
-  border-color: rgba(255, 255, 255, 0.58);
-  background: rgba(255, 255, 255, 0.04);
-  transform: translateY(-6px);
+  transform: none;
 }
 
 .crew-section .crew-photo {
@@ -1254,7 +1252,7 @@ img {
 
 .crew-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: clamp(1.5rem, 4vw, 5rem);
 }
 
@@ -1319,7 +1317,18 @@ img {
 }
 
 .crew-section .crew-overlay {
+  inset: 0;
+  min-height: 100%;
+  padding: 0.85rem;
   color: var(--gold);
+}
+
+.crew-section .crew-overlay span {
+  font-size: clamp(0.85rem, 1vw, 1.1rem);
+}
+
+.crew-section .crew-overlay small {
+  font-size: clamp(0.62rem, 0.75vw, 0.78rem);
 }
 
 .crew-card:hover .crew-overlay,
@@ -1440,9 +1449,10 @@ img {
 .expertise-heading {
   margin: 0 0 clamp(1.2rem, 2.5vw, 2rem);
   font-family: var(--display);
-  font-size: var(--fs-title);
+  font-size: clamp(3rem, 5.5vw, 6rem);
   font-weight: 400;
   line-height: 0.9;
+  white-space: nowrap;
   text-transform: uppercase;
   color: var(--white);
 }
@@ -1881,10 +1891,6 @@ img {
     grid-template-columns: clamp(44px, 5vw, 70px) 1fr clamp(200px, 32%, 420px);
   }
 
-  .crew-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .client-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -2088,7 +2094,6 @@ img {
   }
 
   .work-grid,
-  .crew-grid,
   .services-grid,
   .contact-columns,
   .detail-gallery,

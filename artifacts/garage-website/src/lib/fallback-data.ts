@@ -168,7 +168,7 @@ export const fallbackContent: GarageContent = {
       name: "Ashish Chakravarty",
       role: "Managing Partner and Chief Creative Officer",
       portrait: {
-        src: `${ppt}crew-ashish.jpg`,
+        src: `${ppt}crew-ashish-portrait.jpg`,
         alt: "Ashish Chakravarty portrait"
       },
       bio: [
@@ -181,10 +181,6 @@ export const fallbackContent: GarageContent = {
       id: "swati-bobde",
       name: "Swati Bobde",
       role: "Strategy and Brand Partner",
-      portrait: {
-        src: `${ppt}crew-swati.jpg`,
-        alt: "Swati Bobde portrait"
-      },
       bio: [
         "Swati brings sharp brand thinking, business context, and calm momentum to campaigns that need to move from insight to impact.",
         "Her full production biography can be managed in Sanity as soon as the approved profile copy and portrait are supplied."
@@ -194,10 +190,6 @@ export const fallbackContent: GarageContent = {
       id: "qaid-vora",
       name: "Qaid Vora",
       role: "Creative Partner",
-      portrait: {
-        src: `${ppt}crew-qaid.jpg`,
-        alt: "Qaid Vora portrait"
-      },
       bio: [
         "Qaid shapes creative direction for brands that need work with appetite, clarity, and enough nerve to be remembered.",
         "This profile is intentionally CMS-ready, with placeholders used until final portraits and biography copy are available."
@@ -207,10 +199,6 @@ export const fallbackContent: GarageContent = {
       id: "name-surname-1",
       name: "Name Surname",
       role: "Client Partner",
-      portrait: {
-        src: `${ppt}crew-member-04.jpg`,
-        alt: "GARAGE crew member portrait"
-      },
       bio: [
         "Placeholder profile reserved for the next GARAGE crew member. Add the final portrait, role, and biography in Sanity."
       ]
@@ -219,10 +207,6 @@ export const fallbackContent: GarageContent = {
       id: "name-surname-2",
       name: "Name Surname",
       role: "Production Partner",
-      portrait: {
-        src: `${ppt}crew-member-05.jpg`,
-        alt: "GARAGE crew member portrait"
-      },
       bio: [
         "Placeholder profile reserved for the next GARAGE crew member. Add the final portrait, role, and biography in Sanity."
       ]
