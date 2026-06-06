@@ -6,6 +6,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Helvetica";
+  src: url("/Helvetica.ttc") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @import "tailwindcss";
 
 :root {
@@ -19,8 +27,16 @@
   --max: 1540px;
   --header-height: 112px;
   --display: var(--font-detroit, "Detroit", Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif);
-  --body: Arial, Helvetica, sans-serif;
+  --body: "Helvetica", Helvetica, Arial, sans-serif;
   --font-detroit: "Detroit";
+
+  /* ── Type scale ───────────────────────────── */
+  --fs-title:   clamp(5rem, 9vw, 10.5rem);
+  --fs-heading: clamp(2.6rem, 4.5vw, 5.5rem);
+  --fs-subhead: clamp(1.6rem, 2.5vw, 2.8rem);
+  --fs-label:   clamp(1rem, 1.4vw, 1.6rem);
+  --fs-body:    clamp(0.97rem, 1.15vw, 1.2rem);
+  --fs-small:   clamp(0.72rem, 0.88vw, 0.92rem);
 }
 
 * {
@@ -143,7 +159,7 @@ img {
   align-items: center;
   gap: clamp(1.4rem, 3.3vw, 4rem);
   font-family: var(--display);
-  font-size: clamp(1.25rem, 1.9vw, 2.3rem);
+  font-size: var(--fs-label);
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
@@ -228,9 +244,9 @@ img {
   margin: 0 0 clamp(2.2rem, 5vw, 4.2rem);
   color: var(--gray);
   font-family: var(--display);
-  font-size: clamp(4rem, 8.5vw, 8.8rem);
+  font-size: var(--fs-title);
   font-weight: 400;
-  line-height: 0.92;
+  line-height: 0.9;
   text-transform: uppercase;
 }
 
@@ -256,8 +272,6 @@ img {
 .expertise-section .section-title,
 .contact-section .section-title {
   color: var(--white);
-  font-size: clamp(5.4rem, 13.2vw, 16rem);
-  line-height: 0.86;
 }
 
 .crew-section .eyebrow,
@@ -281,8 +295,9 @@ img {
   margin: 0 0 0.8rem;
   color: var(--gray);
   font-family: var(--display);
-  font-size: clamp(1.35rem, 2.3vw, 2.35rem);
+  font-size: var(--fs-small);
   font-weight: 400;
+  letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -429,7 +444,8 @@ img {
   background: rgba(5, 5, 5, 0.86);
   color: var(--white);
   font-family: var(--display);
-  font-size: clamp(1rem, 1.45vw, 1.65rem);
+  font-size: var(--fs-small);
+  letter-spacing: 0.1em;
   line-height: 0.95;
   text-align: center;
   text-transform: uppercase;
@@ -479,7 +495,7 @@ img {
 .hero-copy h1 {
   margin: 0 0 1rem;
   font-family: var(--display);
-  font-size: clamp(2.3rem, 4vw, 4.8rem);
+  font-size: var(--fs-heading);
   font-weight: 400;
   line-height: 0.95;
   text-transform: uppercase;
@@ -487,14 +503,14 @@ img {
 
 .hero-copy p:not(.eyebrow) {
   margin: 0 0 1.05rem;
-  font-size: clamp(0.95rem, 1.15vw, 1.14rem);
-  line-height: 1.68;
+  font-size: var(--fs-body);
+  line-height: 1.72;
 }
 
 .equation-mark {
   margin: 0 0 1.4rem;
   font-family: var(--display);
-  font-size: clamp(5rem, 8vw, 8rem);
+  font-size: var(--fs-title);
   line-height: 0.64;
 }
 
@@ -579,7 +595,7 @@ img {
   margin: 0;
   color: rgba(255, 255, 255, 0.055);
   font-family: var(--display);
-  font-size: clamp(2.8rem, 5.5vw, 6.4rem);
+  font-size: var(--fs-heading);
   font-weight: 400;
   line-height: 0.88;
   text-align: center;
@@ -627,7 +643,7 @@ img {
 .wdc-index {
   align-self: start;
   font-family: var(--display);
-  font-size: clamp(3rem, 5vw, 6rem);
+  font-size: var(--fs-heading);
   line-height: 0.8;
   color: rgba(255, 255, 255, 0.18);
   padding-top: 0.1em;
@@ -648,14 +664,15 @@ img {
 
 .wdc-category {
   font-family: var(--display);
-  font-size: clamp(1rem, 1.4vw, 1.65rem);
+  font-size: var(--fs-small);
+  letter-spacing: 0.1em;
   line-height: 1;
   text-transform: uppercase;
   color: var(--gold);
 }
 
 .wdc-client {
-  font-size: clamp(0.82rem, 1vw, 1rem);
+  font-size: var(--fs-small);
   color: rgba(255, 255, 255, 0.4);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -664,7 +681,7 @@ img {
 .wdc-title {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(2.4rem, 4.5vw, 5.6rem);
+  font-size: var(--fs-heading);
   font-weight: 400;
   line-height: 0.94;
   text-transform: uppercase;
@@ -674,8 +691,8 @@ img {
 .wdc-summary {
   margin: 0;
   max-width: 38ch;
-  font-size: clamp(0.92rem, 1.1vw, 1.08rem);
-  line-height: 1.68;
+  font-size: var(--fs-body);
+  line-height: 1.72;
   color: rgba(255, 255, 255, 0.54);
 }
 
@@ -683,7 +700,7 @@ img {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: clamp(0.88rem, 1.1vw, 1.08rem);
+  font-size: var(--fs-body);
   color: var(--gold);
   margin-top: clamp(0.4rem, 0.8vw, 0.6rem);
 }
@@ -754,7 +771,7 @@ img {
   gap: 0.7rem;
   padding-top: 1.15rem;
   font-family: var(--display);
-  font-size: clamp(1.75rem, 2.3vw, 2.75rem);
+  font-size: var(--fs-subhead);
   line-height: 1;
   text-align: center;
   text-transform: uppercase;
@@ -789,7 +806,7 @@ img {
 .modal-copy h3 {
   margin: 0;
   font-family: var(--display);
-  font-size: clamp(2.6rem, 5vw, 5.8rem);
+  font-size: var(--fs-heading);
   font-weight: 400;
   line-height: 0.96;
   text-transform: uppercase;
@@ -798,8 +815,8 @@ img {
 .detail-copy p,
 .modal-copy p:not(.eyebrow) {
   margin: 0 0 1rem;
-  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
-  line-height: 1.7;
+  font-size: var(--fs-body);
+  line-height: 1.72;
 }
 
 .detail-gallery {
@@ -844,8 +861,6 @@ img {
 .clients-section .section-title {
   margin-bottom: clamp(3.4rem, 5vw, 5.8rem);
   color: #85858a;
-  font-size: clamp(4.6rem, 7vw, 7.25rem);
-  line-height: 0.9;
 }
 
 .client-logo {
@@ -1291,12 +1306,13 @@ img {
 }
 
 .crew-overlay span {
-  font-size: clamp(1.6rem, 2.7vw, 3rem);
+  font-size: var(--fs-subhead);
 }
 
 .crew-overlay small {
   color: var(--white);
-  font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+  font-size: var(--fs-small);
+  letter-spacing: 0.08em;
 }
 
 .crew-section .crew-overlay {
@@ -1390,7 +1406,7 @@ img {
 
 .services-grid li {
   font-family: var(--display);
-  font-size: clamp(1.9rem, 3.2vw, 3.15rem);
+  font-size: var(--fs-subhead);
   line-height: 1;
   text-transform: uppercase;
 }
@@ -1421,9 +1437,9 @@ img {
 .expertise-heading {
   margin: 0 0 clamp(1.2rem, 2.5vw, 2rem);
   font-family: var(--display);
-  font-size: clamp(5.4rem, 13.2vw, 16rem);
+  font-size: var(--fs-title);
   font-weight: 400;
-  line-height: 0.86;
+  line-height: 0.9;
   text-transform: uppercase;
   color: var(--white);
 }
@@ -1431,8 +1447,8 @@ img {
 .expertise-tagline {
   margin: 0;
   color: rgba(255, 255, 255, 0.46);
-  font-size: clamp(1rem, 1.45vw, 1.3rem);
-  line-height: 1.6;
+  font-size: var(--fs-body);
+  line-height: 1.72;
 }
 
 /* ─── ServicesStack Layout ────────────────────────────────────────────── */
@@ -1543,7 +1559,7 @@ img {
 
 .svc-card-title {
   font-family: var(--display);
-  font-size: clamp(1.9rem, 3vw, 3.4rem);
+  font-size: var(--fs-subhead);
   font-weight: 400;
   line-height: 0.92;
   text-transform: uppercase;
@@ -1554,8 +1570,8 @@ img {
 .svc-card-desc {
   margin: 0;
   color: rgba(255, 255, 255, 0.52);
-  font-size: clamp(0.88rem, 1.05vw, 1.05rem);
-  line-height: 1.74;
+  font-size: var(--fs-body);
+  line-height: 1.72;
 }
 
 /* ─── Reviews Section ────────────────────────────────────────────────── */
@@ -1596,7 +1612,7 @@ img {
 
 .rating-number {
   font-family: var(--display);
-  font-size: clamp(5rem, 9vw, 10rem);
+  font-size: var(--fs-title);
   line-height: 0.85;
   color: var(--white);
   text-transform: uppercase;
@@ -1604,7 +1620,7 @@ img {
 
 .rating-denom {
   font-family: var(--display);
-  font-size: clamp(1.6rem, 2.8vw, 3rem);
+  font-size: var(--fs-subhead);
   color: rgba(255, 255, 255, 0.38);
   text-transform: uppercase;
 }
@@ -1612,7 +1628,7 @@ img {
 .rating-tagline {
   margin: 0;
   color: rgba(255, 255, 255, 0.44);
-  font-size: clamp(0.82rem, 1vw, 0.95rem);
+  font-size: var(--fs-small);
   line-height: 1.6;
 }
 
@@ -1729,7 +1745,7 @@ img {
 .review-quote p {
   margin: 0;
   color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(0.9rem, 1.15vw, 1.08rem);
+  font-size: var(--fs-body);
   line-height: 1.72;
   font-style: italic;
 }
@@ -1753,7 +1769,7 @@ img {
   background: var(--gold);
   color: var(--black);
   font-family: var(--display);
-  font-size: clamp(0.75rem, 1vw, 0.95rem);
+  font-size: var(--fs-small);
   font-weight: 400;
   line-height: 1;
   text-transform: uppercase;
@@ -1769,7 +1785,7 @@ img {
 
 .reviewer-name {
   font-family: var(--display);
-  font-size: clamp(0.9rem, 1.1vw, 1.1rem);
+  font-size: var(--fs-body);
   font-weight: 400;
   text-transform: uppercase;
   color: var(--white);
@@ -1781,7 +1797,7 @@ img {
 
 .reviewer-role {
   color: rgba(255, 255, 255, 0.44);
-  font-size: clamp(0.75rem, 0.9vw, 0.88rem);
+  font-size: var(--fs-small);
   line-height: 1.3;
 }
 
@@ -1801,8 +1817,8 @@ img {
 .contact-columns a {
   display: inline-grid;
   color: var(--black);
-  font-size: clamp(1.05rem, 1.6vw, 1.45rem);
-  line-height: 1.55;
+  font-size: var(--fs-body);
+  line-height: 1.6;
   text-decoration: none;
 }
 
