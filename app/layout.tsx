@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const detroit = localFont({
+  src: "./fonts/Detroit-05Base.otf",
+  variable: "--font-detroit",
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   title: "GARAGE",
@@ -14,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={detroit.variable}>{children}</body>
     </html>
   );
 }

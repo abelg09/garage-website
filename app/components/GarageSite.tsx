@@ -174,21 +174,21 @@ function HeroSection({ content }: { content: GarageContent }) {
   }, [updateHeroProgress]);
 
   const cameraScale = useSpring(
-    useTransform(heroProgress, [0, 0.35, 1], [1, 1.36, 1.36]),
+    useTransform(heroProgress, [0, 0.22, 1], [1, 1.36, 1.36]),
     { stiffness: 92, damping: 24, mass: 0.35 }
   );
   const cameraY = useSpring(
-    useTransform(heroProgress, [0, 0.35, 1], ["0%", "-4.5%", "-4.5%"]),
+    useTransform(heroProgress, [0, 0.22, 1], ["0%", "-4.5%", "-4.5%"]),
     { stiffness: 92, damping: 24, mass: 0.35 }
   );
   const shutterY = useSpring(
-    useTransform(heroProgress, [0.35, 0.7], ["0%", "-112%"]),
+    useTransform(heroProgress, [0.22, 0.48], ["0%", "-112%"]),
     { stiffness: 100, damping: 26, mass: 0.36 }
   );
-  const portalOpacity = useTransform(heroProgress, [0.3, 0.52], [0.1, 1]);
-  const copyOpacity = useTransform(heroProgress, [0.62, 0.85], [0, 1]);
-  const copyY = useTransform(heroProgress, [0.62, 0.85], [28, 0]);
-  const backdropOpacity = useTransform(heroProgress, [0.62, 0.85], [0, 0.62]);
+  const portalOpacity = useTransform(heroProgress, [0.2, 0.4], [0.1, 1]);
+  const copyOpacity = useTransform(heroProgress, [0.45, 0.6], [0, 1]);
+  const copyY = useTransform(heroProgress, [0.45, 0.6], [28, 0]);
+  const backdropOpacity = useTransform(heroProgress, [0.45, 0.6], [0, 0.62]);
   const openShutterStyle = { y: shutterY };
   const cameraStyle = { scale: cameraScale, y: cameraY };
   const copyStyle = { opacity: copyOpacity, y: copyY };
@@ -373,11 +373,16 @@ function ClientsSection({ clients }: { clients: GarageContent["clients"] }) {
           transition={{ duration: 0.5 }}
         >
           {clients.map((client) => (
-            <div className="client-logo" key={client.id}>
+            <div
+              className={`client-logo client-logo-${clientLogoSlug(client)}`}
+              key={client.id}
+              role="img"
+              aria-label={`${client.name} client logo`}
+            >
               {client.logo?.src ? (
                 <Image src={client.logo.src} alt={client.logo.alt} fill sizes="180px" />
               ) : (
-                <span>{client.name}</span>
+                <ClientWordmark name={client.name} />
               )}
             </div>
           ))}
@@ -385,6 +390,108 @@ function ClientsSection({ clients }: { clients: GarageContent["clients"] }) {
       </div>
     </section>
   );
+}
+
+function clientLogoSlug(client: GarageContent["clients"][number]) {
+  return (client.id || client.name).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+function ClientWordmark({ name }: { name: string }) {
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+
+  switch (slug) {
+    case "grameen-kulfi":
+      return (
+        <span className="client-mark client-mark-badge">
+          <b>Grameen</b>
+          <small>Kulfi</small>
+        </span>
+      );
+    case "johnson":
+      return (
+        <span className="client-mark client-mark-johnson">
+          <i aria-hidden="true" />
+          <b>Johnson</b>
+          <small>{"Designers' Choice"}</small>
+        </span>
+      );
+    case "croma":
+      return <span className="client-mark client-mark-croma">croma</span>;
+    case "nippon-india-mutual-fund":
+      return (
+        <span className="client-mark client-mark-nippon">
+          <i aria-hidden="true" />
+          <b>Nippon India</b>
+          <small>Mutual Fund</small>
+        </span>
+      );
+    case "tata":
+      return (
+        <span className="client-mark client-mark-tata">
+          <i aria-hidden="true">T</i>
+          <b>Tata</b>
+        </span>
+      );
+    case "kalpa-taru":
+      return (
+        <span className="client-mark client-mark-kalpa">
+          <i aria-hidden="true" />
+          <b>Kalpa-Taru</b>
+        </span>
+      );
+    case "jameson":
+      return <span className="client-mark client-mark-jameson">Jameson</span>;
+    case "marvel":
+      return (
+        <span className="client-mark client-mark-marvel">
+          <i aria-hidden="true" />
+          <b>Marvel</b>
+        </span>
+      );
+    case "senco":
+      return (
+        <span className="client-mark client-mark-senco">
+          <b>Senco</b>
+          <small>Gold & Diamonds</small>
+        </span>
+      );
+    case "ifb":
+      return (
+        <span className="client-mark client-mark-ifb">
+          <b>IFB</b>
+          <small>www.ifbappliances.com</small>
+        </span>
+      );
+    case "plum":
+      return (
+        <span className="client-mark client-mark-plum">
+          pl<span aria-hidden="true">u</span>m
+        </span>
+      );
+    case "south-indian-bank":
+      return (
+        <span className="client-mark client-mark-sib">
+          <i aria-hidden="true" />
+          <b>South Indian Bank</b>
+        </span>
+      );
+    case "jacob-s-creek":
+      return (
+        <span className="client-mark client-mark-jacobs">
+          <i aria-hidden="true" />
+          <b>{"Jacob's Creek"}</b>
+        </span>
+      );
+    case "imperial-blue":
+      return (
+        <span className="client-mark client-mark-imperial">
+          <b>Imperial Blue</b>
+          <small>Imported Grain Spirit</small>
+        </span>
+      );
+    default:
+      return <span className="client-mark">{name}</span>;
+  }
 }
 
 function CrewSection({ crew }: { crew: CrewMember[] }) {

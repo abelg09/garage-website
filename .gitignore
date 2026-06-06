@@ -3,6 +3,7 @@
 .env*.local
 .next/
 .tools/
+.tmp/
 node_modules/
 playwright-report/
 test-results/
