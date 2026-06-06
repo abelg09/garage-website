@@ -1,0 +1,57 @@
+Build a services section inspired by honza-digital.framer.website.
+
+Use Next.js, TypeScript, Tailwind CSS, and Framer Motion.
+
+Section layout:
+- Dark premium background with subtle vertical grid lines
+- Left side sticky content:
+  - Small label: [ MY SERVICES ]
+  - Heading: What I Can Help You
+  - Paragraph: I help businesses grow their online presence and generate real results through data-driven marketing strategies.
+  - CTA button: Get in Touch
+- Right side animated service cards
+
+Animation requirement:
+Create a sticky stacking card animation on the right side.
+The left content should stay sticky while the user scrolls through the service cards.
+Each service card should become sticky at the top of the right column.
+As the user scrolls, the next card should move up and overlap the previous card.
+Cards should feel like they are stacking one above another.
+Add smooth scale and opacity animation using Framer Motion.
+The active card should be full size.
+Previous cards should slightly scale down and move upward.
+Use scroll progress to animate each card.
+
+Service cards:
+1. Search Engine Optimization
+Text: Get found where it matters. I optimize your website and content to increase visibility and attract high-quality organic traffic.
+
+2. Pay-Per-Click Advertising
+Text: Drive immediate results with targeted Google and Meta Ads campaigns designed for maximum ROI and precise audience reach.
+
+3. Social Media Marketing
+Text: Build brand awareness and engagement through creative social campaigns that connect with your audience and turn followers into customers.
+
+4. Analytics & Optimization
+Text: Track what matters. I turn data into insights, refining every campaign for better performance, higher ROI, and sustainable digital growth.
+
+Card design:
+- Dark charcoal background
+- Rounded corners
+- Thin border
+- White line icons
+- Large bold title
+- Light grey description
+- Subtle hover glow
+- Smooth transitions
+- Premium spacing
+
+Responsive:
+Desktop:
+- Two column layout
+- Left side sticky
+- Right side sticky stacking cards
+
+Mobile:
+- Cards should stack normally one below another
+- No sticky animation on mobile

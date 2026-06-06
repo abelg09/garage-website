@@ -1,0 +1,75 @@
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+
+const services = [
+  {
+    title: "Search Engine Optimization",
+    desc: "Get found where it matters. I optimize your website and content to increase visibility and attract high-quality organic traffic.",
+  },
+  {
+    title: "Pay-Per-Click Advertising",
+    desc: "Drive immediate results with targeted Google and Meta Ads campaigns designed for maximum ROI and precise audience reach.",
+  },
+  {
+    title: "Social Media Marketing",
+    desc: "Build brand awareness and engagement through creative social campaigns that connect with your audience and turn followers into customers.",
+  },
+  {
+    title: "Analytics & Optimization",
+    desc: "Track what matters. I turn data into insights, refining every campaign for better performance, higher ROI, and sustainable digital growth.",
+  },
+];
+
+export default function ServicesStack() {
+  return (
+    <section className="relative bg-[#111111] text-white py-28">
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:25%_100%] opacity-30" />
+
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-16 px-6 lg:grid-cols-2">
+        <div className="lg:sticky lg:top-28 lg:h-fit">
+          <p className="mb-6 text-sm tracking-widest text-white/70">[ MY SERVICES ]</p>
+          <h2 className="mb-6 text-5xl font-semibold leading-tight md:text-6xl">
+            What I Can Help You
+          </h2>
+          <p className="mb-10 max-w-xl text-lg leading-8 text-white/65">
+            I help businesses grow their online presence and generate real results through
+            data-driven marketing strategies.
+          </p>
+          <button className="rounded-full bg-white px-8 py-4 font-semibold text-black">
+            Get in Touch →
+          </button>
+        </div>
+
+        <div className="space-y-8">
+          {services.map((service, index) => (
+            <ServiceCard key={service.title} service={service} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ServiceCard({ service, index }: any) {
+  return (
+    <motion.div
+      className="sticky top-24 rounded-3xl border border-white/10 bg-[#222222] p-8 shadow-2xl"
+      style={{
+        zIndex: index + 1,
+      }}
+      initial={{ opacity: 0.7, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <div className="flex gap-6">
+        <div className="text-5xl">◎</div>
+        <div>
+          <h3 className="mb-4 text-3xl font-semibold">{service.title}</h3>
+          <p className="text-lg leading-8 text-white/65">{service.desc}</p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
