@@ -258,11 +258,11 @@ function HeroSection({ content }: { content: GarageContent }) {
 }
 
 function WorkSection({ projects }: { projects: Project[] }) {
-  const [expandedId, setExpandedId] = useState(projects[0]?.id ?? "");
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   return (
     <section id="work" className="section-band work-section" aria-labelledby="work-title">
-      <div className="section-inner work-inner">
+      <div className="work-stack-header">
         <motion.h2
           id="work-title"
           className="work-title-stack"
@@ -277,86 +277,156 @@ function WorkSection({ projects }: { projects: Project[] }) {
           <span aria-hidden="true">Our Works</span>
           <span aria-hidden="true">Our Works</span>
         </motion.h2>
-        <div className="work-list">
-          {projects.map((project, index) => {
-            const isExpanded = expandedId === project.id;
-            const projectNumber = String(index + 1).padStart(2, "0");
-            return (
-              <div className="work-row" key={project.id}>
-                <motion.article
-                  className={`work-item ${index % 2 === 1 ? "is-reversed" : ""}`}
-                  variants={reveal}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <button
-                    type="button"
-                    className="work-card"
-                    aria-expanded={isExpanded}
-                    aria-controls="work-detail"
-                    onClick={() => setExpandedId(isExpanded ? "" : project.id)}
-                  >
-                    <span className="work-index">{projectNumber}</span>
-                    <span className="work-copy">
-                      <span className="work-category">{project.category}</span>
-                      <span className="work-project-title">{project.title}</span>
-                      <span className="work-project-summary">{project.summary}</span>
-                      <span className="work-cta">
-                        View Case Study
-                        <ArrowUpRight aria-hidden="true" />
-                      </span>
-                    </span>
-                    <span className="image-frame work-media">
-                      <img
-                        src={project.cover.src}
-                        alt={project.cover.alt}
-                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    </span>
-                  </button>
-                </motion.article>
-                <AnimatePresence mode="wait">
-                  {isExpanded ? (
-                    <motion.div
-                      key={project.id}
-                      id="work-detail"
-                      className="work-detail"
-                      data-testid="work-detail"
-                      initial={{ opacity: 0, y: 18 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 18 }}
-                      transition={{ duration: 0.28 }}
-                    >
-                      <div>
-                        <p className="eyebrow">{project.category}</p>
-                        <h3>{project.client}</h3>
-                      </div>
-                      <div className="detail-copy">
-                        <p>{project.summary}</p>
-                        <p>{project.impact}</p>
-                      </div>
-                      <div className="detail-gallery">
-                        {project.gallery.map((image) => (
-                          <div className="detail-image" key={`${project.id}-${image.src}`}>
-                            <img
-                              src={image.src}
-                              alt={image.alt}
-                              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  ) : null}
-                </AnimatePresence>
-              </div>
-            );
-          })}
-        </div>
+      </div>
+      <div className="work-stack-list">
+        {projects.map((project, index) => (
+          <StackedProjectCard
+            key={project.id}
+            project={project}
+            index={index}
+            total={projects.length}
+            isLast={index === projects.length - 1}
+            expandedId={expandedId}
+            setExpandedId={setExpandedId}
+          />
+        ))}
       </div>
     </section>
+  );
+}
+
+function StackedProjectCard({
+  project,
+  index,
+  total,
+  isLast,
+  expandedId,
+  setExpandedId,
+}: {
+  project: Project;
+  index: number;
+  total: number;
+  isLast: boolean;
+  expandedId: string | null;
+  setExpandedId: (id: string | null) => void;
+}) {
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const isExpanded = expandedId === project.id;
+  const projectNumber = String(index + 1).padStart(2, "0");
+
+  const { scrollYProgress } = useScroll({
+    target: wrapperRef,
+    offset: ["start start", "end start"],
+  });
+
+  const scale = useTransform(
+    scrollYProgress,
+    [0.6, 1],
+    isLast ? [1, 1] : [1, 0.91]
+  );
+  const opacity = useTransform(
+    scrollYProgress,
+    [0.6, 1],
+    isLast ? [1, 1] : [1, 0.55]
+  );
+
+  const topOffset = `calc(var(--header-height) + ${index * 16}px + 1.5rem)`;
+
+  return (
+    <div
+      ref={wrapperRef}
+      className="work-stack-zone"
+      style={{ zIndex: index + 1 }}
+    >
+      <motion.article
+        className="work-stack-card"
+        style={{
+          top: topOffset,
+          zIndex: index + 1,
+          scale,
+          opacity,
+        }}
+        aria-labelledby={`work-title-${project.id}`}
+      >
+        <button
+          type="button"
+          className="work-stack-trigger"
+          aria-expanded={isExpanded}
+          onClick={() => setExpandedId(isExpanded ? null : project.id)}
+        >
+          <span className="wsc-index">{projectNumber}</span>
+          <span className="wsc-body">
+            <span className="wsc-meta">
+              <span className="wsc-category">{project.category}</span>
+              <span className="wsc-client">{project.client}</span>
+            </span>
+            <h3 className="wsc-title" id={`work-title-${project.id}`}>
+              {project.title}
+            </h3>
+            <p className="wsc-summary">{project.summary}</p>
+            <span className="wsc-cta">
+              View Case Study <ArrowUpRight aria-hidden="true" />
+            </span>
+          </span>
+          <span className="wsc-image">
+            <img
+              src={project.cover.src}
+              alt={project.cover.alt}
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+            <span className="wsc-image-overlay" aria-hidden="true" />
+          </span>
+        </button>
+
+        <AnimatePresence>
+          {isExpanded ? (
+            <motion.div
+              className="wsc-detail"
+              data-testid="work-detail"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
+            >
+              <div className="wsc-detail-inner">
+                <div className="wsc-detail-copy">
+                  <p className="eyebrow">{project.category}</p>
+                  <h3>{project.client}</h3>
+                  <p>{project.summary}</p>
+                  <p>{project.impact}</p>
+                </div>
+                <div className="wsc-detail-gallery">
+                  {project.gallery.map((image) => (
+                    <div
+                      className="wsc-detail-image"
+                      key={`${project.id}-${image.src}`}
+                    >
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ) : null}
+        </AnimatePresence>
+      </motion.article>
+    </div>
   );
 }
 
