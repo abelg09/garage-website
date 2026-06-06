@@ -1496,7 +1496,6 @@ img {
 
 .svc-sticky-wrap {
   position: sticky;
-  top: calc(var(--header-height) + 2rem);
   margin-bottom: clamp(1.5rem, 44vh, 44vh);
 }
 

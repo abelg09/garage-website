@@ -1,9 +1,9 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import type { MotionValue } from "motion/react";
 import type { LucideIcon } from "lucide-react";
 import { Target, Film, Share2, Camera, Monitor } from "lucide-react";
-import { BlurRevealText } from "./GarageSite";
+import { BlurRevealText } from "./BlurRevealText";
 
 type ServiceDef = {
   id: string;
@@ -49,35 +49,67 @@ const SERVICES: ServiceDef[] = [
   },
 ];
 
+function useIsMobile(breakpoint = 760) {
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(`(max-width: ${breakpoint}px)`).matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint}px)`);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, [breakpoint]);
+  return isMobile;
+}
+
 function ServiceCard({
   service,
   index,
   total,
   scrollYProgress,
   reduced,
+  isMobile,
 }: {
   service: ServiceDef;
   index: number;
   total: number;
   scrollYProgress: MotionValue<number>;
   reduced: boolean;
+  isMobile: boolean;
 }) {
   const isLast = index === total - 1;
-  const scaleInput: [number, number] = isLast ? [0, 1] : [(index + 1) / total, Math.min((index + 2) / total, 1)];
-  const scaleOutput: [number, number] = isLast ? [1, 1] : [1, 0.94];
-  const opacityOutput: [number, number] = isLast ? [1, 1] : [1, 0.58];
+  const scaleInput: [number, number] = isLast
+    ? [0, 1]
+    : [(index + 1) / total, Math.min((index + 2) / total, 1)];
 
-  const scale = useTransform(scrollYProgress, scaleInput, scaleOutput);
-  const opacity = useTransform(scrollYProgress, scaleInput, opacityOutput);
+  const scale = useTransform(scrollYProgress, scaleInput, isLast ? [1, 1] : [1, 0.94]);
+  const opacity = useTransform(scrollYProgress, scaleInput, isLast ? [1, 1] : [1, 0.58]);
 
   const Icon = service.icon;
 
+  const desktopStyle = !isMobile && !reduced ? { scale, opacity } : {};
+  const mobileAnim = isMobile
+    ? {
+        initial: { opacity: 0, y: 32 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true as const, amount: 0.25 },
+        transition: { duration: 0.5, ease: "easeOut" as const },
+      }
+    : {};
+
   return (
-    <div className="svc-sticky-wrap" style={{ zIndex: index + 1 }}>
+    <div
+      className="svc-sticky-wrap"
+      style={{
+        zIndex: index + 1,
+        top: `calc(var(--header-height) + 2rem + ${index * 8}px)`,
+      }}
+    >
       <motion.article
         className="svc-card"
-        style={reduced ? {} : { scale, opacity }}
+        style={desktopStyle}
         aria-label={service.title}
+        {...mobileAnim}
       >
         <div className="svc-card-icon" aria-hidden="true">
           <Icon size={28} strokeWidth={1.4} aria-hidden />
@@ -94,6 +126,7 @@ function ServiceCard({
 export function ServicesStack() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion() ?? false;
+  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -108,7 +141,6 @@ export function ServicesStack() {
       aria-labelledby="expertise-title"
     >
       <div className="svc-container">
-        {/* ── Left: Sticky panel ── */}
         <div className="svc-left">
           <span className="svc-eyebrow" aria-hidden="true">[ Expertise ]</span>
           <h2 className="expertise-heading">
@@ -122,7 +154,6 @@ export function ServicesStack() {
           </a>
         </div>
 
-        {/* ── Right: Stacking cards ── */}
         <div className="svc-right" aria-label="Our services">
           {SERVICES.map((service, index) => (
             <ServiceCard
@@ -132,6 +163,7 @@ export function ServicesStack() {
               total={SERVICES.length}
               scrollYProgress={scrollYProgress}
               reduced={reduced}
+              isMobile={isMobile}
             />
           ))}
         </div>
