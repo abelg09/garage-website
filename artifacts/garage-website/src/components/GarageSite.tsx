@@ -20,6 +20,7 @@ import {
 } from "motion/react";
 
 import type { CrewMember, GarageContent, ImageAsset, Project, Review } from "../lib/types";
+import { ServicesStack } from "./ServicesStack";
 
 type GarageSiteProps = {
   content: GarageContent;
@@ -40,7 +41,7 @@ const reveal = {
   visible: { opacity: 1, y: 0 }
 };
 
-function BlurRevealText({ text, className, id }: { text: string; className?: string; id?: string }) {
+export function BlurRevealText({ text, className, id }: { text: string; className?: string; id?: string }) {
   return (
     <span className={className} id={id} aria-label={text}>
       {text.split("").map((char, i) => (
@@ -84,7 +85,7 @@ export function GarageSite({ content }: GarageSiteProps) {
         <ClientsSection clients={content.clients} />
         <ReviewsSection reviews={content.reviews} />
         <CrewSection crew={content.crew} />
-        <ExpertiseSection services={content.services} />
+        <ServicesStack />
         <ContactSection content={content} />
       </main>
     </>
@@ -730,41 +731,6 @@ function CrewModal({
   );
 }
 
-function ExpertiseSection({ services }: { services: string[] }) {
-  return (
-    <section id="services" className="section-band expertise-section" aria-labelledby="expertise-title">
-      <div className="section-inner expertise-layout">
-        <div className="expertise-left">
-          <h2 className="expertise-heading">
-            <BlurRevealText text="Expertise" id="expertise-title" />
-          </h2>
-          <motion.p
-            className="expertise-tagline"
-            variants={reveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.4 }}
-            transition={{ duration: 0.55, delay: 0.28 }}
-          >
-            Full-stack creative capability — from first insight to final frame.
-          </motion.p>
-        </div>
-        <motion.div
-          className="expertise-pills"
-          variants={reveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.55, delay: 0.18 }}
-        >
-          {services.map((service) => (
-            <span key={service} className="expertise-pill">{service}</span>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
 
 function StarRow({ label = "5 out of 5 stars" }: { label?: string }) {
   return (
