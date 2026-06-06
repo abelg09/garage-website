@@ -550,7 +550,6 @@ img {
 .work-section {
   background: #0a0a0b;
   color: var(--white);
-  overflow: clip;
 }
 
 .work-stack-header {

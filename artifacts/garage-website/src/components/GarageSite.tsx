@@ -330,7 +330,7 @@ function StackedProjectCard({
     isLast ? [1, 1] : [1, 0.55]
   );
 
-  const topOffset = `calc(var(--header-height) + ${index * 16}px + 1.5rem)`;
+  const topOffset = `calc(var(--header-height) + ${index * 10}px + 1.5rem)`;
 
   return (
     <div
