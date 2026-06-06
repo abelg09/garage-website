@@ -15,7 +15,8 @@ import {
   useReducedMotion,
   useScroll,
   useSpring,
-  useTransform
+  useTransform,
+  type MotionValue,
 } from "motion/react";
 
 import type { CrewMember, GarageContent, ImageAsset, Project } from "../lib/types";
@@ -258,175 +259,133 @@ function HeroSection({ content }: { content: GarageContent }) {
 }
 
 function WorkSection({ projects }: { projects: Project[] }) {
-  const [expandedId, setExpandedId] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
 
   return (
-    <section id="work" className="section-band work-section" aria-labelledby="work-title">
-      <div className="work-stack-header">
-        <motion.h2
-          id="work-title"
-          className="work-title-stack"
-          aria-label="Work"
-          variants={reveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.5 }}
-        >
-          <span aria-hidden="true">Our Works</span>
-          <span aria-hidden="true">Our Works</span>
-          <span aria-hidden="true">Our Works</span>
-        </motion.h2>
-      </div>
-      <div className="work-stack-list">
-        {projects.map((project, index) => (
-          <StackedProjectCard
-            key={project.id}
-            project={project}
-            index={index}
-            total={projects.length}
-            isLast={index === projects.length - 1}
-            expandedId={expandedId}
-            setExpandedId={setExpandedId}
-          />
-        ))}
+    <section
+      id="work"
+      className="section-band work-section"
+      aria-labelledby="work-title"
+      ref={sectionRef}
+      style={{ minHeight: `${projects.length * 100}vh` }}
+    >
+      <div className="work-sticky-stage">
+        <div className="work-stage-header">
+          <motion.h2
+            id="work-title"
+            className="work-title-stack"
+            aria-label="Work"
+            variants={reveal}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5 }}
+          >
+            <span aria-hidden="true">Our Works</span>
+            <span aria-hidden="true">Our Works</span>
+            <span aria-hidden="true">Our Works</span>
+          </motion.h2>
+        </div>
+        <div className="work-deck" role="list">
+          {projects.map((project, index) => (
+            <DeckCard
+              key={project.id}
+              project={project}
+              index={index}
+              total={projects.length}
+              scrollYProgress={scrollYProgress}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function StackedProjectCard({
+function DeckCard({
   project,
   index,
   total,
-  isLast,
-  expandedId,
-  setExpandedId,
+  scrollYProgress,
 }: {
   project: Project;
   index: number;
   total: number;
-  isLast: boolean;
-  expandedId: string | null;
-  setExpandedId: (id: string | null) => void;
+  scrollYProgress: MotionValue<number>;
 }) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const isExpanded = expandedId === project.id;
-  const projectNumber = String(index + 1).padStart(2, "0");
+  const N = total;
+  const isFirst = index === 0;
+  const isLast = index === N - 1;
 
-  const { scrollYProgress } = useScroll({
-    target: wrapperRef,
-    offset: ["start start", "end start"],
-  });
+  const gap = N > 1 ? 1 / (N - 1) : 1;
+  const activeAt = index * gap;
 
+  const slideInStart = isFirst ? 0 : Math.max(0, activeAt - gap * 0.5);
+  const slideInEnd = isFirst ? 0 : activeAt;
+
+  const pushOutStart = isLast ? 1 : activeAt + gap * 0.2;
+  const pushOutEnd = isLast ? 1 : activeAt + gap * 0.9;
+
+  const y = useTransform(
+    scrollYProgress,
+    isFirst ? [0, 1] : [slideInStart, slideInEnd],
+    isFirst ? ["0%", "0%"] : ["calc(100% - 72px)", "0%"]
+  );
   const scale = useTransform(
     scrollYProgress,
-    [0.6, 1],
-    isLast ? [1, 1] : [1, 0.91]
+    [pushOutStart, pushOutEnd],
+    isLast ? [1, 1] : [1, 0.88]
   );
   const opacity = useTransform(
     scrollYProgress,
-    [0.6, 1],
-    isLast ? [1, 1] : [1, 0.55]
+    [pushOutStart, pushOutEnd],
+    isLast ? [1, 1] : [1, 0.42]
   );
 
-  const topOffset = `calc(var(--header-height) + ${index * 10}px + 1.5rem)`;
+  const projectNumber = String(index + 1).padStart(2, "0");
 
   return (
-    <div
-      ref={wrapperRef}
-      className="work-stack-zone"
-      style={{ zIndex: index + 1 }}
+    <motion.article
+      className="work-deck-card"
+      role="listitem"
+      style={{ y, scale, opacity, zIndex: index + 1 }}
+      aria-labelledby={`deck-title-${project.id}`}
     >
-      <motion.article
-        className="work-stack-card"
-        style={{
-          top: topOffset,
-          zIndex: index + 1,
-          scale,
-          opacity,
-        }}
-        aria-labelledby={`work-title-${project.id}`}
-      >
-        <button
-          type="button"
-          className="work-stack-trigger"
-          aria-expanded={isExpanded}
-          onClick={() => setExpandedId(isExpanded ? null : project.id)}
-        >
-          <span className="wsc-index">{projectNumber}</span>
-          <span className="wsc-body">
-            <span className="wsc-meta">
-              <span className="wsc-category">{project.category}</span>
-              <span className="wsc-client">{project.client}</span>
-            </span>
-            <h3 className="wsc-title" id={`work-title-${project.id}`}>
-              {project.title}
-            </h3>
-            <p className="wsc-summary">{project.summary}</p>
-            <span className="wsc-cta">
-              View Case Study <ArrowUpRight aria-hidden="true" />
-            </span>
+      <div className="wdc-inner">
+        <span className="wdc-index" aria-hidden="true">{projectNumber}</span>
+        <div className="wdc-body">
+          <div className="wdc-meta">
+            <span className="wdc-category">{project.category}</span>
+            <span className="wdc-client">{project.client}</span>
+          </div>
+          <h3 className="wdc-title" id={`deck-title-${project.id}`}>
+            {project.title}
+          </h3>
+          <p className="wdc-summary">{project.summary}</p>
+          <span className="wdc-cta">
+            View Case Study <ArrowUpRight aria-hidden="true" />
           </span>
-          <span className="wsc-image">
-            <img
-              src={project.cover.src}
-              alt={project.cover.alt}
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-            />
-            <span className="wsc-image-overlay" aria-hidden="true" />
-          </span>
-        </button>
-
-        <AnimatePresence>
-          {isExpanded ? (
-            <motion.div
-              className="wsc-detail"
-              data-testid="work-detail"
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.32, ease: [0.76, 0, 0.24, 1] }}
-            >
-              <div className="wsc-detail-inner">
-                <div className="wsc-detail-copy">
-                  <p className="eyebrow">{project.category}</p>
-                  <h3>{project.client}</h3>
-                  <p>{project.summary}</p>
-                  <p>{project.impact}</p>
-                </div>
-                <div className="wsc-detail-gallery">
-                  {project.gallery.map((image) => (
-                    <div
-                      className="wsc-detail-image"
-                      key={`${project.id}-${image.src}`}
-                    >
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        style={{
-                          position: "absolute",
-                          inset: 0,
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          ) : null}
-        </AnimatePresence>
-      </motion.article>
-    </div>
+        </div>
+        <div className="wdc-image">
+          <img
+            src={project.cover.src}
+            alt={project.cover.alt}
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+          <span className="wdc-image-overlay" aria-hidden="true" />
+        </div>
+      </div>
+    </motion.article>
   );
 }
 
