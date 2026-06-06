@@ -347,7 +347,10 @@ img {
   left: 50%;
   top: 50%;
   z-index: 1;
-  width: max(100vw, calc((100vh - var(--header-height)) * 1.499));
+  /* Cover the stage on wide screens (100vw), fill height on standard screens,
+     but cap the width on tall/narrow phones so the full garage door + collage
+     reveal stay framed instead of over-zooming into the center shutter. */
+  width: clamp(100vw, calc((100vh - var(--header-height)) * 1.499), 175vw);
   aspect-ratio: 1535 / 1024;
   translate: -50% -50%;
   pointer-events: none;
@@ -2059,9 +2062,9 @@ img {
   }
 
   .garage-origin-label {
-    top: clamp(3.7rem, 15vw, 5.6rem);
+    top: clamp(3rem, 12vw, 4.6rem);
     max-width: calc(100% - 2rem);
-    font-size: clamp(0.92rem, 4.6vw, 1.24rem);
+    font-size: clamp(0.82rem, 4vw, 1.1rem);
     white-space: normal;
   }
 
