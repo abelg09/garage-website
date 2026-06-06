@@ -40,6 +40,27 @@ export const homePage = defineType({
       validation: (rule) => rule.required()
     }),
     defineField({
+      name: "garageOrigin",
+      title: "Garage Shutter Reveal Image",
+      type: "image",
+      options: { hotspot: true },
+      fields: [
+        defineField({
+          name: "alt",
+          title: "Alt Text",
+          type: "string",
+          validation: (rule) => rule.required()
+        })
+      ],
+      validation: (rule) => rule.required()
+    }),
+    defineField({
+      name: "garageOriginLabel",
+      title: "Garage Shutter Reveal Label",
+      type: "string",
+      validation: (rule) => rule.required()
+    }),
+    defineField({
       name: "heroCollage",
       title: "Hero Garage Collage",
       type: "image",

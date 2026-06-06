@@ -40,6 +40,8 @@ export type GarageContent = {
     introTitle: string;
     introBody: string[];
     garageFacade: ImageAsset;
+    garageOrigin: ImageAsset;
+    garageOriginLabel: string;
     heroCollage: ImageAsset;
   };
   projects: Project[];

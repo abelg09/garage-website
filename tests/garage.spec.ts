@@ -41,17 +41,16 @@ async function heroCopyOpacity(page: import("@playwright/test").Page) {
 test("garage facade starts closed and opens with scroll", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByTestId("garage-facade")).toBeVisible();
-  await expect(page.getByTestId("garage-left-shutter")).toBeVisible();
-  await expect(page.getByTestId("garage-right-shutter")).toBeVisible();
+  await expect(page.getByTestId("garage-shutter")).toBeVisible();
 
-  const initialShutter = await page.getByTestId("garage-left-shutter").boundingBox();
+  const initialShutter = await page.getByTestId("garage-shutter").boundingBox();
   const initialCameraTransform = await page
     .getByTestId("garage-camera")
     .evaluate((element) => getComputedStyle(element).transform);
 
   await scrollHeroTo(page, 1.55);
 
-  const openedShutter = await page.getByTestId("garage-left-shutter").boundingBox();
+  const openedShutter = await page.getByTestId("garage-shutter").boundingBox();
   const movedCameraTransform = await page
     .getByTestId("garage-camera")
     .evaluate((element) => getComputedStyle(element).transform);
@@ -61,6 +60,7 @@ test("garage facade starts closed and opens with scroll", async ({ page }) => {
 
   await scrollHeroOpen(page);
   await expect.poll(() => heroCopyOpacity(page)).toBeGreaterThan(0.65);
+  await expect(page.getByTestId("garage-origin-label")).toContainText(/where it all started/i);
   await expect(page.getByRole("heading", { name: /the original startup room/i })).toBeInViewport();
 
   await navigateToWork(page);

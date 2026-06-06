@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowUpRight,
@@ -190,9 +189,6 @@ function HeroSection({ content }: { content: GarageContent }) {
   const copyOpacity = useTransform(heroProgress, [0.62, 0.85], [0, 1]);
   const copyY = useTransform(heroProgress, [0.62, 0.85], [28, 0]);
   const backdropOpacity = useTransform(heroProgress, [0.62, 0.85], [0, 0.62]);
-  const portalStyle = {
-    "--portal-image": `url(${content.home.heroCollage.src})`
-  } as CSSProperties;
   const openShutterStyle = { y: shutterY };
   const cameraStyle = { scale: cameraScale, y: cameraY };
   const copyStyle = { opacity: copyOpacity, y: copyY };
@@ -233,26 +229,26 @@ function HeroSection({ content }: { content: GarageContent }) {
               />
             </div>
             <motion.div
-              className="garage-portal garage-portal-left"
-              style={{ ...portalStyle, opacity: portalOpacity }}
-              aria-hidden="true"
+              className="garage-portal garage-portal-main"
+              style={{ opacity: portalOpacity }}
+              data-testid="garage-portal"
             >
+              <div className="garage-origin" data-testid="garage-origin">
+                <Image
+                  src={content.home.garageOrigin.src}
+                  alt={content.home.garageOrigin.alt}
+                  fill
+                  loading="eager"
+                  sizes="(max-width: 760px) 90vw, 44vw"
+                  className="garage-origin-image"
+                />
+                <p className="garage-origin-label" data-testid="garage-origin-label">
+                  {content.home.garageOriginLabel}
+                </p>
+              </div>
               <motion.div
                 className="garage-shutter"
-                data-testid="garage-left-shutter"
-                style={openShutterStyle}
-              >
-                <span />
-              </motion.div>
-            </motion.div>
-            <motion.div
-              className="garage-portal garage-portal-right"
-              style={{ ...portalStyle, opacity: portalOpacity }}
-              aria-hidden="true"
-            >
-              <motion.div
-                className="garage-shutter"
-                data-testid="garage-right-shutter"
+                data-testid="garage-shutter"
                 style={openShutterStyle}
               >
                 <span />

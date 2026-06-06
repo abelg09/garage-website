@@ -84,8 +84,12 @@ async function seed() {
     "Black and white collage of famous garages and early workspaces"
   );
   const garageFacade = await imageField(
-    "garage-facade.webp",
-    "Industrial building facade with two metal garage doors"
+    "garage-facade.png",
+    "Industrial red facade with a single closed metal garage shutter"
+  );
+  const garageOrigin = await imageField(
+    "garage-origin.png",
+    "Black and white collage of early garages for Apple, Google, Amazon, Harley, Disney, and Mattel"
   );
   const contactCollage = await imageField(
     "contact-office-collage.jpg",
@@ -135,6 +139,8 @@ async function seed() {
       "We are an ad agency built on that same principle. We start with what is real: the product, the people, the story, and the nerve to begin before everything feels ready."
     ],
     garageFacade,
+    garageOrigin,
+    garageOriginLabel: "Where it all started",
     heroCollage
   });
 

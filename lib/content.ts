@@ -38,6 +38,7 @@ function normalizeContent(content: GarageContent): GarageContent {
     home: {
       ...content.home,
       garageFacade: normalizeImage(content.home.garageFacade),
+      garageOrigin: normalizeImage(content.home.garageOrigin),
       heroCollage: normalizeImage(content.home.heroCollage)
     },
     projects: content.projects.map((project) => ({
@@ -76,6 +77,9 @@ function mergeContent(data: MaybeContent | null): GarageContent {
         ? data.home.introBody
         : fallbackContent.home.introBody,
       garageFacade: validImage(data.home?.garageFacade, fallbackContent.home.garageFacade),
+      garageOrigin: validImage(data.home?.garageOrigin, fallbackContent.home.garageOrigin),
+      garageOriginLabel:
+        data.home?.garageOriginLabel || fallbackContent.home.garageOriginLabel,
       heroCollage: validImage(data.home?.heroCollage, fallbackContent.home.heroCollage)
     },
     projects: data.projects?.length ? data.projects : fallbackContent.projects,

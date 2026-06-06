@@ -17,6 +17,8 @@ export const garageContentQuery = groq`{
     introTitle,
     introBody,
     "garageFacade": garageFacade${imageFields},
+    "garageOrigin": garageOrigin${imageFields},
+    garageOriginLabel,
     "heroCollage": heroCollage${imageFields}
   },
   "projects": *[_type == "project"] | order(orderRank asc, title asc) {

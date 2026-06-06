@@ -27,9 +27,14 @@ export const fallbackContent: GarageContent = {
       "We are an ad agency built on that same principle. We start with what is real: the product, the people, the story, and the nerve to begin before everything feels ready."
     ],
     garageFacade: {
-      src: `${ppt}garage-facade.webp`,
-      alt: "Industrial building facade with two metal garage doors"
+      src: `${ppt}garage-facade.png`,
+      alt: "Industrial red facade with a single closed metal garage shutter"
     },
+    garageOrigin: {
+      src: `${ppt}garage-origin.png`,
+      alt: "Black and white collage of early garages for Apple, Google, Amazon, Harley, Disney, and Mattel"
+    },
+    garageOriginLabel: "Where it all started",
     heroCollage: {
       src: `${ppt}hero-garage-collage.jpg`,
       alt: "Black and white collage of famous garages and early workspaces"
