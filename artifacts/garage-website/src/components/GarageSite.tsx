@@ -170,11 +170,11 @@ function HeroSection({ content }: { content: GarageContent }) {
   }, [updateHeroProgress]);
 
   const cameraScale = useSpring(
-    useTransform(heroProgress, [0, 0.22, 1], [1, 1.36, 1.36]),
+    useTransform(heroProgress, [0, 0.22, 1], [1, 1.12, 1.12]),
     { stiffness: 92, damping: 24, mass: 0.35 }
   );
   const cameraY = useSpring(
-    useTransform(heroProgress, [0, 0.22, 1], ["0%", "-4.5%", "-4.5%"]),
+    useTransform(heroProgress, [0, 0.22, 1], ["0%", "0%", "0%"]),
     { stiffness: 92, damping: 24, mass: 0.35 }
   );
   const shutterY = useSpring(
