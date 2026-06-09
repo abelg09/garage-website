@@ -158,9 +158,10 @@ img {
   display: flex;
   align-items: center;
   gap: clamp(1.4rem, 3.3vw, 4rem);
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: var(--fs-label);
-  font-weight: 400;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -223,9 +224,11 @@ img {
   gap: 1.3rem;
   background: var(--white);
   padding: 8rem 1.5rem 3rem;
-  font-family: var(--display);
-  font-size: clamp(3rem, 14vw, 7rem);
-  line-height: 0.95;
+  font-family: var(--body);
+  font-weight: 800;
+  font-size: clamp(2.4rem, 11vw, 5.4rem);
+  letter-spacing: -0.01em;
+  line-height: 0.98;
   text-transform: uppercase;
 }
 
@@ -243,10 +246,11 @@ img {
 .section-title {
   margin: 0 0 clamp(2.2rem, 5vw, 4.2rem);
   color: var(--gray);
-  font-family: var(--display);
-  font-size: var(--fs-title);
-  font-weight: 400;
-  line-height: 0.9;
+  font-family: var(--body);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
   text-transform: uppercase;
 }
 
@@ -255,7 +259,7 @@ img {
 .expertise-section,
 .contact-section {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  background: var(--black);
+  background: #1a1a1d;
   color: var(--white);
 }
 
@@ -294,9 +298,9 @@ img {
 .eyebrow {
   margin: 0 0 0.8rem;
   color: var(--gray);
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: var(--fs-small);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
@@ -306,7 +310,7 @@ img {
   position: relative;
   height: 420vh;
   min-height: 420vh;
-  background: var(--black);
+  background: var(--paper-deep);
 }
 
 .hero-stage {
@@ -315,7 +319,7 @@ img {
   height: calc(100vh - var(--header-height));
   min-height: calc(100vh - var(--header-height));
   overflow: hidden;
-  background: var(--black);
+  background: var(--paper-deep);
 }
 
 .hero-backdrop,
@@ -328,7 +332,7 @@ img {
 .hero-backdrop {
   inset: 0;
   z-index: 0;
-  background: var(--black);
+  background: var(--paper-deep);
 }
 
 .hero-image {
@@ -419,7 +423,7 @@ img {
   inset: 0;
   z-index: 1;
   overflow: hidden;
-  background: var(--paper);
+  background: #d8d8da;
 }
 
 .garage-origin::after {
@@ -433,7 +437,8 @@ img {
 }
 
 .garage-origin-image {
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   filter: grayscale(1) contrast(1.08);
 }
 
@@ -446,7 +451,8 @@ img {
   padding: 0.45rem 0.7rem;
   background: rgba(5, 5, 5, 0.86);
   color: var(--white);
-  font-family: var(--display);
+  font-family: var(--body);
+  font-weight: 600;
   font-size: var(--fs-small);
   letter-spacing: 0.1em;
   line-height: 0.95;
@@ -497,10 +503,11 @@ img {
 
 .hero-copy h1 {
   margin: 0 0 1rem;
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: var(--fs-heading);
-  font-weight: 400;
-  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 0.98;
   text-transform: uppercase;
 }
 
@@ -571,8 +578,8 @@ img {
 
 .work-section {
   position: relative;
-  background: #0a0a0b;
-  color: var(--white);
+  background: #ececee;
+  color: var(--black);
 }
 
 /* Single sticky stage — all cards stack inside here */
@@ -596,7 +603,7 @@ img {
   display: grid;
   justify-content: center;
   margin: 0;
-  color: rgba(255, 255, 255, 0.055);
+  color: rgba(0, 0, 0, 0.05);
   font-family: var(--display);
   font-size: var(--fs-heading);
   font-weight: 400;
@@ -619,17 +626,17 @@ img {
   inset: 0;
   display: flex;
   flex-direction: column;
-  background: #141416;
+  background: #ffffff;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.4),
-    0 12px 40px rgba(0, 0, 0, 0.5),
-    0 40px 80px rgba(0, 0, 0, 0.3);
+    0 2px 4px rgba(0, 0, 0, 0.05),
+    0 12px 40px rgba(0, 0, 0, 0.1),
+    0 34px 70px rgba(0, 0, 0, 0.08);
   transform-origin: top center;
   will-change: transform, opacity;
-  color: var(--white);
+  color: var(--black);
 }
 
 /* Inner layout: index | copy | image */
@@ -645,10 +652,11 @@ img {
 
 .wdc-index {
   align-self: start;
-  font-family: var(--display);
+  font-family: var(--body);
+  font-weight: 700;
   font-size: var(--fs-heading);
   line-height: 0.8;
-  color: rgba(255, 255, 255, 0.18);
+  color: rgba(0, 0, 0, 0.14);
   padding-top: 0.1em;
 }
 
@@ -666,29 +674,30 @@ img {
 }
 
 .wdc-category {
-  font-family: var(--display);
+  font-family: var(--body);
+  font-weight: 700;
   font-size: var(--fs-small);
   letter-spacing: 0.1em;
   line-height: 1;
   text-transform: uppercase;
-  color: var(--gold);
+  color: #8a6d1f;
 }
 
 .wdc-client {
   font-size: var(--fs-small);
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
 
 .wdc-title {
   margin: 0;
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: var(--fs-heading);
-  font-weight: 400;
+  font-weight: 800;
   line-height: 0.94;
   text-transform: uppercase;
-  color: var(--white);
+  color: var(--black);
 }
 
 .wdc-summary {
@@ -696,7 +705,7 @@ img {
   max-width: 38ch;
   font-size: var(--fs-body);
   line-height: 1.72;
-  color: rgba(255, 255, 255, 0.54);
+  color: rgba(0, 0, 0, 0.62);
 }
 
 .wdc-cta {
@@ -704,7 +713,7 @@ img {
   align-items: center;
   gap: 0.5rem;
   font-size: var(--fs-body);
-  color: var(--gold);
+  color: #8a6d1f;
   margin-top: clamp(0.4rem, 0.8vw, 0.6rem);
 }
 
@@ -719,13 +728,13 @@ img {
   align-self: stretch;
   overflow: hidden;
   border-radius: 12px;
-  background: #1e1e20;
+  background: #e4e4e6;
   min-height: clamp(180px, 22vw, 380px);
 }
 
 .wdc-image img {
   object-fit: cover;
-  filter: grayscale(0.25) brightness(0.88);
+  filter: grayscale(0.12);
 }
 
 .wdc-image-overlay {
@@ -771,7 +780,8 @@ img {
   justify-content: center;
   gap: 0.7rem;
   padding-top: 1.15rem;
-  font-family: var(--display);
+  font-family: var(--body);
+  font-weight: 700;
   font-size: var(--fs-subhead);
   line-height: 1;
   text-align: center;
@@ -806,9 +816,10 @@ img {
 .work-detail h3,
 .modal-copy h3 {
   margin: 0;
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: var(--fs-heading);
-  font-weight: 400;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   line-height: 0.96;
   text-transform: uppercase;
 }
@@ -1301,7 +1312,8 @@ img {
 .crew-overlay span,
 .crew-overlay small {
   display: block;
-  font-family: var(--display);
+  font-family: var(--body);
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -1361,7 +1373,7 @@ img {
   grid-template-columns: minmax(280px, 0.9fr) minmax(320px, 1.2fr);
   gap: clamp(1.5rem, 4vw, 4rem);
   overflow: auto;
-  background: var(--black);
+  background: #1a1a1d;
   color: var(--white);
   padding: clamp(1rem, 3vw, 3rem);
 }
@@ -1417,7 +1429,8 @@ img {
 }
 
 .services-grid li {
-  font-family: var(--display);
+  font-family: var(--body);
+  font-weight: 700;
   font-size: var(--fs-subhead);
   line-height: 1;
   text-transform: uppercase;
@@ -1448,10 +1461,11 @@ img {
 
 .expertise-heading {
   margin: 0 0 clamp(1.2rem, 2.5vw, 2rem);
-  font-family: var(--display);
-  font-size: clamp(3rem, 5.5vw, 6rem);
-  font-weight: 400;
-  line-height: 0.9;
+  font-family: var(--body);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
   white-space: nowrap;
   text-transform: uppercase;
   color: var(--white);
@@ -1571,9 +1585,9 @@ img {
 }
 
 .svc-card-title {
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: var(--fs-subhead);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 0.92;
   text-transform: uppercase;
   color: var(--white);
@@ -1624,15 +1638,17 @@ img {
 }
 
 .rating-number {
-  font-family: var(--display);
-  font-size: var(--fs-title);
+  font-family: var(--body);
+  font-weight: 800;
+  font-size: clamp(3.4rem, 6vw, 5.4rem);
   line-height: 0.85;
   color: var(--white);
   text-transform: uppercase;
 }
 
 .rating-denom {
-  font-family: var(--display);
+  font-family: var(--body);
+  font-weight: 700;
   font-size: var(--fs-subhead);
   color: rgba(255, 255, 255, 0.38);
   text-transform: uppercase;
@@ -1660,9 +1676,9 @@ img {
   border: 2px solid var(--black);
   background: var(--gold);
   color: var(--black);
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: 0.7rem;
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.03em;
@@ -1677,7 +1693,8 @@ img {
 .rating-trust-label {
   margin: 0;
   color: var(--gold);
-  font-family: var(--display);
+  font-family: var(--body);
+  font-weight: 600;
   font-size: clamp(0.95rem, 1.2vw, 1.15rem);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1781,9 +1798,9 @@ img {
   border-radius: 50%;
   background: var(--gold);
   color: var(--black);
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: var(--fs-small);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -1797,9 +1814,9 @@ img {
 }
 
 .reviewer-name {
-  font-family: var(--display);
+  font-family: var(--body);
   font-size: var(--fs-body);
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
   color: var(--white);
   line-height: 1;
