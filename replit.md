@@ -30,7 +30,21 @@ _Populate as you build — non-obvious choices a reader couldn't infer from the 
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+GARAGE is an ad-agency marketing website (artifacts/garage-website) backed by an Express API (artifacts/api-server).
+
+- **Home** (`/`): single-page scroll — hero, work deck, clients, crew, services, contact.
+- **Work listing** (`/work`): public gallery grid of all case studies.
+- **Case study detail** (`/work/:id`): per-project page (cover, summary, impact, gallery).
+- **Contact form** (footer of home): posts to `POST /api/contact`, which emails the agency via Resend. Sonner toasts give feedback.
+
+### Routing
+- Uses `wouter` with `base = import.meta.env.BASE_URL` (set in `App.tsx`). Header nav hash links work cross-page (prefixed with BASE_URL when off-home; `useHashScrollOnMount` scrolls after navigating home).
+
+### Contact email (Resend)
+- Route: `artifacts/api-server/src/routes/contact.ts`, validated by `CreateContactMessageBody` (from `@workspace/api-zod`, generated from `lib/api-spec/openapi.yaml`).
+- Sends via the Resend connector (`@replit/connectors-sdk`).
+- Recipient/sender overridable via `CONTACT_RECIPIENT` / `CONTACT_FROM` env vars.
+- **Caveat:** the Resend account is in test mode — it only delivers to the account owner's address until a domain is verified at resend.com/domains. To deliver to `hello@garage-india.in`, verify the `garage-india.in` domain in Resend and set `CONTACT_FROM` to an address on that domain.
 
 ## User preferences
 

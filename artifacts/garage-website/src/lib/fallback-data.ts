@@ -232,9 +232,11 @@ export const fallbackContent: GarageContent = {
         alt: "Ashish Chakravarty portrait"
       },
       bio: [
-        "Ashish Chakravarty is one of India's most awarded and respected creative leaders, with more than two decades of senior creative leadership experience across influential agencies and global brands.",
-        "His work spans brands such as Nestle, Coca-Cola, Dabur, Air India, Microsoft, Hero, Lupin, ITC, Britannia, Domino's, General Motors, Docomo, Emami, and many others.",
-        "Today, Ashish is the Managing Partner and Chief Creative Officer of Garage Worldwide, a new-age agency built at the crossroads of strategy, creativity, and technology."
+        "Ashish Chakravarty is one of India's most awarded and respected creative leaders. Over a career spanning more than two decades, he has held senior creative leadership roles at some of the country's most influential agencies and worked on some of the world's biggest global brands as well as India's most iconic homegrown names.",
+        "His body of work spans brands such as Nestle, Coca-Cola, Dabur, Air India, Microsoft, Hero, Lupin, ITC, Britannia, Domino's, General Motors, Docomo, Emami, Campa, and assignments for the Government of India and BJP, among many others. Across categories and markets, Ashish has created talked-about campaigns, enduring brand platforms, and long-term narratives that have shaped how brands are built and remembered.",
+        "His work has been recognised extensively in India and internationally, winning at the world's most prestigious award shows including Cannes Lions, D&AD, The One Show, Clio, Spikes Asia, and Effies, with a career tally approaching 500 awards. He is frequently invited to serve on \u2014 and chair \u2014 award juries across global markets, and has also mentored young creative talent worldwide through the London International Awards programme.",
+        "Ashish has consistently featured among the industry's top creative leaders. He has been ranked among India's top Creative Directors by The Economic Times for three consecutive years, named the No. 1 Creative Director in India by Campaign's 2026 global rankings, and previously recognised as one of the Top 50 Executive Creative Directors globally by international Most Won rankings.",
+        "Today, Ashish is the Managing Partner and Chief Creative Officer of Garage Worldwide \u2014 a new-age agency built to significantly boost brands. Founded in partnership with Raj Kamble of Famous Innovations, Garage sits at the crossroads of strategy, creativity, and technology. He remains deeply hands-on, shaping brand strategy, creative direction, and client partnerships to ensure every engagement delivers meaningful, measurable impact in a fast-evolving global market."
       ]
     },
     {
@@ -254,10 +256,12 @@ export const fallbackContent: GarageContent = {
     {
       id: "swati-bobde",
       name: "Swati Bobde",
-      role: "Strategy and Brand Partner",
+      role: "Chief Operating Officer",
       bio: [
-        "Swati brings sharp brand thinking, business context, and calm momentum to campaigns that need to move from insight to impact.",
-        "Her full production biography can be managed in Sanity as soon as the approved profile copy and portrait are supplied."
+        "Swati Bobde is a business leader, entrepreneur, and brand strategist with over two decades of experience spanning advertising, design, branding, production, and business transformation.",
+        "Prior to joining Garage Worldwide, she held senior leadership roles at Publicis, was a co-founder of Clay Strategy & Design, worked across leading agencies including JWT and Rediffusion, and spent time in production as an Executive Producer. Throughout her career, she has successfully led multi-crore business portfolios, built and scaled brands, delivered award-winning integrated campaigns, driven significant revenue growth, and partnered with global teams across Asia-Pacific markets.",
+        "Over the years, Swati has worked on both global and India's most recognised brands, including Garnier, Lakme, Kellogg's, Sunsilk, Marico, Godrej, Colgate, Taj Hotels, Johnson & Johnson, Yatra, Sugar Free, Nycil, Listerine, and Tang, among others.",
+        "Today, as Chief Operating Officer of Garage Worldwide, she leads business operations, growth, client partnerships, and organisational development, helping shape the agency's vision while driving sustainable growth and measurable business impact for clients."
       ]
     },
     {

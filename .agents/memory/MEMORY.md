@@ -1,0 +1,1 @@
+- [Resend test-mode delivery limit](resend-test-mode.md) — Resend only delivers to account owner until a domain is verified; CONTACT_FROM/CONTACT_RECIPIENT are env-overridable.
