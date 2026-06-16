@@ -619,6 +619,7 @@ img {
   position: relative;
   flex: 1;
   min-height: 0;
+  isolation: isolate;
 }
 
 /* Every card occupies the full deck space */
@@ -636,8 +637,15 @@ img {
     0 12px 40px rgba(0, 0, 0, 0.1),
     0 34px 70px rgba(0, 0, 0, 0.08);
   transform-origin: top center;
-  will-change: transform, opacity;
   color: var(--black);
+}
+
+/* Opacity-only wrapper — keeps the white card background always fully opaque */
+.wdc-fade-layer {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Inner layout: index | copy | image */

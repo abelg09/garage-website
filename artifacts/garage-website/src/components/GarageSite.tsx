@@ -384,9 +384,10 @@ function DeckCard({
     <motion.article
       className="work-deck-card"
       role="listitem"
-      style={{ y, scale, opacity, zIndex: index + 1 }}
+      style={{ y, scale, zIndex: index + 1 }}
       aria-labelledby={`deck-title-${project.id}`}
     >
+      <motion.div className="wdc-fade-layer" style={{ opacity }}>
       <Link className="wdc-inner" href={`/work/${project.id}`}>
         <span className="wdc-index" aria-hidden="true">{projectNumber}</span>
         <div className="wdc-body">
@@ -417,6 +418,7 @@ function DeckCard({
           <span className="wdc-image-overlay" aria-hidden="true" />
         </div>
       </Link>
+      </motion.div>
     </motion.article>
   );
 }
