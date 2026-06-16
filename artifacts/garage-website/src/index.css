@@ -666,8 +666,10 @@ img {
 .wdc-body {
   display: grid;
   align-content: center;
-  gap: clamp(0.6rem, 1.2vw, 1rem);
+  gap: clamp(0.4rem, 0.8vw, 0.75rem);
   padding: clamp(0.5rem, 1.2vw, 1.2rem) 0;
+  overflow: hidden;
+  min-width: 0;
 }
 
 .wdc-meta {
@@ -696,19 +698,28 @@ img {
 .wdc-title {
   margin: 0;
   font-family: var(--body);
-  font-size: var(--fs-heading);
+  font-size: clamp(1.5rem, 2.8vw, 3.6rem);
   font-weight: 800;
-  line-height: 0.94;
+  line-height: 0.96;
   text-transform: uppercase;
   color: var(--black);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .wdc-summary {
   margin: 0;
   max-width: 38ch;
   font-size: var(--fs-body);
-  line-height: 1.72;
+  line-height: 1.6;
   color: rgba(0, 0, 0, 0.62);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .wdc-cta {
