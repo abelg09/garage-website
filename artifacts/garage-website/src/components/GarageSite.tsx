@@ -447,7 +447,7 @@ function ClientsSection({ clients }: { clients: GarageContent["clients"] }) {
                 <img
                   src={client.logo.src}
                   alt={client.logo.alt}
-                  style={{ maxWidth: "160px", maxHeight: "56px", width: "auto", height: "auto" }}
+                  style={{ width: "100%", maxWidth: "170px", height: "auto", display: "block" }}
                 />
               ) : (
                 <ClientWordmark name={client.name} />
