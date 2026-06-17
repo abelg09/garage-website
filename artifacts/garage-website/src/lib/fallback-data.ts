@@ -374,18 +374,6 @@ export const fallbackContent: GarageContent = {
       portrait: { src: "/crew/christine.jpg", alt: "Christine portrait" },
       bio: ["Team member at Garage Worldwide."]
     },
-    {
-      id: "qaid-vora",
-      name: "Qaid Vora",
-      role: "Strategy Director",
-      tier: "team",
-      portrait: { src: `${ppt}crew-qaid-portrait.jpg`, alt: "Qaid Vora portrait" },
-      bio: [
-        "Qaid is a seasoned planner and strategist with a decade of experience in brand communication and advertising \u2014 across femcare, automotive, BFSI, and gaming, with markets spanning APAC and EMEA.",
-        "He has contributed to exciting work for brands such as J&J (Clean & Clear, Stayfree, and Neutrogena), Bajaj, Jeep, Visa, Bridgestone, and Air Asia, among others.",
-        "Beyond work, Qaid has a passion for gaming that keeps him engaged for hours, and his current obsessions fluctuate between swimming and cycling \u2014 though that may well be obsolete by the time you read this."
-      ]
-    }
   ],
   services: [
     "Brand Strategy & Creatives",
