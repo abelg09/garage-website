@@ -1409,6 +1409,21 @@ img {
   background: #101010;
 }
 
+.crew-office-split {
+  aspect-ratio: 3 / 4;
+  background-repeat: no-repeat;
+  background-size: auto calc(200% + clamp(0.2rem, 0.4vw, 0.4rem));
+  filter: grayscale(1);
+}
+
+.crew-office-split--top {
+  background-position: center top;
+}
+
+.crew-office-split--bottom {
+  background-position: center bottom;
+}
+
 .crew-card:hover .crew-overlay,
 .crew-card:focus-visible .crew-overlay {
   background: linear-gradient(180deg, transparent 20%, rgba(5, 5, 5, 0.92));
@@ -2199,6 +2214,11 @@ img {
   .crew-team {
     grid-template-columns: repeat(3, 1fr);
     gap: 0.25rem;
+  }
+
+  .crew-office-split {
+    background-size: cover;
+    background-position: center;
   }
 
   .client-grid {

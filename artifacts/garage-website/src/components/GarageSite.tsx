@@ -576,18 +576,19 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   const leaders = crew.filter((m) => m.tier === "leader");
   const team = crew.filter((m) => m.tier !== "leader");
 
-  type OfficeCell = { kind: "office"; src: string; alt: string };
+  type OfficeCell = { kind: "office"; src: string; alt: string; split?: "top" | "bottom" };
   type CrewCell = { kind: "crew"; member: CrewMember; globalIndex: number };
   type GridCell = CrewCell | OfficeCell;
 
   const o = (src: string, alt: string): OfficeCell => ({ kind: "office", src, alt });
+  const oSplit = (src: string, alt: string, split: "top" | "bottom"): OfficeCell => ({ kind: "office", src, alt, split });
   const c = (idx: number): CrewCell => ({ kind: "crew", member: team[idx], globalIndex: crew.indexOf(team[idx]) });
 
   const teamGrid: GridCell[] = [
     c(0),  o("/crew/office-trophies.jpg",     "Garage trophies"),          c(1),  c(2),  c(3),
     c(4),  c(5),                               o("/crew/office-chandelier.jpg", "Headlights chandelier"), c(6),  o("/crew/office-stools.jpg", "Garage workspace"),
-    c(7),  o("/crew/office-mural.jpg",         "Rules mural"),              c(8),  c(9),  c(10),
-    c(11), o("/crew/office-stools.jpg",        "Garage bar area"),          o("/crew/office-entrepreneur.jpg", "Entrepreneur Mindsets Welcome"), c(12), c(13),
+    c(7),  oSplit("/crew/office-mural.jpg",    "Rules mural", "top"),       c(8),  c(9),  c(10),
+    c(11), oSplit("/crew/office-mural.jpg",    "Garage office interior", "bottom"), o("/crew/office-entrepreneur.jpg", "Entrepreneur Mindsets Welcome"), c(12), c(13),
   ];
 
   return (
@@ -641,6 +642,18 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
         >
           {teamGrid.map((cell, i) => {
             if (cell.kind === "office") {
+              if (cell.split) {
+                return (
+                  <motion.span
+                    key={`office-${i}`}
+                    className={`crew-office-cell crew-office-split crew-office-split--${cell.split}`}
+                    style={{ backgroundImage: `url("${cell.src}")` }}
+                    role="img"
+                    aria-label={cell.alt}
+                    variants={reveal}
+                  />
+                );
+              }
               return (
                 <motion.span
                   key={`office-${i}`}
