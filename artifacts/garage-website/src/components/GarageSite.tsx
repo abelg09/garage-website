@@ -576,6 +576,25 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   const leaders = crew.filter((m) => m.tier === "leader");
   const team = crew.filter((m) => m.tier !== "leader");
 
+  type OfficeCell = { kind: "office"; src: string; alt: string; span?: number };
+  type CrewCell = { kind: "crew"; member: CrewMember; globalIndex: number };
+  type GridCell = CrewCell | OfficeCell;
+
+  const OFFICE_INSERTS: { afterTeamIndex: number; cell: OfficeCell }[] = [
+    { afterTeamIndex: 1,  cell: { kind: "office", src: "/crew/office-trophies.jpg",     alt: "Garage trophies" } },
+    { afterTeamIndex: 6,  cell: { kind: "office", src: "/crew/office-chandelier.jpg",   alt: "Headlights chandelier" } },
+    { afterTeamIndex: 7,  cell: { kind: "office", src: "/crew/office-stools.jpg",       alt: "Garage bar stools" } },
+    { afterTeamIndex: 8,  cell: { kind: "office", src: "/crew/office-mural.jpg",        alt: "Rules mural" } },
+    { afterTeamIndex: 12, cell: { kind: "office", src: "/crew/office-entrepreneur.jpg", alt: "Entrepreneur Mindsets Welcome", span: 2 } },
+  ];
+
+  const teamGrid: GridCell[] = [];
+  team.forEach((member, i) => {
+    teamGrid.push({ kind: "crew", member, globalIndex: crew.indexOf(member) });
+    const insert = OFFICE_INSERTS.find((o) => o.afterTeamIndex === i + 1);
+    if (insert) teamGrid.push(insert.cell);
+  });
+
   return (
     <section id="crew" className="section-band crew-section" aria-labelledby="crew-title">
       <div className="section-inner">
@@ -625,21 +644,32 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
           viewport={{ once: true, amount: 0.1 }}
           variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.04 } } }}
         >
-          {team.map((member) => {
-            const globalIndex = crew.indexOf(member);
+          {teamGrid.map((cell, i) => {
+            if (cell.kind === "office") {
+              return (
+                <motion.span
+                  key={`office-${i}`}
+                  className={`crew-office-cell${cell.span ? " crew-office-cell--wide" : ""}`}
+                  style={cell.span ? { gridColumn: `span ${cell.span}` } : undefined}
+                  variants={reveal}
+                >
+                  <img src={cell.src} alt={cell.alt} />
+                </motion.span>
+              );
+            }
             return (
               <motion.button
-                key={member.id}
+                key={cell.member.id}
                 type="button"
                 className="crew-card crew-team-card"
                 variants={reveal}
-                onClick={() => selectCrew(globalIndex)}
+                onClick={() => selectCrew(cell.globalIndex)}
               >
                 <span className="crew-photo">
-                  {member.portrait?.src ? (
+                  {cell.member.portrait?.src ? (
                     <img
-                      src={member.portrait.src}
-                      alt={member.portrait.alt}
+                      src={cell.member.portrait.src}
+                      alt={cell.member.portrait.alt}
                       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
                     />
                   ) : (
@@ -647,8 +677,8 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                   )}
                 </span>
                 <span className="crew-overlay">
-                  <span>{member.name}</span>
-                  <small>{member.role}</small>
+                  <span>{cell.member.name}</span>
+                  <small>{cell.member.role}</small>
                 </span>
               </motion.button>
             );
