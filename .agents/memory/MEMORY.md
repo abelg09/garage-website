@@ -1,1 +1,2 @@
 - [Resend test-mode delivery limit](resend-test-mode.md) — Resend only delivers to account owner until a domain is verified; CONTACT_FROM/CONTACT_RECIPIENT are env-overridable.
+- [GARAGE case-study covers are slides](garage-slide-covers.md) — work-image surfaces must use object-fit:contain + 16:9 container; cover crops baked-in headline/branding.

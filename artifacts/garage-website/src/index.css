@@ -747,15 +747,16 @@ img {
 
 .wdc-image {
   position: relative;
-  align-self: stretch;
+  align-self: center;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 12px;
-  background: #e4e4e6;
-  min-height: clamp(180px, 22vw, 380px);
+  background: #0e0e0e;
 }
 
 .wdc-image img {
-  object-fit: cover;
+  object-fit: contain;
   filter: grayscale(0.12);
 }
 
@@ -2158,7 +2159,7 @@ img {
 
   .wdc-image {
     order: -1;
-    min-height: clamp(160px, 38vw, 260px);
+    aspect-ratio: 16 / 9;
     border-radius: 8px;
   }
 
@@ -2566,7 +2567,8 @@ img {
 .case-hero-fullbleed {
   position: relative;
   width: 100%;
-  height: clamp(480px, calc(100svh - var(--header-height, 112px)), 900px);
+  aspect-ratio: 16 / 9;
+  max-height: calc(100svh - var(--header-height, 112px));
   overflow: hidden;
   background: #0a0a0a;
 }
@@ -2576,7 +2578,7 @@ img {
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 }
 

@@ -407,12 +407,13 @@ function DeckCard({
           <img
             src={project.cover.src}
             alt={project.cover.alt}
+            loading="lazy"
             style={{
               position: "absolute",
               inset: 0,
               width: "100%",
               height: "100%",
-              objectFit: "cover",
+              objectFit: "contain",
             }}
           />
           <span className="wdc-image-overlay" aria-hidden="true" />
