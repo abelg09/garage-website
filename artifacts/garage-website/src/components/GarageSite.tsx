@@ -576,24 +576,19 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   const leaders = crew.filter((m) => m.tier === "leader");
   const team = crew.filter((m) => m.tier !== "leader");
 
-  type OfficeCell = { kind: "office"; src: string; alt: string; span?: number };
+  type OfficeCell = { kind: "office"; src: string; alt: string };
   type CrewCell = { kind: "crew"; member: CrewMember; globalIndex: number };
   type GridCell = CrewCell | OfficeCell;
 
-  const OFFICE_INSERTS: { afterTeamIndex: number; cell: OfficeCell }[] = [
-    { afterTeamIndex: 1,  cell: { kind: "office", src: "/crew/office-trophies.jpg",     alt: "Garage trophies" } },
-    { afterTeamIndex: 6,  cell: { kind: "office", src: "/crew/office-chandelier.jpg",   alt: "Headlights chandelier" } },
-    { afterTeamIndex: 7,  cell: { kind: "office", src: "/crew/office-stools.jpg",       alt: "Garage bar stools" } },
-    { afterTeamIndex: 8,  cell: { kind: "office", src: "/crew/office-mural.jpg",        alt: "Rules mural" } },
-    { afterTeamIndex: 12, cell: { kind: "office", src: "/crew/office-entrepreneur.jpg", alt: "Entrepreneur Mindsets Welcome", span: 2 } },
-  ];
+  const o = (src: string, alt: string): OfficeCell => ({ kind: "office", src, alt });
+  const c = (idx: number): CrewCell => ({ kind: "crew", member: team[idx], globalIndex: crew.indexOf(team[idx]) });
 
-  const teamGrid: GridCell[] = [];
-  team.forEach((member, i) => {
-    teamGrid.push({ kind: "crew", member, globalIndex: crew.indexOf(member) });
-    const insert = OFFICE_INSERTS.find((o) => o.afterTeamIndex === i + 1);
-    if (insert) teamGrid.push(insert.cell);
-  });
+  const teamGrid: GridCell[] = [
+    c(0),  o("/crew/office-trophies.jpg",     "Garage trophies"),          c(1),  c(2),  c(3),
+    c(4),  c(5),                               o("/crew/office-chandelier.jpg", "Headlights chandelier"), c(6),  o("/crew/office-stools.jpg", "Garage workspace"),
+    c(7),  o("/crew/office-mural.jpg",         "Rules mural"),              c(8),  c(9),  c(10),
+    c(11), o("/crew/office-stools.jpg",        "Garage bar area"),          o("/crew/office-entrepreneur.jpg", "Entrepreneur Mindsets Welcome"), c(12), c(13),
+  ];
 
   return (
     <section id="crew" className="section-band crew-section" aria-labelledby="crew-title">
@@ -649,11 +644,16 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
               return (
                 <motion.span
                   key={`office-${i}`}
-                  className={`crew-office-cell${cell.span ? " crew-office-cell--wide" : ""}`}
-                  style={cell.span ? { gridColumn: `span ${cell.span}` } : undefined}
+                  className="crew-office-cell"
                   variants={reveal}
                 >
-                  <img src={cell.src} alt={cell.alt} />
+                  <span className="crew-photo">
+                    <img
+                      src={cell.src}
+                      alt={cell.alt}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+                    />
+                  </span>
                 </motion.span>
               );
             }
