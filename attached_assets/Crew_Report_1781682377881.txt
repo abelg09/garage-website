@@ -1,0 +1,238 @@
+Package Report
+
+-----------------------------------------------------------------------------
+Document:
+Name: Crew.ai
+Color Mode: CMYK color
+Color Profile: U.S. Web Coated (SWOP) v2
+Ruler Units: centimeters
+Artboard Dimensions: 67.7333 cm x 101.2969 cm
+Show Images in Outline Mode: OFF
+Highlight Substituted Fonts: OFF
+Highlight Substituted Glyphs: OFF
+Preserve Text Editability
+Simulate Colored Paper: OFF
+
+-----------------------------------------------------------------------------
+Spot Color Objects:
+
+-----------------------------------------------------------------------------
+Missing Fonts:NONE
+
+-----------------------------------------------------------------------------
+Protected Fonts that were not packaged:
+Altivo Regular (Adobe Fonts)
+Altivo Light Italic (Adobe Fonts)
+Altivo Light (Adobe Fonts)
+
+-----------------------------------------------------------------------------
+Fonts:
+Detroit 05 Base (OTF)
+
+-----------------------------------------------------------------------------
+Embedded Fonts:
+NONE
+
+-----------------------------------------------------------------------------
+Missing Links:
+NONE
+
+-----------------------------------------------------------------------------
+Linked Images:
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Christine/garage website2365.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 409.325 by 613.32 points 
+Resolution: 1294.621 by 576.638 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Saniya/garage website2118.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 801.492 by 534.909 points 
+Resolution: 661.167 by 661.167 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Adwait/garage website1937.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 1099.314 by 733.673 points 
+Resolution: 482.046 by 482.046 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Samir/garage website1713.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 372.955 by 558.825 points 
+Resolution: 1420.868 by 632.871 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Tanvi/garage website1914.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 428.502 by 642.054 points 
+Resolution: 1236.682 by 550.832 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Kyle/garage website2336.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 649.664 by 433.58 points 
+Resolution: 815.683 by 815.683 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Garage pics/WhatsApp Image 2026-02-27 at 12.26.55 (2).jpeg
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 3600K, 960 by 1280 pixels
+Dimensions: 527.614 by 703.485 points 
+Resolution: 131.005 by 131.005 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Garage pics/WhatsApp Image 2026-02-27 at 12.26.55 (3).jpeg
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 3600K, 1280 by 960 pixels
+Dimensions: 909.576 by 682.182 points 
+Resolution: 101.322 by 101.322 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Pranali/garage website1696.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 623.796 by 934.678 points 
+Resolution: 849.509 by 378.381 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Mobiyana/garage website1843.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 825.686 by 551.056 points 
+Resolution: 641.793 by 641.793 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Aryan/garage website1596.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 420.225 by 629.652 points 
+Resolution: 1261.04 by 561.681 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Shay/garage website2071.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 479.64 by 718.678 points 
+Resolution: 1104.829 by 492.103 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Vedant/garage website1668.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 436.437 by 653.944 points 
+Resolution: 1214.197 by 540.817 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Aniket/garage website2310.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 325.981 by 488.44 points 
+Resolution: 1625.618 by 724.068 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Rujvi/garage website1766.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 322.863 by 483.768 points 
+Resolution: 1641.316 by 731.061 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Utsav/garage website1806.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 1004.491 by 670.388 points 
+Resolution: 527.551 by 527.551 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Garage pics/WhatsApp Image 2026-02-27 at 12.26.56.jpeg
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 3600K, 960 by 1280 pixels
+Dimensions: 798.98 by 1048.419 points 
+Resolution: 86.51 by 87.904 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Garage pics/WhatsApp Image 2026-02-27 at 13.03.01.jpeg
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 2212K, 1280 by 590 pixels
+Dimensions: 931.728 by 429.468 points 
+Resolution: 98.913 by 98.913 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Garage pics/WhatsApp Image 2026-02-27 at 12.26.55.jpeg
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 3600K, 960 by 1280 pixels
+Dimensions: 422.32 by 555.409 points 
+Resolution: 163.667 by 165.932 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Bryan/garage website2411.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 736.715 by 1103.873 points 
+Resolution: 719.301 by 320.385 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Swati/garage website2182.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 571.335 by 856.072 points 
+Resolution: 927.512 by 413.124 pixels per inch
+
+
+/Users/fi-185/Documents/Clients/FAMOUS/Garage/Website/GARAGE WEB SHOOT/Ashish/garage website2218.JPG
+Type: RGB
+Bits per Pixel: 24
+Channels: 3
+Size: 105915K, 7360 by 4912 pixels
+Dimensions: 564.502 by 845.833 points 
+Resolution: 938.739 by 418.125 pixels per inch
