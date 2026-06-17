@@ -573,6 +573,20 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   const next = () =>
     setSelectedIndex((current) => (current === null ? 0 : (current + 1) % crew.length));
 
+  // Lightweight single IntersectionObserver — replaces 28 framer-motion whileInView elements
+  const teamRef = useRef<HTMLDivElement>(null);
+  const [teamVisible, setTeamVisible] = useState(false);
+  useEffect(() => {
+    const el = teamRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setTeamVisible(true); obs.disconnect(); } },
+      { threshold: 0.05 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   const leaders = crew.filter((m) => m.tier === "leader");
   const team = crew.filter((m) => m.tier !== "leader");
 
@@ -633,37 +647,34 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
           })}
         </motion.div>
 
-        <motion.div
-          className="crew-team"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.04 } } }}
+        <div
+          ref={teamRef}
+          className={`crew-team${teamVisible ? " crew-team--visible" : ""}`}
         >
           {teamGrid.map((cell, i) => {
             if (cell.kind === "office") {
               if (cell.split) {
                 return (
-                  <motion.span
+                  <span
                     key={`office-${i}`}
                     className={`crew-office-cell crew-office-split crew-office-split--${cell.split}`}
-                    style={{ backgroundImage: `url("${cell.src}")` }}
+                    style={{ backgroundImage: `url("${cell.src}")`, "--i": i } as React.CSSProperties}
                     role="img"
                     aria-label={cell.alt}
-                    variants={reveal}
                   />
                 );
               }
               return (
-                <motion.span
+                <span
                   key={`office-${i}`}
                   className="crew-office-cell"
-                  variants={reveal}
+                  style={{ "--i": i } as React.CSSProperties}
                 >
                   <span className="crew-photo">
                     <img
                       src={cell.src}
                       alt={cell.alt}
+                      loading="lazy"
                       style={{
                         position: "absolute",
                         inset: 0,
@@ -676,15 +687,15 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                       }}
                     />
                   </span>
-                </motion.span>
+                </span>
               );
             }
             return (
-              <motion.button
+              <button
                 key={cell.member.id}
                 type="button"
                 className="crew-card crew-team-card"
-                variants={reveal}
+                style={{ "--i": i } as React.CSSProperties}
                 onClick={() => selectCrew(cell.globalIndex)}
               >
                 <span className="crew-photo">
@@ -692,6 +703,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                     <img
                       src={cell.member.portrait.src}
                       alt={cell.member.portrait.alt}
+                      loading="lazy"
                       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
                     />
                   ) : (
@@ -702,10 +714,10 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                   <span>{cell.member.name}</span>
                   <small>{cell.member.role}</small>
                 </span>
-              </motion.button>
+              </button>
             );
           })}
-        </motion.div>
+        </div>
       </div>
       <CrewModal
         member={selected}

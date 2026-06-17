@@ -1333,10 +1333,28 @@ img {
 }
 
 /* ── Team mosaic grid ────────────────────────────────────── */
+/* ── Crew team grid: CSS animation (single IntersectionObserver, no per-cell framer-motion) ── */
+@keyframes crewReveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .crew-team {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: clamp(0.2rem, 0.4vw, 0.4rem);
+}
+
+/* Hidden by default — animated in when parent gets --visible class */
+.crew-team .crew-card,
+.crew-team .crew-office-cell {
+  opacity: 0;
+}
+
+.crew-team--visible .crew-card,
+.crew-team--visible .crew-office-cell {
+  animation: crewReveal 0.32s ease forwards;
+  animation-delay: calc(var(--i, 0) * 28ms);
 }
 
 .crew-card {
@@ -1563,7 +1581,7 @@ img {
 
 .svc-section {
   position: relative;
-  min-height: 220vh;
+  min-height: 130vh;
 }
 
 .svc-container {
