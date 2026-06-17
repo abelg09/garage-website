@@ -1653,9 +1653,7 @@ img {
   padding: clamp(1.6rem, 2.8vw, 2.6rem);
   border: 1px solid rgba(199, 164, 82, 0.22);
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.035);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgb(16, 16, 16);
   transform-origin: top center;
   transition: background 280ms ease, border-color 280ms ease, box-shadow 280ms ease;
 }

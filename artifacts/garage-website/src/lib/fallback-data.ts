@@ -162,50 +162,6 @@ export const fallbackContent: GarageContent = {
       ]
     }
   ],
-  reviews: [
-    {
-      id: "review-ananya",
-      quote: "GARAGE brought a scrappy, fearless energy to our campaign. The kind of agency that actually thinks before it executes — rare and necessary.",
-      reviewer: "Ananya Kapoor",
-      role: "CMO, Grameen Kulfi",
-      initials: "AK"
-    },
-    {
-      id: "review-rohit",
-      quote: "The team understood the brand before they understood the brief. The work felt like it came from inside the company, not outside it.",
-      reviewer: "Rohit Mehta",
-      role: "VP Brand, Johnson Consumer",
-      initials: "RM"
-    },
-    {
-      id: "review-priya",
-      quote: "What impressed us most was the restraint. GARAGE knows when to be loud and when to let the product breathe. That discipline is hard to find.",
-      reviewer: "Priya Nair",
-      role: "Head of Marketing, IFB Industries",
-      initials: "PN"
-    },
-    {
-      id: "review-siddharth",
-      quote: "Every brief we gave them came back sharper. They don't just answer the question — they find the better question underneath it.",
-      reviewer: "Siddharth Rao",
-      role: "Brand Lead, Tata Consumer",
-      initials: "SR"
-    },
-    {
-      id: "review-meera",
-      quote: "The Jameson campaign was the most creatively confident work our brand has run in five years. GARAGE delivered without ego.",
-      reviewer: "Meera Iyer",
-      role: "Marketing Director, Pernod Ricard",
-      initials: "MI"
-    },
-    {
-      id: "review-karan",
-      quote: "They move fast and still get it right. In a category crowded with slow agencies, GARAGE is a breath of actual fresh air.",
-      reviewer: "Karan Malhotra",
-      role: "Co-founder, Plum Goodness",
-      initials: "KM"
-    }
-  ],
   clients: [
     { name: "Grameen Kulfi",          logo: "/clients/grameen-kulfi.png"   },
     { name: "H&R Johnson",            logo: "/clients/johnson.png"         },
