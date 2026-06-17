@@ -573,46 +573,86 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   const next = () =>
     setSelectedIndex((current) => (current === null ? 0 : (current + 1) % crew.length));
 
+  const leaders = crew.filter((m) => m.tier === "leader");
+  const team = crew.filter((m) => m.tier !== "leader");
+
   return (
     <section id="crew" className="section-band crew-section" aria-labelledby="crew-title">
       <div className="section-inner">
         <SectionHeading id="crew-title">Crew</SectionHeading>
+
         <motion.div
-          className="crew-grid"
+          className="crew-leaders"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.08 } }
-          }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
         >
-          {crew.map((member, index) => (
-            <motion.button
-              key={member.id}
-              type="button"
-              className="crew-card"
-              variants={reveal}
-              onClick={() => selectCrew(index)}
-              data-testid={`crew-card-${index}`}
-            >
-              <span className="crew-photo">
-                {member.portrait?.src ? (
-                  <img
-                    src={member.portrait.src}
-                    alt={member.portrait.alt}
-                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-                  />
-                ) : (
-                  <span aria-hidden="true" />
-                )}
-              </span>
-              <span className="crew-overlay">
-                <span>{member.name}</span>
-                <small>{member.role}</small>
-              </span>
-            </motion.button>
-          ))}
+          {leaders.map((member) => {
+            const globalIndex = crew.indexOf(member);
+            return (
+              <motion.button
+                key={member.id}
+                type="button"
+                className="crew-leader-card"
+                variants={reveal}
+                onClick={() => selectCrew(globalIndex)}
+              >
+                <span className="crew-leader-photo">
+                  {member.portrait?.src ? (
+                    <img
+                      src={member.portrait.src}
+                      alt={member.portrait.alt}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                    />
+                  ) : (
+                    <span aria-hidden="true" />
+                  )}
+                </span>
+                <span className="crew-leader-caption">
+                  <span className="crew-leader-name">{member.name}</span>
+                  <small className="crew-leader-role">{member.role}</small>
+                </span>
+              </motion.button>
+            );
+          })}
+        </motion.div>
+
+        <motion.div
+          className="crew-team"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.04 } } }}
+        >
+          {team.map((member) => {
+            const globalIndex = crew.indexOf(member);
+            return (
+              <motion.button
+                key={member.id}
+                type="button"
+                className="crew-card crew-team-card"
+                variants={reveal}
+                onClick={() => selectCrew(globalIndex)}
+              >
+                <span className="crew-photo">
+                  {member.portrait?.src ? (
+                    <img
+                      src={member.portrait.src}
+                      alt={member.portrait.alt}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                    />
+                  ) : (
+                    <span aria-hidden="true" />
+                  )}
+                </span>
+                <span className="crew-overlay">
+                  <span>{member.name}</span>
+                  <small>{member.role}</small>
+                </span>
+              </motion.button>
+            );
+          })}
         </motion.div>
       </div>
       <CrewModal

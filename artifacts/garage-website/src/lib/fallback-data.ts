@@ -227,36 +227,22 @@ export const fallbackContent: GarageContent = {
       id: "ashish-chakravarty",
       name: "Ashish Chakravarty",
       role: "Managing Partner and Chief Creative Officer",
-      portrait: {
-        src: `${ppt}crew-ashish-portrait.jpg`,
-        alt: "Ashish Chakravarty portrait"
-      },
+      tier: "leader",
+      portrait: { src: "/crew/ashish.jpg", alt: "Ashish Chakravarty portrait" },
       bio: [
         "Ashish Chakravarty is one of India's most awarded and respected creative leaders. Over a career spanning more than two decades, he has held senior creative leadership roles at some of the country's most influential agencies and worked on some of the world's biggest global brands as well as India's most iconic homegrown names.",
         "His body of work spans brands such as Nestle, Coca-Cola, Dabur, Air India, Microsoft, Hero, Lupin, ITC, Britannia, Domino's, General Motors, Docomo, Emami, Campa, and assignments for the Government of India and BJP, among many others. Across categories and markets, Ashish has created talked-about campaigns, enduring brand platforms, and long-term narratives that have shaped how brands are built and remembered.",
         "His work has been recognised extensively in India and internationally, winning at the world's most prestigious award shows including Cannes Lions, D&AD, The One Show, Clio, Spikes Asia, and Effies, with a career tally approaching 500 awards. He is frequently invited to serve on \u2014 and chair \u2014 award juries across global markets, and has also mentored young creative talent worldwide through the London International Awards programme.",
-        "Ashish has consistently featured among the industry's top creative leaders. He has been ranked among India's top Creative Directors by The Economic Times for three consecutive years, named the No. 1 Creative Director in India by Campaign's 2026 global rankings, and previously recognised as one of the Top 50 Executive Creative Directors globally by international Most Won rankings.",
+        "Ashish has consistently featured among the industry's top creative leaders. He has been ranked among India's top Creative Directors by The Economic Times for three consecutive years, named the No. 1 Creative Director in India by Campaign\u2019s 2026 global rankings, and previously recognised as one of the Top 50 Executive Creative Directors globally by international Most Won rankings.",
         "Today, Ashish is the Managing Partner and Chief Creative Officer of Garage Worldwide \u2014 a new-age agency built to significantly boost brands. Founded in partnership with Raj Kamble of Famous Innovations, Garage sits at the crossroads of strategy, creativity, and technology. He remains deeply hands-on, shaping brand strategy, creative direction, and client partnerships to ensure every engagement delivers meaningful, measurable impact in a fast-evolving global market."
-      ]
-    },
-    {
-      id: "bryan-elijah",
-      name: "Bryan Elijah",
-      role: "Creative Head – Art",
-      portrait: {
-        src: `${ppt}crew-bryan-portrait.jpg`,
-        alt: "Bryan Elijah portrait"
-      },
-      bio: [
-        "Bryan brings over 20 years of experience in the advertising industry, consistently delivering innovative campaigns across digital media, integrated marketing, and branding — with a particular mark in the luxury automobile sector.",
-        "His career spans leading agencies including Rediffusion, Creativeland, Percept/H, IBD Percept, Law & Kenneth, and RMG David, where he shaped campaigns that resonate with audiences across high-end and mass-market brands alike.",
-        "Bryan's work has been recognised at Goafest, Spikes Asia, Effies, DMA, and Adfest, and he has been a finalist at D&AD, One Show Design, and NYFest."
       ]
     },
     {
       id: "swati-bobde",
       name: "Swati Bobde",
       role: "Chief Operating Officer",
+      tier: "leader",
+      portrait: { src: "/crew/swati.jpg", alt: "Swati Bobde portrait" },
       bio: [
         "Swati Bobde is a business leader, entrepreneur, and brand strategist with over two decades of experience spanning advertising, design, branding, production, and business transformation.",
         "Prior to joining Garage Worldwide, she held senior leadership roles at Publicis, was a co-founder of Clay Strategy & Design, worked across leading agencies including JWT and Rediffusion, and spent time in production as an Executive Producer. Throughout her career, she has successfully led multi-crore business portfolios, built and scaled brands, delivered award-winning integrated campaigns, driven significant revenue growth, and partnered with global teams across Asia-Pacific markets.",
@@ -265,33 +251,139 @@ export const fallbackContent: GarageContent = {
       ]
     },
     {
+      id: "bryan-elijah",
+      name: "Bryan Elijah",
+      role: "Creative Head \u2013 Art",
+      tier: "leader",
+      portrait: { src: "/crew/bryan.jpg", alt: "Bryan Elijah portrait" },
+      bio: [
+        "Bryan brings over 20 years of experience in the advertising industry, consistently delivering innovative campaigns across digital media, integrated marketing, and branding \u2014 with a particular mark in the luxury automobile sector.",
+        "His career spans leading agencies including Rediffusion, Creativeland, Percept/H, IBD Percept, Law & Kenneth, and RMG David, where he shaped campaigns that resonate with audiences across high-end and mass-market brands alike.",
+        "Bryan's work has been recognised at Goafest, Spikes Asia, Effies, DMA, and Adfest, and he has been a finalist at D&AD, One Show Design, and NYFest."
+      ]
+    },
+    {
+      id: "utsav-shinde",
+      name: "Utsav Shinde",
+      role: "Art Director",
+      tier: "team",
+      portrait: { src: "/crew/utsav.jpg", alt: "Utsav Shinde portrait" },
+      bio: ["Art Director at Garage Worldwide."]
+    },
+    {
+      id: "rujvi-sankpal",
+      name: "Rujvi Sankpal",
+      role: "Art Director",
+      tier: "team",
+      portrait: { src: "/crew/rujvi.jpg", alt: "Rujvi Sankpal portrait" },
+      bio: ["Art Director at Garage Worldwide."]
+    },
+    {
+      id: "aniket-sharma",
+      name: "Aniket Sharma",
+      role: "Copywriter",
+      tier: "team",
+      portrait: { src: "/crew/aniket.jpg", alt: "Aniket Sharma portrait" },
+      bio: ["Copywriter at Garage Worldwide."]
+    },
+    {
+      id: "vedant-sarda",
+      name: "Vedant Sarda",
+      role: "Copywriter",
+      tier: "team",
+      portrait: { src: "/crew/vedant.jpg", alt: "Vedant Sarda portrait" },
+      bio: ["Copywriter at Garage Worldwide."]
+    },
+    {
+      id: "shay-dsouza",
+      name: "Shay D\u2019Souza",
+      role: "Account Executive",
+      tier: "team",
+      portrait: { src: "/crew/shay.jpg", alt: "Shay D\u2019Souza portrait" },
+      bio: ["Account Executive at Garage Worldwide."]
+    },
+    {
+      id: "mobaiyana-parveen",
+      name: "Mobaiyana Parveen",
+      role: "Copywriter",
+      tier: "team",
+      portrait: { src: "/crew/mobaiyana.jpg", alt: "Mobaiyana Parveen portrait" },
+      bio: ["Copywriter at Garage Worldwide."]
+    },
+    {
+      id: "aryan-sunil",
+      name: "Aryan Sunil",
+      role: "Junior Visualiser",
+      tier: "team",
+      portrait: { src: "/crew/aryan.jpg", alt: "Aryan Sunil portrait" },
+      bio: ["Junior Visualiser at Garage Worldwide."]
+    },
+    {
+      id: "pranali-pawar",
+      name: "Pranali Pawar",
+      role: "Sr. Account Executive",
+      tier: "team",
+      portrait: { src: "/crew/pranali.jpg", alt: "Pranali Pawar portrait" },
+      bio: ["Sr. Account Executive at Garage Worldwide."]
+    },
+    {
+      id: "tanvi-mahabre",
+      name: "Tanvi Mahabre",
+      role: "Art Director",
+      tier: "team",
+      portrait: { src: "/crew/tanvi.jpg", alt: "Tanvi Mahabre portrait" },
+      bio: ["Art Director at Garage Worldwide."]
+    },
+    {
+      id: "kyle-misquitta",
+      name: "Kyle Misquitta",
+      role: "Account Executive",
+      tier: "team",
+      portrait: { src: "/crew/kyle.jpg", alt: "Kyle Misquitta portrait" },
+      bio: ["Account Executive at Garage Worldwide."]
+    },
+    {
+      id: "samir-pinzara",
+      name: "Samir Pinzara",
+      role: "Account Executive",
+      tier: "team",
+      portrait: { src: "/crew/samir.jpg", alt: "Samir Pinzara portrait" },
+      bio: ["Account Executive at Garage Worldwide."]
+    },
+    {
+      id: "adwait-gurav",
+      name: "Adwait Gurav",
+      role: "Art Director",
+      tier: "team",
+      portrait: { src: "/crew/adwait.jpg", alt: "Adwait Gurav portrait" },
+      bio: ["Art Director at Garage Worldwide."]
+    },
+    {
+      id: "saniya-jadhav",
+      name: "Saniya Jadhav",
+      role: "Art Director",
+      tier: "team",
+      portrait: { src: "/crew/saniya.jpg", alt: "Saniya Jadhav portrait" },
+      bio: ["Art Director at Garage Worldwide."]
+    },
+    {
+      id: "christine",
+      name: "Christine",
+      role: "Team",
+      tier: "team",
+      portrait: { src: "/crew/christine.jpg", alt: "Christine portrait" },
+      bio: ["Team member at Garage Worldwide."]
+    },
+    {
       id: "qaid-vora",
       name: "Qaid Vora",
       role: "Strategy Director",
-      portrait: {
-        src: `${ppt}crew-qaid-portrait.jpg`,
-        alt: "Qaid Vora portrait"
-      },
+      tier: "team",
+      portrait: { src: `${ppt}crew-qaid-portrait.jpg`, alt: "Qaid Vora portrait" },
       bio: [
-        "Qaid is a seasoned planner and strategist with a decade of experience in brand communication and advertising — across femcare, automotive, BFSI, and gaming, with markets spanning APAC and EMEA.",
+        "Qaid is a seasoned planner and strategist with a decade of experience in brand communication and advertising \u2014 across femcare, automotive, BFSI, and gaming, with markets spanning APAC and EMEA.",
         "He has contributed to exciting work for brands such as J&J (Clean & Clear, Stayfree, and Neutrogena), Bajaj, Jeep, Visa, Bridgestone, and Air Asia, among others.",
-        "Beyond work, Qaid has a passion for gaming that keeps him engaged for hours, and his current obsessions fluctuate between swimming and cycling — though that may well be obsolete by the time you read this."
-      ]
-    },
-    {
-      id: "name-surname-1",
-      name: "Name Surname",
-      role: "Client Partner",
-      bio: [
-        "Placeholder profile reserved for the next GARAGE crew member. Add the final portrait, role, and biography in Sanity."
-      ]
-    },
-    {
-      id: "name-surname-2",
-      name: "Name Surname",
-      role: "Production Partner",
-      bio: [
-        "Placeholder profile reserved for the next GARAGE crew member. Add the final portrait, role, and biography in Sanity."
+        "Beyond work, Qaid has a passion for gaming that keeps him engaged for hours, and his current obsessions fluctuate between swimming and cycling \u2014 though that may well be obsolete by the time you read this."
       ]
     }
   ],

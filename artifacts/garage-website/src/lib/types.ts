@@ -24,6 +24,7 @@ export type CrewMember = {
   id: string;
   name: string;
   role: string;
+  tier?: "leader" | "team";
   portrait?: ImageAsset;
   bio: string[];
 };
