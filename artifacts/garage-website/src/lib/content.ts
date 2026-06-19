@@ -1,13 +1,14 @@
 import { client, hasSanityConfig } from "./sanity-client";
 import { garageContentQuery } from "./sanity-queries";
 import { fallbackContent } from "./fallback-data";
+import { publicAsset } from "./public-asset";
 import type { GarageContent, ImageAsset } from "./types";
 
 type MaybeContent = Partial<GarageContent>;
 
 function validImage(image: ImageAsset | undefined, fallback: ImageAsset): ImageAsset {
   if (!image?.src) return fallback;
-  return { src: image.src, alt: image.alt || fallback.alt };
+  return { src: publicAsset(image.src), alt: image.alt || fallback.alt };
 }
 
 function mergeContent(data: MaybeContent | null): GarageContent {

@@ -21,6 +21,7 @@ import {
 
 import { Link, useLocation } from "wouter";
 
+import { publicAsset } from "../lib/public-asset";
 import type { CrewMember, GarageContent, ImageAsset, Project } from "../lib/types";
 import { ServicesStack } from "./ServicesStack";
 import { ContactForm } from "./ContactForm";
@@ -598,12 +599,13 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   const o = (src: string, alt: string, zoom?: number, origin?: string): OfficeCell => ({ kind: "office", src, alt, zoom, origin });
   const oSplit = (src: string, alt: string, split: "top" | "bottom"): OfficeCell => ({ kind: "office", src, alt, split });
   const c = (idx: number): CrewCell => ({ kind: "crew", member: team[idx], globalIndex: crew.indexOf(team[idx]) });
+  const officeAsset = (file: string) => publicAsset(`crew/${file}`);
 
   const teamGrid: GridCell[] = [
-    c(0),  o("/crew/office-trophies.jpg",     "Garage trophies"),          c(1),  c(2),  c(3),
-    c(4),  c(5),                               o("/crew/office-chandelier.jpg", "Headlights chandelier"), c(6),  o("/crew/office-stools.jpg", "Garage workspace"),
-    c(7),  oSplit("/crew/office-mural.jpg",    "Rules mural", "top"),       c(8),  c(9),  c(10),
-    c(11), oSplit("/crew/office-mural.jpg",    "Garage office interior", "bottom"), o("/crew/office-entrepreneur.jpg", "Entrepreneur Mindsets Welcome", 1.7, "38% 44%"), c(12), c(13),
+    c(0),  o(officeAsset("office-trophies.jpg"),     "Garage trophies"),          c(1),  c(2),  c(3),
+    c(4),  c(5),                                      o(officeAsset("office-chandelier.jpg"), "Headlights chandelier"), c(6),  o(officeAsset("office-stools.jpg"), "Garage workspace"),
+    c(7),  oSplit(officeAsset("office-mural.jpg"),    "Rules mural", "top"),       c(8),  c(9),  c(10),
+    c(11), oSplit(officeAsset("office-mural.jpg"),    "Garage office interior", "bottom"), o(officeAsset("office-entrepreneur.jpg"), "Entrepreneur Mindsets Welcome", 1.7, "38% 44%"), c(12), c(13),
   ];
 
   return (
