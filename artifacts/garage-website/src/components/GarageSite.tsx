@@ -562,6 +562,31 @@ function ClientWordmark({ name }: { name: string }) {
   }
 }
 
+type CrewCrop = { position: string; zoom?: number; origin?: string };
+
+const leaderCropSettings: Record<string, CrewCrop> = {
+  "ashish-chakravarty": { position: "50% 27%" },
+  "swati-bobde": { position: "50% 33%" },
+  "bryan-elijah": { position: "50% 10%", zoom: 1.34, origin: "50% 28%" },
+};
+
+const teamCropSettings: Record<string, CrewCrop> = {
+  "utsav-shinde": { position: "16% 50%" },
+  "rujvi-sankpal": { position: "50% 61%" },
+  "aniket-sharma": { position: "50% 5%" },
+  "vedant-sarda": { position: "50% 34%" },
+  "shay-dsouza": { position: "50% 24%", zoom: 1.12, origin: "48% 35%" },
+  "mobaiyana-parveen": { position: "29% 50%" },
+  "aryan-sunil": { position: "50% 100%" },
+  "pranali-pawar": { position: "50% 0%", zoom: 1.28, origin: "50% 30%" },
+  "tanvi-mahabre": { position: "50% 49%" },
+  "kyle-misquitta": { position: "42% 50%" },
+  "samir-pinzara": { position: "50% 0%" },
+  "adwait-gurav": { position: "44% 50%", zoom: 1.45, origin: "43% 36%" },
+  "saniya-jadhav": { position: "37% 50%", zoom: 1.12, origin: "44% 35%" },
+  "christine": { position: "50% 0%", zoom: 1.14, origin: "50% 30%" },
+};
+
 function CrewSection({ crew }: { crew: CrewMember[] }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const selected = selectedIndex === null ? null : crew[selectedIndex];
@@ -590,20 +615,20 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   const leaders = crew.filter((m) => m.tier === "leader");
   const team = crew.filter((m) => m.tier !== "leader");
 
-  type OfficeCell = { kind: "office"; src: string; alt: string; split?: "top" | "bottom"; zoom?: number; origin?: string };
+  type OfficeCell = { kind: "office"; src: string; alt: string; split?: "top" | "bottom"; zoom?: number; origin?: string; position?: string };
   type CrewCell = { kind: "crew"; member: CrewMember; globalIndex: number };
   type GridCell = CrewCell | OfficeCell;
 
-  const o = (src: string, alt: string, zoom?: number, origin?: string): OfficeCell => ({ kind: "office", src, alt, zoom, origin });
-  const oSplit = (src: string, alt: string, split: "top" | "bottom"): OfficeCell => ({ kind: "office", src, alt, split });
+  const o = (src: string, alt: string, options: Pick<OfficeCell, "zoom" | "origin" | "position"> = {}): OfficeCell => ({ kind: "office", src, alt, ...options });
+  const oSplit = (src: string, alt: string, split: "top" | "bottom", position: string): OfficeCell => ({ kind: "office", src, alt, split, position });
   const c = (idx: number): CrewCell => ({ kind: "crew", member: team[idx], globalIndex: crew.indexOf(team[idx]) });
   const officeAsset = (file: string) => publicAsset(`crew/${file.replace(/\.[^.]+$/, ".webp")}`);
 
   const teamGrid: GridCell[] = [
-    c(0),  o(officeAsset("office-trophies.jpg"),     "Garage trophies"),          c(1),  c(2),  c(3),
-    c(4),  c(5),                                      o(officeAsset("office-chandelier.jpg"), "Headlights chandelier"), c(6),  o(officeAsset("office-stools.jpg"), "Garage workspace"),
-    c(7),  oSplit(officeAsset("office-mural.jpg"),    "Rules mural", "top"),       c(8),  c(9),  c(10),
-    c(11), oSplit(officeAsset("office-mural.jpg"),    "Garage office interior", "bottom"), o(officeAsset("office-entrepreneur.jpg"), "Entrepreneur Mindsets Welcome", 1.7, "38% 44%"), c(12), c(13),
+    c(0),  o(officeAsset("office-trophies.jpg"),     "Garage trophies", { position: "40% 50%" }),          c(1),  c(2),  c(3),
+    c(4),  c(5),                                      o(officeAsset("office-chandelier.jpg"), "Headlights chandelier"), c(6),  o(officeAsset("office-stools.jpg"), "Garage workspace", { position: "16% 50%" }),
+    c(7),  oSplit(officeAsset("office-mural.jpg"),    "Rules mural", "top", "70% 30%"),       c(8),  c(9),  c(10),
+    c(11), oSplit(officeAsset("office-mural.jpg"),    "Garage office interior", "bottom", "80% 100%"), o(officeAsset("office-entrepreneur.jpg"), "Entrepreneur Mindsets Welcome", { zoom: 1.7, origin: "38% 44%" }), c(12), c(13),
   ];
 
   return (
@@ -620,6 +645,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
         >
           {leaders.map((member) => {
             const globalIndex = crew.indexOf(member);
+            const crop = leaderCropSettings[member.id];
             return (
               <motion.button
                 key={member.id}
@@ -633,7 +659,16 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                     <img
                       src={member.portrait.src}
                       alt={member.portrait.alt}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: crop?.position ?? "50% 50%",
+                        transform: crop?.zoom ? `scale(${crop.zoom})` : undefined,
+                        transformOrigin: crop?.origin ?? "center",
+                      }}
                     />
                   ) : (
                     <span aria-hidden="true" />
@@ -659,7 +694,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                   <span
                     key={`office-${i}`}
                     className={`crew-office-cell crew-office-split crew-office-split--${cell.split}`}
-                    style={{ backgroundImage: `url("${cell.src}")`, "--i": i } as React.CSSProperties}
+                    style={{ backgroundImage: `url("${cell.src}")`, backgroundPosition: cell.position, "--i": i } as React.CSSProperties}
                     role="img"
                     aria-label={cell.alt}
                   />
@@ -682,7 +717,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        objectPosition: "center",
+                        objectPosition: cell.position ?? "50% 50%",
                         transform: cell.zoom ? `scale(${cell.zoom})` : undefined,
                         transformOrigin: cell.origin ?? "center",
                       }}
@@ -691,6 +726,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                 </span>
               );
             }
+            const crop = teamCropSettings[cell.member.id];
             return (
               <button
                 key={cell.member.id}
@@ -705,7 +741,16 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                       src={cell.member.portrait.src}
                       alt={cell.member.portrait.alt}
                       loading="lazy"
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
+                      style={{
+                        position: "absolute",
+                        inset: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        objectPosition: crop?.position ?? "50% 50%",
+                        transform: crop?.zoom ? `scale(${crop.zoom})` : undefined,
+                        transformOrigin: crop?.origin ?? "center",
+                      }}
                     />
                   ) : (
                     <span aria-hidden="true" />
