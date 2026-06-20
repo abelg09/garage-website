@@ -192,7 +192,7 @@ function HeroSection({ content }: { content: GarageContent }) {
   }, [updateHeroProgress]);
 
   const cameraScale = useSpring(
-    useTransform(heroProgress, [0, 0.22, 1], [1, 1.12, 1.12]),
+    useTransform(heroProgress, [0, 0.22, 1], [1, 1.04, 1.04]),
     { stiffness: 92, damping: 24, mass: 0.35 }
   );
   const cameraY = useSpring(
@@ -200,13 +200,13 @@ function HeroSection({ content }: { content: GarageContent }) {
     { stiffness: 92, damping: 24, mass: 0.35 }
   );
   const shutterY = useSpring(
-    useTransform(heroProgress, [0.22, 0.48], ["0%", "-112%"]),
+    useTransform(heroProgress, [0.14, 0.36], ["0%", "-104%"]),
     { stiffness: 100, damping: 26, mass: 0.36 }
   );
-  const portalOpacity = useTransform(heroProgress, [0.2, 0.4], [0.1, 1]);
-  const copyOpacity = useTransform(heroProgress, [0.45, 0.6], [0, 1]);
-  const copyY = useTransform(heroProgress, [0.45, 0.6], [28, 0]);
-  const backdropOpacity = useTransform(heroProgress, [0.45, 0.6], [0, 0.62]);
+  const portalOpacity = useTransform(heroProgress, [0.12, 0.3], [0.16, 1]);
+  const copyOpacity = useTransform(heroProgress, [0.3, 0.46], [0, 1]);
+  const copyY = useTransform(heroProgress, [0.3, 0.46], [18, 0]);
+  const backdropOpacity = useTransform(heroProgress, [0.28, 0.46], [0, 0.54]);
 
   return (
     <section
@@ -313,9 +313,7 @@ function WorkSection({ projects }: { projects: Project[] }) {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
           >
-            <span aria-hidden="true">Our Works</span>
-            <span aria-hidden="true">Our Works</span>
-            <span aria-hidden="true">Our Works</span>
+            <span>Work</span>
           </motion.h2>
         </div>
         <div className="work-deck" role="list">
@@ -449,7 +447,7 @@ function ClientsSection({ clients }: { clients: GarageContent["clients"] }) {
                 <img
                   src={client.logo.src}
                   alt={client.logo.alt}
-                  style={{ width: "100%", maxWidth: "170px", height: "auto", display: "block" }}
+                  style={{ width: "100%", maxWidth: "128px", height: "auto", display: "block" }}
                 />
               ) : (
                 <ClientWordmark name={client.name} />
@@ -599,7 +597,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   const o = (src: string, alt: string, zoom?: number, origin?: string): OfficeCell => ({ kind: "office", src, alt, zoom, origin });
   const oSplit = (src: string, alt: string, split: "top" | "bottom"): OfficeCell => ({ kind: "office", src, alt, split });
   const c = (idx: number): CrewCell => ({ kind: "crew", member: team[idx], globalIndex: crew.indexOf(team[idx]) });
-  const officeAsset = (file: string) => publicAsset(`crew/${file}`);
+  const officeAsset = (file: string) => publicAsset(`crew/${file.replace(/\.[^.]+$/, ".webp")}`);
 
   const teamGrid: GridCell[] = [
     c(0),  o(officeAsset("office-trophies.jpg"),     "Garage trophies"),          c(1),  c(2),  c(3),
@@ -635,7 +633,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                     <img
                       src={member.portrait.src}
                       alt={member.portrait.alt}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
                     />
                   ) : (
                     <span aria-hidden="true" />
@@ -707,7 +705,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                       src={cell.member.portrait.src}
                       alt={cell.member.portrait.alt}
                       loading="lazy"
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }}
                     />
                   ) : (
                     <span aria-hidden="true" />
@@ -827,7 +825,7 @@ function CrewModal({
                 <img
                   src={member.portrait.src}
                   alt={member.portrait.alt}
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "contain" }}
                 />
               ) : (
                 <span aria-hidden="true" />
@@ -854,42 +852,26 @@ function ContactSection({ content }: { content: GarageContent }) {
   return (
     <section id="contact" className="section-band contact-section" aria-labelledby="contact-title">
       <div className="section-inner contact-layout">
-        <div>
+        <div className="contact-info">
           <SectionHeading id="contact-title">Contact</SectionHeading>
-          <div className="contact-columns">
-            <div>
-              <p className="eyebrow">Email</p>
-              <a href={`mailto:${content.site.email}`}>{content.site.email}</a>
-            </div>
-            <div>
-              <p className="eyebrow">Address</p>
-              <a
-                href={`https://maps.google.com/?q=${mapQuery}`}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {content.site.address.map((line) => (
-                  <span key={line}>{line}</span>
-                ))}
-              </a>
-            </div>
+          <div className="contact-method">
+            <p className="eyebrow">Email</p>
+            <a href={`mailto:${content.site.email}`}>{content.site.email}</a>
           </div>
-          <ContactForm />
+          <div className="contact-method">
+            <p className="eyebrow">Address</p>
+            <a
+              href={`https://maps.google.com/?q=${mapQuery}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {content.site.address.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </a>
+          </div>
         </div>
-        <motion.div
-          className="contact-collage"
-          variants={reveal}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 0.5 }}
-        >
-          <img
-            src={content.contact.collage.src}
-            alt={content.contact.collage.alt}
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </motion.div>
+        <ContactForm />
       </div>
     </section>
   );

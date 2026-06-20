@@ -3,7 +3,7 @@ import { publicAsset } from "./public-asset";
 
 const ppt = publicAsset("assets/ppt/");
 const clientLogo = (file: string) => publicAsset(`clients/${file}`);
-const crewPortrait = (file: string) => publicAsset(`crew/${file}`);
+const crewPortrait = (file: string) => publicAsset(`crew/${file.replace(/\.[^.]+$/, ".webp")}`);
 
 export const fallbackContent: GarageContent = {
   site: {
@@ -23,7 +23,7 @@ export const fallbackContent: GarageContent = {
   },
   home: {
     introKicker: "About Garage",
-    introTitle: "The original startup room.",
+    introTitle: "Built To Start Things.",
     introBody: [
       "Every icon starts somewhere. Apple in 1976. HP in 1939. Amazon in 1994. Google in 1998. Microsoft in 1975. Different decades, same origin story: a garage, an idea, and no excuse not to build.",
       "Garage is not about square footage. It is about hunger, limited resources, unlimited belief, late nights, scrappy solutions, and work that has to earn attention because it cannot buy it.",
@@ -34,8 +34,8 @@ export const fallbackContent: GarageContent = {
       alt: "Industrial red facade with a single closed metal garage shutter"
     },
     garageOrigin: {
-      src: `${ppt}garage-origin.png`,
-      alt: "Black and white collage of early garages for Apple, Google, Amazon, Harley, Disney, and Mattel"
+      src: `${ppt}garage-origin-clean.webp`,
+      alt: "Black and white collage of early startup garages"
     },
     garageOriginLabel: "Where it all started",
     heroCollage: {
