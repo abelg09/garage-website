@@ -20,7 +20,6 @@ export default defineConfig({
   title: "GARAGE CMS",
   projectId,
   dataset,
-  basePath: process.env.SANITY_STUDIO_BASE_PATH || "/studio",
   plugins: [structureTool({ structure }), visionTool()],
   schema: {
     types: schemaTypes,

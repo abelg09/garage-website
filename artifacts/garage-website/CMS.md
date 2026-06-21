@@ -27,6 +27,7 @@ Allow credentials for Studio/local editing origins when Sanity asks.
 ```bash
 SANITY_STUDIO_PROJECT_ID=your_project_id \
 SANITY_STUDIO_DATASET=production \
+SANITY_STUDIO_BASEPATH=/studio \
 pnpm --filter @workspace/garage-website run studio:dev
 ```
 

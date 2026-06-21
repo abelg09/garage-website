@@ -52,7 +52,7 @@ jobs:
         env:
           SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
           SANITY_STUDIO_DATASET: ${{ vars.SANITY_DATASET || 'production' }}
-          SANITY_STUDIO_BASE_PATH: /${{ github.event.repository.name }}/studio
+          SANITY_STUDIO_BASEPATH: /${{ github.event.repository.name }}/studio
         run: pnpm --filter @workspace/garage-website run studio:build
 
       - name: Support direct links

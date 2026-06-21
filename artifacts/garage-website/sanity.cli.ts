@@ -12,9 +12,17 @@ const dataset =
   process.env.SANITY_DATASET ||
   "production";
 
+const basePath =
+  process.env.SANITY_STUDIO_BASEPATH ||
+  process.env.SANITY_STUDIO_BASE_PATH ||
+  "/studio";
+
 export default defineCliConfig({
   api: {
     projectId,
     dataset,
+  },
+  project: {
+    basePath,
   },
 });
