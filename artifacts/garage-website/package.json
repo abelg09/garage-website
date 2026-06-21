@@ -8,7 +8,7 @@
     "build": "vite build --config vite.config.ts",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "studio:dev": "sanity dev --host 0.0.0.0 --port 3333",
-    "studio:build": "sanity build dist/public/studio",
+    "studio:build": "sanity build dist/public/studio --yes",
     "seed:sanity": "tsx scripts/seed-sanity.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
@@ -84,6 +84,7 @@
     "@sanity/client": "^7.22.1",
     "@sanity/image-url": "^2.1.1",
     "motion": "^12.40.0",
-    "next-sanity": "^13.0.11"
+    "next-sanity": "^13.0.11",
+    "styled-components": "^6.4.2"
   }
 }
