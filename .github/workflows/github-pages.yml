@@ -44,10 +44,21 @@ jobs:
         env:
           BASE_PATH: /${{ github.event.repository.name }}/
           PORT: 4173
+          VITE_SANITY_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+          VITE_SANITY_DATASET: ${{ vars.SANITY_DATASET || 'production' }}
         run: pnpm --filter @workspace/garage-website run build
 
+      - name: Build Sanity Studio
+        env:
+          SANITY_STUDIO_PROJECT_ID: ${{ vars.SANITY_PROJECT_ID }}
+          SANITY_STUDIO_DATASET: ${{ vars.SANITY_DATASET || 'production' }}
+          SANITY_STUDIO_BASE_PATH: /${{ github.event.repository.name }}/studio
+        run: pnpm --filter @workspace/garage-website run studio:build
+
       - name: Support direct links
-        run: cp artifacts/garage-website/dist/public/index.html artifacts/garage-website/dist/public/404.html
+        run: |
+          cp artifacts/garage-website/dist/public/index.html artifacts/garage-website/dist/public/404.html
+          cp artifacts/garage-website/dist/public/studio/index.html artifacts/garage-website/dist/public/studio/404.html
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5

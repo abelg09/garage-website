@@ -4,6 +4,7 @@ import type { MotionValue } from "motion/react";
 import type { LucideIcon } from "lucide-react";
 import { Target, Film, Share2, Camera, Monitor } from "lucide-react";
 import { BlurRevealText } from "./BlurRevealText";
+import type { ServiceIconKey, ServicesContent, ServiceItem } from "../lib/types";
 
 type ServiceDef = {
   id: string;
@@ -12,42 +13,22 @@ type ServiceDef = {
   description: string;
 };
 
-const SERVICES: ServiceDef[] = [
-  {
-    id: "brand-strategy",
-    icon: Target,
-    title: "Brand Strategy",
-    description:
-      "We excavate the real story, then build the system that tells it across every touchpoint.",
-  },
-  {
-    id: "campaign-production",
-    icon: Film,
-    title: "Campaign Production",
-    description:
-      "From concept to final frame, we make work that earns attention and earns space in culture.",
-  },
-  {
-    id: "digital-social",
-    icon: Share2,
-    title: "Digital & Social",
-    description:
-      "Platform-native content built for the scroll, the share, and the second look.",
-  },
-  {
-    id: "content-studio",
-    icon: Camera,
-    title: "Content Studio",
-    description:
-      "Photo, video, copy, and design — produced in-house so nothing gets lost in translation.",
-  },
-  {
-    id: "website-apps",
-    icon: Monitor,
-    title: "Website & Apps",
-    description: "Interfaces that match the ambition of the brand behind them.",
-  },
-];
+const iconMap: Record<ServiceIconKey, LucideIcon> = {
+  target: Target,
+  film: Film,
+  share: Share2,
+  camera: Camera,
+  monitor: Monitor,
+};
+
+function toServiceDef(service: ServiceItem): ServiceDef {
+  return {
+    id: service.id,
+    icon: iconMap[service.icon] ?? Target,
+    title: service.title,
+    description: service.description,
+  };
+}
 
 function useIsMobile(breakpoint = 760) {
   const [isMobile, setIsMobile] = useState(
@@ -123,10 +104,11 @@ function ServiceCard({
   );
 }
 
-export function ServicesStack() {
+export function ServicesStack({ content }: { content: ServicesContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const reduced = useReducedMotion() ?? false;
   const isMobile = useIsMobile();
+  const services = content.items.map(toServiceDef);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -142,25 +124,25 @@ export function ServicesStack() {
     >
       <div className="svc-container">
         <div className="svc-left">
-          <span className="svc-eyebrow" aria-hidden="true">[ Expertise ]</span>
+          <span className="svc-eyebrow" aria-hidden="true">{content.eyebrow}</span>
           <h2 className="expertise-heading">
-            <BlurRevealText text="Expertise" id="expertise-title" />
+            <BlurRevealText text={content.title} id="expertise-title" />
           </h2>
           <p className="expertise-tagline">
-            Full-stack creative capability — from first insight to final frame.
+            {content.tagline}
           </p>
-          <a href="#contact" className="svc-cta">
-            Get in Touch <span aria-hidden="true">→</span>
+          <a href={content.ctaHref} className="svc-cta">
+            {content.ctaLabel} <span aria-hidden="true">→</span>
           </a>
         </div>
 
         <div className="svc-right" aria-label="Our services">
-          {SERVICES.map((service, index) => (
+          {services.map((service, index) => (
             <ServiceCard
               key={service.id}
               service={service}
               index={index}
-              total={SERVICES.length}
+              total={services.length}
               scrollYProgress={scrollYProgress}
               reduced={reduced}
               isMobile={isMobile}

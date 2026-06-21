@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
+import type { ContactContent } from "../lib/types";
 
 type FormState = {
   name: string;
@@ -9,7 +10,7 @@ type FormState = {
 
 const EMPTY: FormState = { name: "", email: "", message: "" };
 
-export function ContactForm() {
+export function ContactForm({ content }: { content: ContactContent }) {
   const [form, setForm] = useState<FormState>(EMPTY);
   const [submitting, setSubmitting] = useState(false);
 
@@ -27,7 +28,7 @@ export function ContactForm() {
     const message = form.message.trim();
 
     if (!name || !email || !message) {
-      toast.error("Please fill in your name, email, and message.");
+      toast.error(content.requiredMessage);
       return;
     }
 
@@ -41,14 +42,14 @@ export function ContactForm() {
 
       if (!response.ok) {
         const data = (await response.json().catch(() => null)) as { error?: string } | null;
-        toast.error(data?.error ?? "Something went wrong. Please try again.");
+        toast.error(data?.error ?? content.genericErrorMessage);
         return;
       }
 
-      toast.success("Thanks — your message is on its way.");
+      toast.success(content.successMessage);
       setForm(EMPTY);
     } catch {
-      toast.error("Network error. Please try again.");
+      toast.error(content.networkErrorMessage);
     } finally {
       setSubmitting(false);
     }
@@ -56,9 +57,9 @@ export function ContactForm() {
 
   return (
     <form className="contact-form" onSubmit={handleSubmit} noValidate>
-      <p className="eyebrow contact-form-label">Send a message</p>
+      <p className="eyebrow contact-form-label">{content.formLabel}</p>
       <div className="contact-field">
-        <label htmlFor="contact-name">Name</label>
+        <label htmlFor="contact-name">{content.nameLabel}</label>
         <input
           id="contact-name"
           name="name"
@@ -71,7 +72,7 @@ export function ContactForm() {
         />
       </div>
       <div className="contact-field">
-        <label htmlFor="contact-email">Email</label>
+        <label htmlFor="contact-email">{content.emailFieldLabel}</label>
         <input
           id="contact-email"
           name="email"
@@ -84,7 +85,7 @@ export function ContactForm() {
         />
       </div>
       <div className="contact-field">
-        <label htmlFor="contact-message">Message</label>
+        <label htmlFor="contact-message">{content.messageLabel}</label>
         <textarea
           id="contact-message"
           name="message"
@@ -96,7 +97,7 @@ export function ContactForm() {
         />
       </div>
       <button type="submit" className="contact-submit" disabled={submitting}>
-        {submitting ? "Sending…" : "Send message"}
+        {submitting ? content.submittingLabel : content.submitLabel}
       </button>
     </form>
   );

@@ -4,6 +4,7 @@ import { publicAsset } from "./public-asset";
 const ppt = publicAsset("assets/ppt/");
 const clientLogo = (file: string) => publicAsset(`clients/${file}`);
 const crewPortrait = (file: string) => publicAsset(`crew/${file.replace(/\.[^.]+$/, ".webp")}`);
+const crewImage = (file: string) => publicAsset(`crew/${file.replace(/\.[^.]+$/, ".webp")}`);
 
 export const fallbackContent: GarageContent = {
   site: {
@@ -192,6 +193,7 @@ export const fallbackContent: GarageContent = {
       role: "Managing Partner and Chief Creative Officer",
       tier: "leader",
       portrait: { src: crewPortrait("ashish.jpg"), alt: "Ashish Chakravarty portrait" },
+      crop: { position: "50% 27%" },
       bio: [
         "Ashish Chakravarty is one of India's most awarded and respected creative leaders. Over a career spanning more than two decades, he has held senior creative leadership roles at some of the country's most influential agencies and worked on some of the world's biggest global brands as well as India's most iconic homegrown names.",
         "His body of work spans brands such as Nestle, Coca-Cola, Dabur, Air India, Microsoft, Hero, Lupin, ITC, Britannia, Domino's, General Motors, Docomo, Emami, Campa, and assignments for the Government of India and BJP, among many others. Across categories and markets, Ashish has created talked-about campaigns, enduring brand platforms, and long-term narratives that have shaped how brands are built and remembered.",
@@ -206,6 +208,7 @@ export const fallbackContent: GarageContent = {
       role: "Chief Operating Officer",
       tier: "leader",
       portrait: { src: crewPortrait("swati.jpg"), alt: "Swati Bobde portrait" },
+      crop: { position: "50% 33%" },
       bio: [
         "Swati Bobde is a business leader, entrepreneur, and brand strategist with over two decades of experience spanning advertising, design, branding, production, and business transformation.",
         "Prior to joining Garage Worldwide, she held senior leadership roles at Publicis, was a co-founder of Clay Strategy & Design, worked across leading agencies including JWT and Rediffusion, and spent time in production as an Executive Producer. Throughout her career, she has successfully led multi-crore business portfolios, built and scaled brands, delivered award-winning integrated campaigns, driven significant revenue growth, and partnered with global teams across Asia-Pacific markets.",
@@ -219,6 +222,7 @@ export const fallbackContent: GarageContent = {
       role: "Creative Head \u2013 Art",
       tier: "leader",
       portrait: { src: crewPortrait("bryan.jpg"), alt: "Bryan Elijah portrait" },
+      crop: { position: "50% 10%", zoom: 1.34, origin: "50% 28%" },
       bio: [
         "Bryan brings over 20 years of experience in the advertising industry, consistently delivering innovative campaigns across digital media, integrated marketing, and branding \u2014 with a particular mark in the luxury automobile sector.",
         "His career spans leading agencies including Rediffusion, Creativeland, Percept/H, IBD Percept, Law & Kenneth, and RMG David, where he shaped campaigns that resonate with audiences across high-end and mass-market brands alike.",
@@ -231,6 +235,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("utsav.jpg"), alt: "Utsav Shinde portrait" },
+      crop: { position: "16% 50%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -239,6 +244,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("rujvi.jpg"), alt: "Rujvi Sankpal portrait" },
+      crop: { position: "50% 61%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -247,6 +253,7 @@ export const fallbackContent: GarageContent = {
       role: "Copywriter",
       tier: "team",
       portrait: { src: crewPortrait("aniket.jpg"), alt: "Aniket Sharma portrait" },
+      crop: { position: "50% 5%" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -255,6 +262,7 @@ export const fallbackContent: GarageContent = {
       role: "Copywriter",
       tier: "team",
       portrait: { src: crewPortrait("vedant.jpg"), alt: "Vedant Sarda portrait" },
+      crop: { position: "50% 34%" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -263,6 +271,7 @@ export const fallbackContent: GarageContent = {
       role: "Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("shay.jpg"), alt: "Shay D\u2019Souza portrait" },
+      crop: { position: "50% 24%", zoom: 1.12, origin: "48% 35%" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -271,6 +280,7 @@ export const fallbackContent: GarageContent = {
       role: "Copywriter",
       tier: "team",
       portrait: { src: crewPortrait("mobaiyana.jpg"), alt: "Mobaiyana Parveen portrait" },
+      crop: { position: "29% 50%" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -279,6 +289,7 @@ export const fallbackContent: GarageContent = {
       role: "Junior Visualiser",
       tier: "team",
       portrait: { src: crewPortrait("aryan.jpg"), alt: "Aryan Sunil portrait" },
+      crop: { position: "50% 100%" },
       bio: ["Junior Visualiser at Garage Worldwide."]
     },
     {
@@ -287,6 +298,7 @@ export const fallbackContent: GarageContent = {
       role: "Sr. Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("pranali.jpg"), alt: "Pranali Pawar portrait" },
+      crop: { position: "50% 0%", zoom: 1.28, origin: "50% 30%" },
       bio: ["Sr. Account Executive at Garage Worldwide."]
     },
     {
@@ -295,6 +307,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("tanvi.jpg"), alt: "Tanvi Mahabre portrait" },
+      crop: { position: "50% 49%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -303,6 +316,7 @@ export const fallbackContent: GarageContent = {
       role: "Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("kyle.jpg"), alt: "Kyle Misquitta portrait" },
+      crop: { position: "42% 50%" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -311,6 +325,7 @@ export const fallbackContent: GarageContent = {
       role: "Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("samir.jpg"), alt: "Samir Pinzara portrait" },
+      crop: { position: "50% 0%" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -319,6 +334,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("adwait.jpg"), alt: "Adwait Gurav portrait" },
+      crop: { position: "44% 50%", zoom: 1.45, origin: "43% 36%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -327,6 +343,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("saniya.jpg"), alt: "Saniya Jadhav portrait" },
+      crop: { position: "37% 50%", zoom: 1.12, origin: "44% 35%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -335,28 +352,118 @@ export const fallbackContent: GarageContent = {
       role: "Team",
       tier: "team",
       portrait: { src: crewPortrait("christine.jpg"), alt: "Christine portrait" },
+      crop: { position: "50% 0%", zoom: 1.14, origin: "50% 30%" },
       bio: ["Team member at Garage Worldwide."]
     },
   ],
-  services: [
-    "Brand Strategy & Creatives",
-    "Content Production",
-    "Website & Apps",
-    "Email Marketing",
-    "Influencer Marketing",
-    "Social Listening & Analytics",
-    "Ecomm Marketing",
-    "SEO / SEM",
-    "CRM / ORM",
-    "Mobile Marketing",
-    "Media Planning & Buying",
-    "Performance Marketing",
-    "Tech Solutions with AR / VR"
+  crewMosaic: [
+    { id: "crew-utsav-shinde", kind: "crew", crewId: "utsav-shinde" },
+    {
+      id: "office-trophies",
+      kind: "office",
+      image: { src: crewImage("office-trophies.jpg"), alt: "Garage trophies" },
+      crop: { position: "40% 50%" }
+    },
+    { id: "crew-rujvi-sankpal", kind: "crew", crewId: "rujvi-sankpal" },
+    { id: "crew-aniket-sharma", kind: "crew", crewId: "aniket-sharma" },
+    { id: "crew-vedant-sarda", kind: "crew", crewId: "vedant-sarda" },
+    { id: "crew-shay-dsouza", kind: "crew", crewId: "shay-dsouza" },
+    { id: "crew-mobaiyana-parveen", kind: "crew", crewId: "mobaiyana-parveen" },
+    {
+      id: "office-chandelier",
+      kind: "office",
+      image: { src: crewImage("office-chandelier.jpg"), alt: "Headlights chandelier" }
+    },
+    { id: "crew-aryan-sunil", kind: "crew", crewId: "aryan-sunil" },
+    {
+      id: "office-stools",
+      kind: "office",
+      image: { src: crewImage("office-stools.jpg"), alt: "Garage workspace" },
+      crop: { position: "16% 50%" }
+    },
+    { id: "crew-pranali-pawar", kind: "crew", crewId: "pranali-pawar" },
+    {
+      id: "office-mural-top",
+      kind: "office",
+      image: { src: crewImage("office-mural.jpg"), alt: "Rules mural" },
+      split: "top",
+      crop: { position: "70% 30%" }
+    },
+    { id: "crew-tanvi-mahabre", kind: "crew", crewId: "tanvi-mahabre" },
+    { id: "crew-kyle-misquitta", kind: "crew", crewId: "kyle-misquitta" },
+    { id: "crew-samir-pinzara", kind: "crew", crewId: "samir-pinzara" },
+    { id: "crew-adwait-gurav", kind: "crew", crewId: "adwait-gurav" },
+    {
+      id: "office-mural-bottom",
+      kind: "office",
+      image: { src: crewImage("office-mural.jpg"), alt: "Garage office interior" },
+      split: "bottom",
+      crop: { position: "80% 100%" }
+    },
+    {
+      id: "office-entrepreneur",
+      kind: "office",
+      image: { src: crewImage("office-entrepreneur.jpg"), alt: "Entrepreneur Mindsets Welcome" },
+      crop: { position: "50% 50%", zoom: 1.7, origin: "38% 44%" }
+    },
+    { id: "crew-saniya-jadhav", kind: "crew", crewId: "saniya-jadhav" },
+    { id: "crew-christine", kind: "crew", crewId: "christine" }
   ],
+  services: {
+    eyebrow: "[ Expertise ]",
+    title: "Expertise",
+    tagline: "Full-stack creative capability — from first insight to final frame.",
+    ctaLabel: "Get in Touch",
+    ctaHref: "#contact",
+    items: [
+      {
+        id: "brand-strategy",
+        icon: "target",
+        title: "Brand Strategy",
+        description: "We excavate the real story, then build the system that tells it across every touchpoint."
+      },
+      {
+        id: "campaign-production",
+        icon: "film",
+        title: "Campaign Production",
+        description: "From concept to final frame, we make work that earns attention and earns space in culture."
+      },
+      {
+        id: "digital-social",
+        icon: "share",
+        title: "Digital & Social",
+        description: "Platform-native content built for the scroll, the share, and the second look."
+      },
+      {
+        id: "content-studio",
+        icon: "camera",
+        title: "Content Studio",
+        description: "Photo, video, copy, and design — produced in-house so nothing gets lost in translation."
+      },
+      {
+        id: "website-apps",
+        icon: "monitor",
+        title: "Website & Apps",
+        description: "Interfaces that match the ambition of the brand behind them."
+      }
+    ]
+  },
   contact: {
     collage: {
       src: `${ppt}contact-office-collage.jpg`,
       alt: "Black and white GARAGE office contact collage"
-    }
+    },
+    emailLabel: "Email",
+    addressLabel: "Address",
+    formLabel: "Send a message",
+    nameLabel: "Name",
+    emailFieldLabel: "Email",
+    messageLabel: "Message",
+    submitLabel: "Send message",
+    submittingLabel: "Sending…",
+    requiredMessage: "Please fill in your name, email, and message.",
+    successMessage: "Thanks — your message is on its way.",
+    genericErrorMessage: "Something went wrong. Please try again.",
+    networkErrorMessage: "Network error. Please try again."
   }
 };

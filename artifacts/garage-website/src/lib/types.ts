@@ -3,6 +3,12 @@ export type ImageAsset = {
   alt: string;
 };
 
+export type CropSettings = {
+  position?: string;
+  zoom?: number;
+  origin?: string;
+};
+
 export type Project = {
   id: string;
   title: string;
@@ -26,7 +32,61 @@ export type CrewMember = {
   role: string;
   tier?: "leader" | "team";
   portrait?: ImageAsset;
+  crop?: CropSettings;
   bio: string[];
+};
+
+export type CrewMosaicCell =
+  | {
+      id: string;
+      kind: "crew";
+      crewId: string;
+    }
+  | {
+      id: string;
+      kind: "office";
+      image: ImageAsset;
+      split?: "top" | "bottom";
+      crop?: CropSettings;
+    };
+
+export type ServiceIconKey =
+  | "target"
+  | "film"
+  | "share"
+  | "camera"
+  | "monitor";
+
+export type ServiceItem = {
+  id: string;
+  icon: ServiceIconKey;
+  title: string;
+  description: string;
+};
+
+export type ServicesContent = {
+  eyebrow: string;
+  title: string;
+  tagline: string;
+  ctaLabel: string;
+  ctaHref: string;
+  items: ServiceItem[];
+};
+
+export type ContactContent = {
+  collage: ImageAsset;
+  emailLabel: string;
+  addressLabel: string;
+  formLabel: string;
+  nameLabel: string;
+  emailFieldLabel: string;
+  messageLabel: string;
+  submitLabel: string;
+  submittingLabel: string;
+  requiredMessage: string;
+  successMessage: string;
+  genericErrorMessage: string;
+  networkErrorMessage: string;
 };
 
 export type GarageContent = {
@@ -48,8 +108,7 @@ export type GarageContent = {
   projects: Project[];
   clients: ClientLogo[];
   crew: CrewMember[];
-  services: string[];
-  contact: {
-    collage: ImageAsset;
-  };
+  crewMosaic: CrewMosaicCell[];
+  services: ServicesContent;
+  contact: ContactContent;
 };

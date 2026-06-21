@@ -21,8 +21,7 @@ import {
 
 import { Link, useLocation } from "wouter";
 
-import { publicAsset } from "../lib/public-asset";
-import type { CrewMember, GarageContent, ImageAsset, Project } from "../lib/types";
+import type { CrewMember, CrewMosaicCell, CropSettings, GarageContent, ImageAsset, Project } from "../lib/types";
 import { ServicesStack } from "./ServicesStack";
 import { ContactForm } from "./ContactForm";
 
@@ -59,8 +58,8 @@ export function GarageSite({ content }: GarageSiteProps) {
         <HeroSection content={content} />
         <WorkSection projects={content.projects} />
         <ClientsSection clients={content.clients} />
-        <CrewSection crew={content.crew} />
-        <ServicesStack />
+        <CrewSection crew={content.crew} mosaic={content.crewMosaic} />
+        <ServicesStack content={content.services} />
         <ContactSection content={content} />
       </main>
     </>
@@ -562,32 +561,7 @@ function ClientWordmark({ name }: { name: string }) {
   }
 }
 
-type CrewCrop = { position: string; zoom?: number; origin?: string };
-
-const leaderCropSettings: Record<string, CrewCrop> = {
-  "ashish-chakravarty": { position: "50% 27%" },
-  "swati-bobde": { position: "50% 33%" },
-  "bryan-elijah": { position: "50% 10%", zoom: 1.34, origin: "50% 28%" },
-};
-
-const teamCropSettings: Record<string, CrewCrop> = {
-  "utsav-shinde": { position: "16% 50%" },
-  "rujvi-sankpal": { position: "50% 61%" },
-  "aniket-sharma": { position: "50% 5%" },
-  "vedant-sarda": { position: "50% 34%" },
-  "shay-dsouza": { position: "50% 24%", zoom: 1.12, origin: "48% 35%" },
-  "mobaiyana-parveen": { position: "29% 50%" },
-  "aryan-sunil": { position: "50% 100%" },
-  "pranali-pawar": { position: "50% 0%", zoom: 1.28, origin: "50% 30%" },
-  "tanvi-mahabre": { position: "50% 49%" },
-  "kyle-misquitta": { position: "42% 50%" },
-  "samir-pinzara": { position: "50% 0%" },
-  "adwait-gurav": { position: "44% 50%", zoom: 1.45, origin: "43% 36%" },
-  "saniya-jadhav": { position: "37% 50%", zoom: 1.12, origin: "44% 35%" },
-  "christine": { position: "50% 0%", zoom: 1.14, origin: "50% 30%" },
-};
-
-function CrewSection({ crew }: { crew: CrewMember[] }) {
+function CrewSection({ crew, mosaic }: { crew: CrewMember[]; mosaic: CrewMosaicCell[] }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const selected = selectedIndex === null ? null : crew[selectedIndex];
 
@@ -613,23 +587,21 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
   }, []);
 
   const leaders = crew.filter((m) => m.tier === "leader");
-  const team = crew.filter((m) => m.tier !== "leader");
 
-  type OfficeCell = { kind: "office"; src: string; alt: string; split?: "top" | "bottom"; zoom?: number; origin?: string; position?: string };
+  type OfficeCell = { kind: "office"; image: ImageAsset; split?: "top" | "bottom"; crop?: CropSettings };
   type CrewCell = { kind: "crew"; member: CrewMember; globalIndex: number };
   type GridCell = CrewCell | OfficeCell;
 
-  const o = (src: string, alt: string, options: Pick<OfficeCell, "zoom" | "origin" | "position"> = {}): OfficeCell => ({ kind: "office", src, alt, ...options });
-  const oSplit = (src: string, alt: string, split: "top" | "bottom", position: string): OfficeCell => ({ kind: "office", src, alt, split, position });
-  const c = (idx: number): CrewCell => ({ kind: "crew", member: team[idx], globalIndex: crew.indexOf(team[idx]) });
-  const officeAsset = (file: string) => publicAsset(`crew/${file.replace(/\.[^.]+$/, ".webp")}`);
+  const crewById = new Map(crew.map((member) => [member.id, member]));
+  const teamGrid: GridCell[] = mosaic.flatMap<GridCell>((cell) => {
+    if (cell.kind === "office") {
+      return [{ kind: "office", image: cell.image, split: cell.split, crop: cell.crop }];
+    }
 
-  const teamGrid: GridCell[] = [
-    c(0),  o(officeAsset("office-trophies.jpg"),     "Garage trophies", { position: "40% 50%" }),          c(1),  c(2),  c(3),
-    c(4),  c(5),                                      o(officeAsset("office-chandelier.jpg"), "Headlights chandelier"), c(6),  o(officeAsset("office-stools.jpg"), "Garage workspace", { position: "16% 50%" }),
-    c(7),  oSplit(officeAsset("office-mural.jpg"),    "Rules mural", "top", "70% 30%"),       c(8),  c(9),  c(10),
-    c(11), oSplit(officeAsset("office-mural.jpg"),    "Garage office interior", "bottom", "80% 100%"), o(officeAsset("office-entrepreneur.jpg"), "Entrepreneur Mindsets Welcome", { zoom: 1.7, origin: "38% 44%" }), c(12), c(13),
-  ];
+    const member = crewById.get(cell.crewId);
+    if (!member) return [];
+    return [{ kind: "crew", member, globalIndex: crew.indexOf(member) }];
+  });
 
   return (
     <section id="crew" className="section-band crew-section" aria-labelledby="crew-title">
@@ -645,7 +617,7 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
         >
           {leaders.map((member) => {
             const globalIndex = crew.indexOf(member);
-            const crop = leaderCropSettings[member.id];
+            const crop = member.crop;
             return (
               <motion.button
                 key={member.id}
@@ -694,9 +666,9 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                   <span
                     key={`office-${i}`}
                     className={`crew-office-cell crew-office-split crew-office-split--${cell.split}`}
-                    style={{ backgroundImage: `url("${cell.src}")`, backgroundPosition: cell.position, "--i": i } as React.CSSProperties}
+                    style={{ backgroundImage: `url("${cell.image.src}")`, backgroundPosition: cell.crop?.position, "--i": i } as React.CSSProperties}
                     role="img"
-                    aria-label={cell.alt}
+                    aria-label={cell.image.alt}
                   />
                 );
               }
@@ -708,8 +680,8 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                 >
                   <span className="crew-photo">
                     <img
-                      src={cell.src}
-                      alt={cell.alt}
+                      src={cell.image.src}
+                      alt={cell.image.alt}
                       loading="lazy"
                       style={{
                         position: "absolute",
@@ -717,16 +689,16 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
                         width: "100%",
                         height: "100%",
                         objectFit: "cover",
-                        objectPosition: cell.position ?? "50% 50%",
-                        transform: cell.zoom ? `scale(${cell.zoom})` : undefined,
-                        transformOrigin: cell.origin ?? "center",
+                        objectPosition: cell.crop?.position ?? "50% 50%",
+                        transform: cell.crop?.zoom ? `scale(${cell.crop.zoom})` : undefined,
+                        transformOrigin: cell.crop?.origin ?? "center",
                       }}
                     />
                   </span>
                 </span>
               );
             }
-            const crop = teamCropSettings[cell.member.id];
+            const crop = cell.member.crop;
             return (
               <button
                 key={cell.member.id}
@@ -900,11 +872,11 @@ function ContactSection({ content }: { content: GarageContent }) {
         <div className="contact-info">
           <SectionHeading id="contact-title">Contact</SectionHeading>
           <div className="contact-method">
-            <p className="eyebrow">Email</p>
+            <p className="eyebrow">{content.contact.emailLabel}</p>
             <a href={`mailto:${content.site.email}`}>{content.site.email}</a>
           </div>
           <div className="contact-method">
-            <p className="eyebrow">Address</p>
+            <p className="eyebrow">{content.contact.addressLabel}</p>
             <a
               href={`https://maps.google.com/?q=${mapQuery}`}
               target="_blank"
@@ -916,7 +888,7 @@ function ContactSection({ content }: { content: GarageContent }) {
             </a>
           </div>
         </div>
-        <ContactForm />
+        <ContactForm content={content.contact} />
       </div>
     </section>
   );
