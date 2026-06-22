@@ -193,7 +193,7 @@ export const fallbackContent: GarageContent = {
       role: "Managing Partner and Chief Creative Officer",
       tier: "leader",
       portrait: { src: crewPortrait("ashish.jpg"), alt: "Ashish Chakravarty portrait" },
-      crop: { position: "50% 27%" },
+      crop: { position: "50% 47%", zoom: 1.12, origin: "50% 30%" },
       bio: [
         "Ashish Chakravarty is one of India's most awarded and respected creative leaders. Over a career spanning more than two decades, he has held senior creative leadership roles at some of the country's most influential agencies and worked on some of the world's biggest global brands as well as India's most iconic homegrown names.",
         "His body of work spans brands such as Nestle, Coca-Cola, Dabur, Air India, Microsoft, Hero, Lupin, ITC, Britannia, Domino's, General Motors, Docomo, Emami, Campa, and assignments for the Government of India and BJP, among many others. Across categories and markets, Ashish has created talked-about campaigns, enduring brand platforms, and long-term narratives that have shaped how brands are built and remembered.",
@@ -208,7 +208,7 @@ export const fallbackContent: GarageContent = {
       role: "Chief Operating Officer",
       tier: "leader",
       portrait: { src: crewPortrait("swati.jpg"), alt: "Swati Bobde portrait" },
-      crop: { position: "50% 33%" },
+      crop: { position: "50% 45%", zoom: 1.08, origin: "50% 32%" },
       bio: [
         "Swati Bobde is a business leader, entrepreneur, and brand strategist with over two decades of experience spanning advertising, design, branding, production, and business transformation.",
         "Prior to joining Garage Worldwide, she held senior leadership roles at Publicis, was a co-founder of Clay Strategy & Design, worked across leading agencies including JWT and Rediffusion, and spent time in production as an Executive Producer. Throughout her career, she has successfully led multi-crore business portfolios, built and scaled brands, delivered award-winning integrated campaigns, driven significant revenue growth, and partnered with global teams across Asia-Pacific markets.",

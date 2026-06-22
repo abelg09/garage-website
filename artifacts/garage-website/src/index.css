@@ -287,11 +287,13 @@ img {
 }
 
 .crew-section .section-inner {
+  width: min(1214px, calc(100% - clamp(2rem, 12vw, 16rem)));
   padding-top: clamp(4rem, 7vw, 6.5rem);
   padding-bottom: clamp(4.5rem, 7.5vw, 7rem);
 }
 
 .crew-section .section-title {
+  margin-bottom: clamp(1.8rem, 2.6vw, 2.6rem);
   color: #85858a;
 }
 
@@ -1290,7 +1292,7 @@ img {
 .crew-leaders {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: clamp(1.25rem, 2.6vw, 3.25rem);
+  gap: clamp(2rem, 4vw, 4.05rem);
   margin-bottom: clamp(2rem, 4vw, 4rem);
 }
 
