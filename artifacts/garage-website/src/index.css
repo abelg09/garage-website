@@ -1391,7 +1391,7 @@ img {
 .crew-photo {
   position: relative;
   display: block;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: #101010;
 }
@@ -1457,7 +1457,7 @@ img {
 }
 
 .crew-office-split {
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 1 / 1;
   background-repeat: no-repeat;
   background-size: auto 200%;
   filter: grayscale(1);
