@@ -235,7 +235,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("utsav.jpg"), alt: "Utsav Shinde portrait" },
-      crop: { position: "17% 50%", zoom: 1.06, origin: "50% 26%" },
+      crop: { position: "20% 50%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -244,7 +244,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("rujvi.jpg"), alt: "Rujvi Sankpal portrait" },
-      crop: { position: "50% 61%" },
+      crop: { position: "50% 54%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -253,7 +253,7 @@ export const fallbackContent: GarageContent = {
       role: "Copywriter",
       tier: "team",
       portrait: { src: crewPortrait("aniket.jpg"), alt: "Aniket Sharma portrait" },
-      crop: { position: "50% 4%", zoom: 1.065, origin: "38% 35%" },
+      crop: { position: "50% 18%" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -271,7 +271,7 @@ export const fallbackContent: GarageContent = {
       role: "Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("shay.jpg"), alt: "Shay D\u2019Souza portrait" },
-      crop: { position: "50% 24%", zoom: 1.12, origin: "48% 35%" },
+      crop: { position: "50% 24%", zoom: 1.04, origin: "50% 35%" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -289,7 +289,7 @@ export const fallbackContent: GarageContent = {
       role: "Junior Visualiser",
       tier: "team",
       portrait: { src: crewPortrait("aryan.jpg"), alt: "Aryan Sunil portrait" },
-      crop: { position: "50% 100%", zoom: 1.084, origin: "49% 35%" },
+      crop: { position: "50% 72%" },
       bio: ["Junior Visualiser at Garage Worldwide."]
     },
     {
@@ -298,7 +298,7 @@ export const fallbackContent: GarageContent = {
       role: "Sr. Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("pranali.jpg"), alt: "Pranali Pawar portrait" },
-      crop: { position: "50% 3%", zoom: 1.356, origin: "47% 20%" },
+      crop: { position: "50% 8%" },
       bio: ["Sr. Account Executive at Garage Worldwide."]
     },
     {
@@ -307,7 +307,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("tanvi.jpg"), alt: "Tanvi Mahabre portrait" },
-      crop: { position: "50% 47%", zoom: 1.037, origin: "60% 35%" },
+      crop: { position: "50% 36%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -325,7 +325,7 @@ export const fallbackContent: GarageContent = {
       role: "Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("samir.jpg"), alt: "Samir Pinzara portrait" },
-      crop: { position: "50% 0%", zoom: 1.035, origin: "73% 0%" },
+      crop: { position: "50% 0%" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -334,7 +334,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("adwait.jpg"), alt: "Adwait Gurav portrait" },
-      crop: { position: "44% 50%", zoom: 1.45, origin: "43% 36%" },
+      crop: { position: "44% 50%", zoom: 1.18, origin: "43% 36%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -343,7 +343,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("saniya.jpg"), alt: "Saniya Jadhav portrait" },
-      crop: { position: "41% 50%", zoom: 1.137, origin: "50% 46%" },
+      crop: { position: "41% 50%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -352,7 +352,7 @@ export const fallbackContent: GarageContent = {
       role: "Team",
       tier: "team",
       portrait: { src: crewPortrait("christine.jpg"), alt: "Christine portrait" },
-      crop: { position: "50% 4%", zoom: 1.175, origin: "41% 0%" },
+      crop: { position: "50% 14%" },
       bio: ["Team member at Garage Worldwide."]
     },
   ],
