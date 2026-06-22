@@ -235,7 +235,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("utsav.jpg"), alt: "Utsav Shinde portrait" },
-      crop: { position: "16% 50%" },
+      crop: { position: "17% 50%", zoom: 1.06, origin: "50% 26%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -253,7 +253,7 @@ export const fallbackContent: GarageContent = {
       role: "Copywriter",
       tier: "team",
       portrait: { src: crewPortrait("aniket.jpg"), alt: "Aniket Sharma portrait" },
-      crop: { position: "50% 5%" },
+      crop: { position: "50% 4%", zoom: 1.065, origin: "38% 35%" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -289,7 +289,7 @@ export const fallbackContent: GarageContent = {
       role: "Junior Visualiser",
       tier: "team",
       portrait: { src: crewPortrait("aryan.jpg"), alt: "Aryan Sunil portrait" },
-      crop: { position: "50% 100%" },
+      crop: { position: "50% 100%", zoom: 1.084, origin: "49% 35%" },
       bio: ["Junior Visualiser at Garage Worldwide."]
     },
     {
@@ -298,7 +298,7 @@ export const fallbackContent: GarageContent = {
       role: "Sr. Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("pranali.jpg"), alt: "Pranali Pawar portrait" },
-      crop: { position: "50% 0%", zoom: 1.28, origin: "50% 30%" },
+      crop: { position: "50% 3%", zoom: 1.356, origin: "47% 20%" },
       bio: ["Sr. Account Executive at Garage Worldwide."]
     },
     {
@@ -307,7 +307,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("tanvi.jpg"), alt: "Tanvi Mahabre portrait" },
-      crop: { position: "50% 49%" },
+      crop: { position: "50% 47%", zoom: 1.037, origin: "60% 35%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -325,7 +325,7 @@ export const fallbackContent: GarageContent = {
       role: "Account Executive",
       tier: "team",
       portrait: { src: crewPortrait("samir.jpg"), alt: "Samir Pinzara portrait" },
-      crop: { position: "50% 0%" },
+      crop: { position: "50% 0%", zoom: 1.035, origin: "73% 0%" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -343,7 +343,7 @@ export const fallbackContent: GarageContent = {
       role: "Art Director",
       tier: "team",
       portrait: { src: crewPortrait("saniya.jpg"), alt: "Saniya Jadhav portrait" },
-      crop: { position: "37% 50%", zoom: 1.12, origin: "44% 35%" },
+      crop: { position: "41% 50%", zoom: 1.137, origin: "50% 46%" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -352,7 +352,7 @@ export const fallbackContent: GarageContent = {
       role: "Team",
       tier: "team",
       portrait: { src: crewPortrait("christine.jpg"), alt: "Christine portrait" },
-      crop: { position: "50% 0%", zoom: 1.14, origin: "50% 30%" },
+      crop: { position: "50% 4%", zoom: 1.175, origin: "41% 0%" },
       bio: ["Team member at Garage Worldwide."]
     },
   ],
