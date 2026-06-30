@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ChevronDown,
@@ -10,11 +10,8 @@ import {
 import {
   AnimatePresence,
   motion,
-  useMotionValue,
-  useMotionValueEvent,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
   type MotionValue,
 } from "motion/react";
@@ -149,139 +146,98 @@ export function SiteHeader({ wordmark }: { wordmark: ImageAsset }) {
 
 function HeroSection({ content }: { content: GarageContent }) {
   const sectionRef = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-  const heroProgress = useMotionValue(0);
-  const { scrollY } = useScroll();
-
-  const updateHeroProgress = useCallback(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const rootStyle = getComputedStyle(document.documentElement);
-    const stickyTop = Number.parseFloat(rootStyle.getPropertyValue("--header-height")) || 0;
-    const stage = section.querySelector<HTMLElement>(".hero-stage");
-    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-    const stageHeight = stage?.offsetHeight ?? Math.max(1, window.innerHeight - stickyTop);
-    const start = Math.max(0, sectionTop - stickyTop);
-    const end = Math.max(start + 1, sectionTop + section.offsetHeight - stickyTop - stageHeight);
-    const nextProgress = Math.min(1, Math.max(0, (window.scrollY - start) / (end - start)));
-    heroProgress.set(nextProgress);
-  }, [heroProgress]);
-
-  useMotionValueEvent(scrollY, "change", updateHeroProgress);
+  const reducedMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
 
   useEffect(() => {
     const root = document.documentElement;
-    if (prefersReducedMotion === true) {
+    if (reducedMotion === true) {
       root.dataset.reducedMotion = "true";
     } else {
       delete root.dataset.reducedMotion;
     }
     return () => { delete root.dataset.reducedMotion; };
-  }, [prefersReducedMotion]);
+  }, [reducedMotion]);
 
-  useEffect(() => {
-    updateHeroProgress();
-    window.addEventListener("resize", updateHeroProgress);
-    window.addEventListener("orientationchange", updateHeroProgress);
-    return () => {
-      window.removeEventListener("resize", updateHeroProgress);
-      window.removeEventListener("orientationchange", updateHeroProgress);
-    };
-  }, [updateHeroProgress]);
-
-  const cameraScale = useSpring(
-    useTransform(heroProgress, [0, 0.22, 1], [1, 1.04, 1.04]),
-    { stiffness: 92, damping: 24, mass: 0.35 }
-  );
-  const cameraY = useSpring(
-    useTransform(heroProgress, [0, 0.22, 1], ["0%", "0%", "0%"]),
-    { stiffness: 92, damping: 24, mass: 0.35 }
-  );
-  const shutterY = useSpring(
-    useTransform(heroProgress, [0.14, 0.36], ["0%", "-104%"]),
-    { stiffness: 100, damping: 26, mass: 0.36 }
-  );
-  const portalOpacity = useTransform(heroProgress, [0.12, 0.3], [0.16, 1]);
-  const copyOpacity = useTransform(heroProgress, [0.3, 0.46], [0, 1]);
-  const copyY = useTransform(heroProgress, [0.3, 0.46], [18, 0]);
-  const backdropOpacity = useTransform(heroProgress, [0.28, 0.46], [0, 0.54]);
+  const closedOpacity = useTransform(scrollYProgress, [0, 0.24, 0.4], [1, 1, 0]);
+  const openOpacity = useTransform(scrollYProgress, [0.18, 0.42], [0, 1]);
+  const copyOpacity = useTransform(scrollYProgress, [0.28, 0.48], [0, 1]);
+  const copyY = useTransform(scrollYProgress, [0.28, 0.48], [28, 0]);
+  const artScale = useTransform(scrollYProgress, [0, 1], [1, 0.985]);
+  const bananaY = useTransform(scrollYProgress, [0, 1], ["0vh", "46vh"]);
+  const bananaRotate = useTransform(scrollYProgress, [0, 1], [-12, 18]);
 
   return (
-    <section
-      id="about"
-      className="hero-section section-band"
-      aria-label="About GARAGE"
-      ref={sectionRef}
-      data-testid="hero-scroll"
-    >
-      <div className="hero-stage">
-        <motion.div
-          className="hero-backdrop"
-          style={{ opacity: backdropOpacity }}
-          aria-hidden="true"
-        >
-          <img
-            src={content.home.heroCollage.src}
-            alt=""
-            className="hero-image"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+    <>
+      <section
+        id="about"
+        className="hero-section hero-section--pop section-band"
+        aria-label="About GARAGE"
+        ref={sectionRef}
+        data-testid="hero-scroll"
+      >
+        <div className="hero-stage">
+          <div className="hero-pop-noise" aria-hidden="true" />
+          <motion.img
+            src={content.home.heroGarageClosed.src}
+            alt={content.home.heroGarageClosed.alt}
+            className="hero-garage-art hero-garage-art--closed"
+            style={{ opacity: reducedMotion ? 0 : closedOpacity, scale: artScale }}
+            data-testid="hero-garage-closed"
           />
-        </motion.div>
-        <div className="garage-scene-shell">
-          <motion.div className="garage-camera" style={{ scale: cameraScale, y: cameraY }} data-testid="garage-camera">
-            <div className="garage-facade" data-testid="garage-facade">
-              <img
-                src={content.home.garageFacade.src}
-                alt={content.home.garageFacade.alt}
-                className="garage-facade-image"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-              />
-            </div>
-            <motion.div
-              className="garage-portal garage-portal-main"
-              style={{ opacity: portalOpacity }}
-              data-testid="garage-portal"
-            >
-              <div className="garage-origin" data-testid="garage-origin">
-                <img
-                  src={content.home.garageOrigin.src}
-                  alt={content.home.garageOrigin.alt}
-                  className="garage-origin-image"
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-                />
-                <p className="garage-origin-label" data-testid="garage-origin-label">
-                  {content.home.garageOriginLabel}
-                </p>
-              </div>
-              <motion.div
-                className="garage-shutter"
-                data-testid="garage-shutter"
-                style={{ y: shutterY }}
-              >
-                <span />
-              </motion.div>
-            </motion.div>
+          <motion.img
+            src={content.home.heroGarageOpen.src}
+            alt={content.home.heroGarageOpen.alt}
+            className="hero-garage-art hero-garage-art--open"
+            style={{ opacity: reducedMotion ? 1 : openOpacity, scale: artScale }}
+            data-testid="hero-garage-open"
+          />
+          <motion.div
+            className="hero-copy"
+            data-testid="hero-copy"
+            initial={false}
+            style={{ opacity: reducedMotion ? 1 : copyOpacity, y: reducedMotion ? 0 : copyY }}
+          >
+            <p className="hero-kicker">Garage Worldwide</p>
+            <h1>{content.home.heroHeadline}</h1>
+            {content.home.heroBody.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
           </motion.div>
+          <motion.a
+            className="banana-scroll"
+            href="#work"
+            aria-label="Scroll to Work"
+            style={{
+              y: reducedMotion ? 0 : bananaY,
+              rotate: reducedMotion ? 0 : bananaRotate,
+            }}
+          >
+            <img src={content.home.heroBanana.src} alt="" aria-hidden="true" />
+            <span>Scroll</span>
+          </motion.a>
+          <a className="down-link" href="#work" aria-label="Go to Work section">
+            <ChevronDown aria-hidden="true" />
+          </a>
         </div>
-        <motion.div
-          className="hero-copy"
-          data-testid="hero-copy"
-          initial={false}
-          style={{ opacity: copyOpacity, y: copyY }}
-        >
-          <div className="equation-mark" aria-hidden="true">=</div>
-          <p className="eyebrow">{content.home.introKicker}</p>
-          <h1>{content.home.introTitle}</h1>
-          {content.home.introBody.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </motion.div>
-        <a className="down-link" href="#work" aria-label="Go to Work section">
-          <ChevronDown aria-hidden="true" />
-        </a>
-      </div>
-    </section>
+      </section>
+      <section className="hero-about-support section-band" aria-label={content.home.introKicker}>
+        <div className="section-inner hero-about-grid">
+          <div>
+            <p className="eyebrow">{content.home.introKicker}</p>
+            <h2>{content.home.introTitle}</h2>
+          </div>
+          <div className="hero-about-copy">
+            {content.home.introBody.map((paragraph) => (
+              <p key={paragraph}>{paragraph}</p>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
 
@@ -606,54 +562,62 @@ function CrewSection({ crew, mosaic }: { crew: CrewMember[]; mosaic: CrewMosaicC
   return (
     <section id="crew" className="section-band crew-section" aria-labelledby="crew-title">
       <div className="section-inner">
-        <SectionHeading id="crew-title">Crew</SectionHeading>
+        <div className="crew-editorial-heading">
+          <SectionHeading id="crew-title">Crew</SectionHeading>
+          <p>People who build from instinct, nerve, craft, and the occasional beautifully unreasonable idea.</p>
+        </div>
 
-        <motion.div
-          className="crew-leaders"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
-        >
-          {leaders.map((member) => {
-            const globalIndex = crew.indexOf(member);
-            const crop = member.crop;
-            return (
-              <motion.button
-                key={member.id}
-                type="button"
-                className="crew-leader-card"
-                variants={reveal}
-                onClick={() => selectCrew(globalIndex)}
-              >
-                <span className="crew-leader-photo">
-                  {member.portrait?.src ? (
-                    <img
-                      src={member.portrait.src}
-                      alt={member.portrait.alt}
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        objectPosition: crop?.position ?? "50% 50%",
-                        transform: crop?.zoom ? `scale(${crop.zoom})` : undefined,
-                        transformOrigin: crop?.origin ?? "center",
-                      }}
-                    />
-                  ) : (
-                    <span aria-hidden="true" />
-                  )}
-                </span>
-                <span className="crew-leader-caption">
-                  <span className="crew-leader-name">{member.name}</span>
-                  <small className="crew-leader-role">{member.role}</small>
-                </span>
-              </motion.button>
-            );
-          })}
-        </motion.div>
+        <div className="crew-collage-stage">
+          <span className="crew-collage-shape crew-collage-shape--sun" aria-hidden="true" />
+          <span className="crew-collage-shape crew-collage-shape--pill" aria-hidden="true" />
+          <span className="crew-collage-shape crew-collage-shape--block" aria-hidden="true" />
+          <motion.div
+            className="crew-leaders"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
+          >
+            {leaders.map((member, leaderIndex) => {
+              const globalIndex = crew.indexOf(member);
+              const crop = member.crop;
+              return (
+                <motion.button
+                  key={member.id}
+                  type="button"
+                  className={`crew-leader-card crew-leader-card--${leaderIndex + 1}`}
+                  variants={reveal}
+                  onClick={() => selectCrew(globalIndex)}
+                >
+                  <span className="crew-leader-photo">
+                    {member.portrait?.src ? (
+                      <img
+                        src={member.portrait.src}
+                        alt={member.portrait.alt}
+                        style={{
+                          position: "absolute",
+                          inset: 0,
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                          objectPosition: crop?.position ?? "50% 50%",
+                          transform: crop?.zoom ? `scale(${crop.zoom})` : undefined,
+                          transformOrigin: crop?.origin ?? "center",
+                        }}
+                      />
+                    ) : (
+                      <span aria-hidden="true" />
+                    )}
+                  </span>
+                  <span className="crew-leader-caption">
+                    <span className="crew-leader-name">{member.name}</span>
+                    <small className="crew-leader-role">{member.role}</small>
+                  </span>
+                </motion.button>
+              );
+            })}
+          </motion.div>
+        </div>
 
         <div
           ref={teamRef}

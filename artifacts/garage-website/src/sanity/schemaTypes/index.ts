@@ -81,6 +81,16 @@ const homePage = defineType({
   title: "Home / About",
   type: "document",
   fields: [
+    defineField({ name: "heroHeadline", title: "Hero headline", type: "string" }),
+    defineField({
+      name: "heroBody",
+      title: "Hero body",
+      type: "array",
+      of: [defineArrayMember({ type: "text", rows: 3 })],
+    }),
+    defineField({ name: "heroGarageClosed", title: "Closed garage artwork", type: "imageWithAlt" }),
+    defineField({ name: "heroGarageOpen", title: "Open garage artwork", type: "imageWithAlt" }),
+    defineField({ name: "heroBanana", title: "Banana scroll artwork", type: "imageWithAlt" }),
     defineField({ name: "introKicker", title: "Intro kicker", type: "string" }),
     defineField({ name: "introTitle", title: "Intro title", type: "string" }),
     defineField({

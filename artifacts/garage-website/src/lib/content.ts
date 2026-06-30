@@ -54,7 +54,10 @@ type MaybeContact = Partial<Omit<ContactContent, "collage">> & {
 
 type MaybeContent = Partial<Omit<GarageContent, "projects" | "clients" | "crew" | "crewMosaic" | "services" | "contact">> & {
   site?: Partial<Omit<GarageContent["site"], "wordmark">> & { wordmark?: SanityImageLike };
-  home?: Partial<Omit<GarageContent["home"], "garageFacade" | "garageOrigin" | "heroCollage">> & {
+  home?: Partial<Omit<GarageContent["home"], "heroGarageClosed" | "heroGarageOpen" | "heroBanana" | "garageFacade" | "garageOrigin" | "heroCollage">> & {
+    heroGarageClosed?: SanityImageLike;
+    heroGarageOpen?: SanityImageLike;
+    heroBanana?: SanityImageLike;
     garageFacade?: SanityImageLike;
     garageOrigin?: SanityImageLike;
     heroCollage?: SanityImageLike;
@@ -239,6 +242,11 @@ function mergeContent(data: MaybeContent | null): GarageContent {
     home: {
       ...fallbackContent.home,
       ...data.home,
+      heroHeadline: data.home?.heroHeadline || fallbackContent.home.heroHeadline,
+      heroBody: data.home?.heroBody?.length ? data.home.heroBody : fallbackContent.home.heroBody,
+      heroGarageClosed: validImage(data.home?.heroGarageClosed, fallbackContent.home.heroGarageClosed),
+      heroGarageOpen: validImage(data.home?.heroGarageOpen, fallbackContent.home.heroGarageOpen),
+      heroBanana: validImage(data.home?.heroBanana, fallbackContent.home.heroBanana),
       introKicker: data.home?.introKicker || fallbackContent.home.introKicker,
       introTitle: data.home?.introTitle || fallbackContent.home.introTitle,
       introBody: data.home?.introBody?.length ? data.home.introBody : fallbackContent.home.introBody,

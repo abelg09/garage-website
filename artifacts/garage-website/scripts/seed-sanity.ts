@@ -137,6 +137,11 @@ async function seed() {
   const homePage = prune({
     _id: "homePage",
     _type: "homePage",
+    heroHeadline: fallbackContent.home.heroHeadline,
+    heroBody: fallbackContent.home.heroBody,
+    heroGarageClosed: await imageField(fallbackContent.home.heroGarageClosed),
+    heroGarageOpen: await imageField(fallbackContent.home.heroGarageOpen),
+    heroBanana: await imageField(fallbackContent.home.heroBanana),
     introKicker: fallbackContent.home.introKicker,
     introTitle: fallbackContent.home.introTitle,
     introBody: fallbackContent.home.introBody,

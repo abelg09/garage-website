@@ -20,6 +20,11 @@ export const garageContentQuery = `{
     "wordmark": wordmark${imageFields}
   },
   "home": *[_type == "homePage"][0]{
+    heroHeadline,
+    heroBody,
+    "heroGarageClosed": heroGarageClosed${imageFields},
+    "heroGarageOpen": heroGarageOpen${imageFields},
+    "heroBanana": heroBanana${imageFields},
     introKicker,
     introTitle,
     introBody,

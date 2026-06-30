@@ -97,6 +97,11 @@ export type GarageContent = {
     wordmark: ImageAsset;
   };
   home: {
+    heroHeadline: string;
+    heroBody: string[];
+    heroGarageClosed: ImageAsset;
+    heroGarageOpen: ImageAsset;
+    heroBanana: ImageAsset;
     introKicker: string;
     introTitle: string;
     introBody: string[];

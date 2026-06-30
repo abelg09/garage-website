@@ -2,6 +2,7 @@ import type { GarageContent } from "./types";
 import { publicAsset } from "./public-asset";
 
 const ppt = publicAsset("assets/ppt/");
+const revamp = publicAsset("assets/revamp/");
 const clientLogo = (file: string) => publicAsset(`clients/${file}`);
 const crewPortrait = (file: string) => publicAsset(`crew/${file.replace(/\.[^.]+$/, ".webp")}`);
 const crewImage = (file: string) => publicAsset(`crew/${file.replace(/\.[^.]+$/, ".webp")}`);
@@ -23,6 +24,22 @@ export const fallbackContent: GarageContent = {
     }
   },
   home: {
+    heroHeadline: "Big ideas start at Garage",
+    heroBody: [
+      "Every icon starts somewhere - a garage, an idea, a decision to begin that's garage. An ad agency built on instinct over excess. We don't wait for perfect conditions."
+    ],
+    heroGarageClosed: {
+      src: `${revamp}garage-closed.webp`,
+      alt: "Hand-drawn closed GARAGE shutter"
+    },
+    heroGarageOpen: {
+      src: `${revamp}garage-open.webp`,
+      alt: "Hand-drawn open GARAGE storefront"
+    },
+    heroBanana: {
+      src: `${revamp}banana-scroll.webp`,
+      alt: "Hand-drawn banana scroll marker"
+    },
     introKicker: "About Garage",
     introTitle: "Built To Start Things.",
     introBody: [
