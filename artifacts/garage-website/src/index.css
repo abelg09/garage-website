@@ -2425,20 +2425,20 @@ img {
   }
 
   .hero-garage-art {
-    left: -8vw;
-    bottom: clamp(14rem, 40vh, 22rem);
-    width: 116vw;
-    max-height: 48vh;
+    left: -4vw;
+    bottom: clamp(19rem, 48vh, 26rem);
+    width: 108vw;
+    max-height: 42vh;
     object-position: center bottom;
   }
 
   .hero-garage-art--closed {
-    bottom: clamp(14rem, 40vh, 22rem);
+    bottom: clamp(19rem, 48vh, 26rem);
   }
 
   .hero-garage-art--open {
-    left: -6vw;
-    width: 112vw;
+    left: -3vw;
+    width: 106vw;
   }
 
   .hero-copy {
