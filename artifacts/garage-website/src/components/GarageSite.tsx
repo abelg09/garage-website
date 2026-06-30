@@ -24,6 +24,7 @@ import { Link, useLocation } from "wouter";
 import type { CrewMember, GarageContent, ImageAsset, Project } from "../lib/types";
 import { ServicesStack } from "./ServicesStack";
 import { ContactForm } from "./ContactForm";
+import { BananaScrollProgress } from "./BananaScrollProgress";
 
 type GarageSiteProps = {
   content: GarageContent;
@@ -56,12 +57,20 @@ export function GarageSite({ content }: GarageSiteProps) {
       <SiteHeader wordmark={content.site.wordmark} />
       <main>
         <HeroSection content={content} />
+        <AboutStory content={content} />
+        <p className="option-flag"><span>Work — Option 1 · Horizontal-scroll gallery</span></p>
         <WorkSection projects={content.projects} />
+        <p className="option-flag"><span>Work — Option 2 · Editorial hover-reveal list</span></p>
+        <WorkListSection projects={content.projects} />
         <ClientsSection clients={content.clients} />
+        <p className="option-flag"><span>Crew — Option 1 · Names-wall (koto)</span></p>
         <CrewSection crew={content.crew} />
-        <ServicesStack />
+        <p className="option-flag"><span>Crew — Option 2 · Sliced portrait strips</span></p>
+        <CrewSlices crew={content.crew} />
+        <ServicesStack services={content.services} />
         <ContactSection content={content} />
       </main>
+      <BananaScrollProgress />
     </>
   );
 }
@@ -148,279 +157,534 @@ export function SiteHeader({ wordmark }: { wordmark: ImageAsset }) {
 }
 
 function HeroSection({ content }: { content: GarageContent }) {
-  const sectionRef = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion() ?? false;
+  const isMobile = useMediaMax(760);
+  const cinematic = !reduced && !isMobile;
+
+  // rAF poll of the section's scroll position → no measurement race, no scroll-event
+  // dependency. 0 = closed shutter, 1 = fully open.
   const heroProgress = useMotionValue(0);
-  const { scrollY } = useScroll();
-
-  const updateHeroProgress = useCallback(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const rootStyle = getComputedStyle(document.documentElement);
-    const stickyTop = Number.parseFloat(rootStyle.getPropertyValue("--header-height")) || 0;
-    const stage = section.querySelector<HTMLElement>(".hero-stage");
-    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
-    const stageHeight = stage?.offsetHeight ?? Math.max(1, window.innerHeight - stickyTop);
-    const start = Math.max(0, sectionTop - stickyTop);
-    const end = Math.max(start + 1, sectionTop + section.offsetHeight - stickyTop - stageHeight);
-    const nextProgress = Math.min(1, Math.max(0, (window.scrollY - start) / (end - start)));
-    heroProgress.set(nextProgress);
-  }, [heroProgress]);
-
-  useMotionValueEvent(scrollY, "change", updateHeroProgress);
-
   useEffect(() => {
-    const root = document.documentElement;
-    if (prefersReducedMotion === true) {
-      root.dataset.reducedMotion = "true";
-    } else {
-      delete root.dataset.reducedMotion;
+    if (!cinematic) {
+      heroProgress.set(0);
+      return;
     }
-    return () => { delete root.dataset.reducedMotion; };
-  }, [prefersReducedMotion]);
-
-  useEffect(() => {
-    updateHeroProgress();
-    window.addEventListener("resize", updateHeroProgress);
-    window.addEventListener("orientationchange", updateHeroProgress);
-    return () => {
-      window.removeEventListener("resize", updateHeroProgress);
-      window.removeEventListener("orientationchange", updateHeroProgress);
+    let raf = 0;
+    const tick = () => {
+      const sec = heroRef.current;
+      if (sec) {
+        const secTop = sec.getBoundingClientRect().top + window.scrollY;
+        const scrollable = Math.max(1, sec.offsetHeight - window.innerHeight);
+        heroProgress.set(Math.min(1, Math.max(0, (window.scrollY - secTop) / scrollable)));
+      }
+      raf = requestAnimationFrame(tick);
     };
-  }, [updateHeroProgress]);
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [cinematic, heroProgress]);
 
-  const cameraScale = useSpring(
-    useTransform(heroProgress, [0, 0.22, 1], [1, 1.12, 1.12]),
-    { stiffness: 92, damping: 24, mass: 0.35 }
-  );
-  const cameraY = useSpring(
-    useTransform(heroProgress, [0, 0.22, 1], ["0%", "0%", "0%"]),
-    { stiffness: 92, damping: 24, mass: 0.35 }
-  );
-  const shutterY = useSpring(
-    useTransform(heroProgress, [0.22, 0.48], ["0%", "-112%"]),
-    { stiffness: 100, damping: 26, mass: 0.36 }
-  );
-  const portalOpacity = useTransform(heroProgress, [0.2, 0.4], [0.1, 1]);
-  const copyOpacity = useTransform(heroProgress, [0.45, 0.6], [0, 1]);
-  const copyY = useTransform(heroProgress, [0.45, 0.6], [28, 0]);
-  const backdropOpacity = useTransform(heroProgress, [0.45, 0.6], [0, 0.62]);
+  const shutterY = useTransform(heroProgress, [0, 0.46], ["0%", "-118%"]);
+  const shutterOpacity = useTransform(heroProgress, [0.4, 0.5], [1, 0]);
+  const cueOpacity = useTransform(heroProgress, [0, 0.1], [1, 0]);
+  const copyOpacity = useTransform(heroProgress, [0.3, 0.5], [0, 1]);
+  const copyY = useTransform(heroProgress, [0.3, 0.5], [42, 0]);
+  const artOpacity = useTransform(heroProgress, [0.24, 0.46], [0, 1]);
+  const artScale = useTransform(heroProgress, [0.24, 0.58], [0.92, 1]);
 
+  const heroArt = (
+    <Illustration
+      src="/assets/illustrations/toolbox.png"
+      alt={`${content.site.title} tool chest`}
+      className="illus-toolbox"
+    >
+      <ToolboxDoodle wordmark={content.site.title} />
+    </Illustration>
+  );
+
+  const heroCopy = (
+    <>
+      <span className="hero2-spark" aria-hidden="true">
+        <Doodle name="spark" />
+      </span>
+      <p className="eyebrow hero2-eyebrow">{content.site.title} Worldwide</p>
+      <h1 className="hero2-headline">
+        <span>Big ideas</span>
+        <span>start at</span>
+        <span className="hero2-headline-brand">Garage</span>
+      </h1>
+      <p className="hero2-blurb">
+        Every icon starts somewhere — a garage, an idea, a decision to begin.
+        That&rsquo;s Garage: an ad agency built on instinct over excess.
+        We don&rsquo;t wait for perfect conditions.
+      </p>
+      <a className="hero2-cta" href="#work">
+        See the work <ArrowUpRight aria-hidden="true" />
+      </a>
+    </>
+  );
+
+  // Single <section> element (heroRef never swaps) — pinned shutter reveal on desktop,
+  // plain hero on mobile / reduced-motion.
   return (
     <section
       id="about"
-      className="hero-section section-band"
+      ref={heroRef}
+      className={`hero2${cinematic ? " hero2-pinned" : ""}`}
       aria-label="About GARAGE"
-      ref={sectionRef}
-      data-testid="hero-scroll"
+      style={cinematic ? { height: "190vh" } : undefined}
     >
-      <div className="hero-stage">
-        <motion.div
-          className="hero-backdrop"
-          style={{ opacity: backdropOpacity }}
-          aria-hidden="true"
-        >
-          <img
-            src={content.home.heroCollage.src}
-            alt=""
-            className="hero-image"
-            style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-          />
-        </motion.div>
-        <div className="garage-scene-shell">
-          <motion.div className="garage-camera" style={{ scale: cameraScale, y: cameraY }} data-testid="garage-camera">
-            <div className="garage-facade" data-testid="garage-facade">
-              <img
-                src={content.home.garageFacade.src}
-                alt={content.home.garageFacade.alt}
-                className="garage-facade-image"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-              />
-            </div>
-            <motion.div
-              className="garage-portal garage-portal-main"
-              style={{ opacity: portalOpacity }}
-              data-testid="garage-portal"
-            >
-              <div className="garage-origin" data-testid="garage-origin">
-                <img
-                  src={content.home.garageOrigin.src}
-                  alt={content.home.garageOrigin.alt}
-                  className="garage-origin-image"
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-                />
-                <p className="garage-origin-label" data-testid="garage-origin-label">
-                  {content.home.garageOriginLabel}
-                </p>
-              </div>
-              <motion.div
-                className="garage-shutter"
-                data-testid="garage-shutter"
-                style={{ y: shutterY }}
-              >
-                <span />
-              </motion.div>
+      {cinematic ? (
+        <div className="hero2-stage">
+          <Doodle name="star" className="hero2-doodle hero2-doodle--star" />
+          <Doodle name="loop" className="hero2-doodle hero2-doodle--loop" />
+          <div className="hero2-inner">
+            <motion.div className="hero2-art" style={{ opacity: artOpacity, scale: artScale }}>
+              {heroArt}
             </motion.div>
+            <motion.div className="hero2-copy" style={{ opacity: copyOpacity, y: copyY }}>
+              {heroCopy}
+            </motion.div>
+          </div>
+
+          <motion.div
+            className="hero2-shutter"
+            style={{ y: shutterY, opacity: shutterOpacity }}
+            aria-hidden="true"
+          >
+            <GarageShutter wordmark={content.site.title} />
+            <motion.span className="hero2-shutter-cue" style={{ opacity: cueOpacity }}>
+              <span>scroll</span>
+              <ChevronDown aria-hidden="true" />
+            </motion.span>
           </motion.div>
         </div>
-        <motion.div
-          className="hero-copy"
-          data-testid="hero-copy"
-          initial={false}
-          style={{ opacity: copyOpacity, y: copyY }}
-        >
-          <div className="equation-mark" aria-hidden="true">=</div>
-          <p className="eyebrow">{content.home.introKicker}</p>
-          <h1>{content.home.introTitle}</h1>
+      ) : (
+        <>
+          <Doodle name="star" className="hero2-doodle hero2-doodle--star" />
+          <Doodle name="loop" className="hero2-doodle hero2-doodle--loop" />
+          <div className="hero2-inner">
+            <div className="hero2-art">{heroArt}</div>
+            <div className="hero2-copy">{heroCopy}</div>
+          </div>
+          <a className="hero2-scrollcue" href="#work" aria-label="Scroll to our work">
+            <span>scroll</span>
+            <ChevronDown aria-hidden="true" />
+          </a>
+        </>
+      )}
+    </section>
+  );
+}
+
+/** Hand-marker closed roll-up garage shutter — the cinematic hero overlay that lifts on scroll. */
+function GarageShutter({ wordmark }: { wordmark: string }) {
+  const slats = Array.from({ length: 9 }, (_, i) => {
+    const y = 250 + i * 50;
+    return <path key={i} d={`M250 ${y} q250 -12 500 0`} />;
+  });
+  return (
+    <svg className="garage-shutter-svg" viewBox="0 0 1000 780" role="img" aria-label={`${wordmark} shutter`}>
+      <g fill="none" stroke="currentColor" strokeWidth="9" strokeLinecap="round" strokeLinejoin="round">
+        {/* top roll / canister */}
+        <path
+          d="M206 66 q-72 -6 -74 72 q-2 80 72 86 q300 24 596 4 q72 -5 72 -84 q0 -78 -74 -80 q-296 -24 -592 -2 z"
+          fill="rgba(0,0,0,0.03)"
+        />
+        <path d="M250 92 q250 -16 500 4" />
+        {/* side posts */}
+        <path d="M170 232 l6 520 M830 232 l-6 520" />
+        {/* opening top edge */}
+        <path d="M212 226 q288 -14 576 0" />
+        {/* slats */}
+        {slats}
+        {/* handle slot */}
+        <path d="M466 716 q42 -10 80 0" strokeWidth="14" />
+        {/* base line */}
+        <path d="M178 752 q322 18 644 0" />
+      </g>
+    </svg>
+  );
+}
+
+/** The longer origin story — cream editorial band right under the hero. Reuses home copy. */
+function AboutStory({ content }: { content: GarageContent }) {
+  return (
+    <section className="section-band about-story" aria-label="The original startup room">
+      <div className="section-inner about-story-inner">
+        <div className="about-story-head">
+          <p className="eyebrow eyebrow--marker">{content.home.introKicker}</p>
+          <h2 className="about-story-title">{content.home.introTitle}</h2>
+        </div>
+        <div className="about-story-body">
           {content.home.introBody.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}
-        </motion.div>
-        <a className="down-link" href="#work" aria-label="Go to Work section">
-          <ChevronDown aria-hidden="true" />
-        </a>
+        </div>
       </div>
     </section>
   );
 }
 
+/**
+ * Image with a graceful hand-drawn fallback. Drop the designer's transparent export at
+ * `src` (see public/assets/illustrations/README) and it replaces the inline doodle stand-in.
+ */
+function Illustration({
+  src,
+  alt,
+  className,
+  children,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  children?: React.ReactNode;
+}) {
+  const [failed, setFailed] = useState(false);
+  return (
+    <span className={`illus${className ? ` ${className}` : ""}`}>
+      {failed ? (
+        children ?? <span className="illus-fallback" role="img" aria-label={alt} />
+      ) : (
+        <img src={src} alt={alt} loading="eager" onError={() => setFailed(true)} />
+      )}
+    </span>
+  );
+}
+
+/** Hand-marker tool chest stand-in (until the designer's toolbox.png is exported). */
+function ToolboxDoodle({ wordmark }: { wordmark: string }) {
+  return (
+    <svg className="toolbox-doodle" viewBox="0 0 520 430" role="img" aria-label={`${wordmark} tool chest`}>
+      <g
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {/* lid */}
+        <path d="M70 96 q-14 -2 -16 22 q-1 26 14 30 q200 16 384 2 q16 -3 15 -28 q-1 -24 -16 -24 q-190 -16 -381 -4 z" fill="rgba(0,0,0,0.04)" />
+        <path d="M96 78 q170 -16 332 0" />
+        {/* cabinet body */}
+        <path d="M58 150 l8 250 q1 14 16 14 l356 0 q15 0 16 -14 l8 -250" />
+        {/* legs */}
+        <path d="M74 414 l-2 14 M446 414 l2 14" />
+        {/* drawers */}
+        <path d="M70 200 l380 0 M66 250 l388 0 M64 300 l392 0 M62 350 l396 0" />
+        {/* drawer handles */}
+        <path d="M150 175 l60 0 M310 175 l60 0 M150 225 l60 0 M310 225 l60 0 M150 275 l60 0 M310 275 l60 0 M150 325 l60 0 M310 325 l60 0" strokeWidth="9" />
+      </g>
+      {/* GARAGE plaque */}
+      <g transform="translate(232 168)">
+        <rect x="0" y="0" width="56" height="200" rx="6" fill="currentColor" />
+      </g>
+      <text
+        x="260"
+        y="268"
+        transform="rotate(-90 260 268)"
+        textAnchor="middle"
+        className="toolbox-doodle-word"
+      >
+        {wordmark}
+      </text>
+    </svg>
+  );
+}
+
+/** Small reusable marker doodles (stars, sparks, loops) for the playful accents. */
+function Doodle({ name, className }: { name: "star" | "spark" | "loop"; className?: string }) {
+  const common = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: 6,
+    strokeLinecap: "round" as const,
+    strokeLinejoin: "round" as const,
+  };
+  if (name === "star") {
+    return (
+      <svg className={className} viewBox="0 0 60 60" aria-hidden="true">
+        <path d="M30 6 l7 16 l17 2 l-13 12 l4 17 l-15 -9 l-15 9 l4 -17 l-13 -12 l17 -2 z" {...common} />
+      </svg>
+    );
+  }
+  if (name === "spark") {
+    return (
+      <svg className={className} viewBox="0 0 60 60" aria-hidden="true">
+        <path d="M14 30 h12 M46 30 h-12 M30 14 v12 M30 46 v-12 M19 19 l7 7 M41 41 l-7 -7 M41 19 l-7 7 M19 41 l7 -7" {...common} />
+      </svg>
+    );
+  }
+  return (
+    <svg className={className} viewBox="0 0 120 60" aria-hidden="true">
+      <path d="M6 40 q20 -34 44 -20 q18 11 4 26 q-12 12 -22 -2 q-7 -12 10 -20 q22 -10 60 6" {...common} />
+    </svg>
+  );
+}
+
+function useMediaMax(px: number) {
+  const [match, setMatch] = useState(
+    () => typeof window !== "undefined" && window.matchMedia(`(max-width:${px}px)`).matches
+  );
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width:${px}px)`);
+    const onChange = () => setMatch(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    window.addEventListener("resize", onChange);
+    return () => {
+      mq.removeEventListener("change", onChange);
+      window.removeEventListener("resize", onChange);
+    };
+  }, [px]);
+  return match;
+}
+
+// Work — pinned horizontal-scroll gallery (oddlymade / koto reference).
+// Vertical page scroll drives the track sideways; stacks vertically on mobile / reduced-motion.
 function WorkSection({ projects }: { projects: Project[] }) {
   const sectionRef = useRef<HTMLElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion() ?? false;
+  const isMobile = useMediaMax(860);
+  const horizontal = !isMobile && !reduced;
+
+  const [maxX, setMaxX] = useState(0);
+
+  useEffect(() => {
+    if (!horizontal) {
+      setMaxX(0);
+      return;
+    }
+    const measure = () => {
+      const track = trackRef.current;
+      const stage = stageRef.current;
+      if (!track || !stage) return;
+      setMaxX(Math.max(0, track.scrollWidth - stage.clientWidth));
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (trackRef.current) ro.observe(trackRef.current);
+    window.addEventListener("resize", measure);
+    const imgs = Array.from(trackRef.current?.querySelectorAll("img") ?? []);
+    imgs.forEach((img) => img.addEventListener("load", measure));
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+      imgs.forEach((img) => img.removeEventListener("load", measure));
+    };
+  }, [horizontal, projects.length]);
+
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
   });
+  const xRaw = useTransform(scrollYProgress, [0, 1], [0, -maxX]);
+  const x = useSpring(xRaw, { stiffness: 120, damping: 28, mass: 0.4 });
+
+  const sectionStyle = horizontal && maxX > 0 ? { height: `calc(100svh + ${maxX}px)` } : undefined;
 
   return (
     <section
       id="work"
-      className="section-band work-section"
+      className={`section-band work2${horizontal ? "" : " work2--stacked"}`}
       aria-labelledby="work-title"
       ref={sectionRef}
-      style={{ minHeight: `${projects.length * 100}vh` }}
+      style={sectionStyle}
     >
-      <div className="work-sticky-stage">
-        <div className="work-stage-header">
-          <motion.h2
-            id="work-title"
-            className="work-title-stack"
-            aria-label="Work"
-            variants={reveal}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
-          >
-            <span aria-hidden="true">Our Works</span>
-            <span aria-hidden="true">Our Works</span>
-            <span aria-hidden="true">Our Works</span>
-          </motion.h2>
-        </div>
-        <div className="work-deck" role="list">
-          {projects.map((project, index) => (
-            <DeckCard
-              key={project.id}
-              project={project}
-              index={index}
-              total={projects.length}
-              scrollYProgress={scrollYProgress}
-            />
-          ))}
-        </div>
-        <div className="work-stage-footer">
-          <Link className="work-viewall" href="/work">
-            View all work <ArrowUpRight aria-hidden="true" />
+      <div className="work2-stage" ref={stageRef}>
+        <div className="work2-head">
+          <div>
+            <p className="eyebrow eyebrow--marker">Selected work</p>
+            <h2 id="work-title" className="work2-title">Our Works</h2>
+          </div>
+          <Link className="work2-viewall" href="/work">
+            View all <ArrowUpRight aria-hidden="true" />
           </Link>
+        </div>
+
+        <motion.div
+          className="work2-track"
+          ref={trackRef}
+          style={horizontal ? { x } : undefined}
+          role="list"
+        >
+          {projects.map((project, index) => (
+            <Link
+              key={project.id}
+              className="work2-card"
+              href={`/work/${project.id}`}
+              role="listitem"
+              aria-labelledby={`work-card-${project.id}`}
+            >
+              <span className="work2-card-media">
+                <span className="work2-card-index" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
+                <span className="work2-card-cta">
+                  View Case Study <ArrowUpRight aria-hidden="true" />
+                </span>
+              </span>
+              <span className="work2-card-meta">
+                <span className="work2-card-tag">{project.category}</span>
+                <span className="work2-card-titles">
+                  <span className="work2-card-title" id={`work-card-${project.id}`}>
+                    {project.title}
+                  </span>
+                  <span className="work2-card-client">{project.client}</span>
+                </span>
+              </span>
+            </Link>
+          ))}
+          <Link className="work2-card work2-card--all" href="/work" aria-label="View all work">
+            <span className="work2-all-inner">
+              All<br />work <ArrowUpRight aria-hidden="true" />
+            </span>
+          </Link>
+        </motion.div>
+
+        <div className="work2-progress" aria-hidden="true">
+          <motion.span style={horizontal ? { scaleX: scrollYProgress } : undefined} />
         </div>
       </div>
     </section>
   );
 }
 
-function DeckCard({
-  project,
-  index,
-  total,
-  scrollYProgress,
-}: {
-  project: Project;
-  index: number;
-  total: number;
-  scrollYProgress: MotionValue<number>;
-}) {
-  const N = total;
-  const isFirst = index === 0;
-  const isLast = index === N - 1;
+const WORKLIST_PUCK = 116;
+const WORKLIST_EASE: [number, number, number, number] = [0.215, 0.61, 0.355, 1]; // ≈ GSAP power3.out
 
-  const gap = N > 1 ? 1 / (N - 1) : 1;
-  const activeAt = index * gap;
+// Work — Option 2: oddlymade-style editorial list. SCROLL-DRIVEN — the section pins and the
+// active project advances with scroll: each opens (left-to-right), then shrinks diagonally away
+// as the next opens. Cursor-following "View Project" puck on the active image.
+function WorkListSection({ projects }: { projects: Project[] }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion() ?? false;
+  const isMobile = useMediaMax(760);
+  const total = projects.length;
 
-  const slideInStart = isFirst ? 0 : Math.max(0, activeAt - gap * 0.5);
-  const slideInEnd = isFirst ? 0 : activeAt;
+  const [active, setActive] = useState(0);
+  const prevRef = useRef(-1); // the row currently closing
+  const lastRef = useRef(0);
 
-  const pushOutStart = isLast ? 1 : activeAt + gap * 0.2;
-  const pushOutEnd = isLast ? 1 : activeAt + gap * 0.9;
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (isMobile) return;
+    const idx = Math.max(0, Math.min(total - 1, Math.floor(p * total)));
+    if (idx !== lastRef.current) {
+      prevRef.current = lastRef.current;
+      lastRef.current = idx;
+      setActive(idx);
+    }
+  });
 
-  const y = useTransform(
-    scrollYProgress,
-    isFirst ? [0, 1] : [slideInStart, slideInEnd],
-    isFirst ? ["0%", "0%"] : ["calc(100% - 72px)", "0%"]
-  );
-  const scale = useTransform(
-    scrollYProgress,
-    [pushOutStart, pushOutEnd],
-    isLast ? [1, 1] : [1, 0.88]
-  );
-  const opacity = useTransform(
-    scrollYProgress,
-    [pushOutStart, pushOutEnd],
-    isLast ? [1, 1] : [1, 0.42]
-  );
-
-  const projectNumber = String(index + 1).padStart(2, "0");
+  // Cursor-following puck over the active image.
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const px = useSpring(mx, { stiffness: 260, damping: 28, mass: 0.5 });
+  const py = useSpring(my, { stiffness: 260, damping: 28, mass: 0.5 });
+  const trackPuck = (e: React.MouseEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    mx.set(e.clientX - r.left - WORKLIST_PUCK / 2);
+    my.set(e.clientY - r.top - WORKLIST_PUCK / 2);
+  };
 
   return (
-    <motion.article
-      className="work-deck-card"
-      role="listitem"
-      style={{ y, scale, zIndex: index + 1 }}
-      aria-labelledby={`deck-title-${project.id}`}
+    <section
+      id="work-list"
+      ref={sectionRef}
+      className={`section-band worklist-section${isMobile ? "" : " worklist-scroll"}`}
+      aria-label="Work — editorial list"
+      style={isMobile ? undefined : { height: `${total * 72 + 40}vh` }}
     >
-      <motion.div className="wdc-fade-layer" style={{ opacity }}>
-      <Link className="wdc-inner" href={`/work/${project.id}`}>
-        <span className="wdc-index" aria-hidden="true">{projectNumber}</span>
-        <div className="wdc-body">
-          <div className="wdc-meta">
-            <span className="wdc-category">{project.category}</span>
-            <span className="wdc-client">{project.client}</span>
+      <div className="worklist-pin">
+        <div className="worklist-inner">
+          <header className="worklist-head">
+            <p className="eyebrow eyebrow--marker">Selected work</p>
+            <h2 className="worklist-h">Work</h2>
+          </header>
+
+          <div className="worklist-colhead" aria-hidden="true">
+            <span>Brand</span>
+            <span>Project</span>
+            <span>Category</span>
           </div>
-          <h3 className="wdc-title" id={`deck-title-${project.id}`}>
-            {project.title}
-          </h3>
-          <p className="wdc-summary">{project.summary}</p>
-          <span className="wdc-cta">
-            View Case Study <ArrowUpRight aria-hidden="true" />
-          </span>
+
+          <ul className="worklist" role="list">
+            {projects.map((project, i) => {
+              const isActive = active === i;
+              // open (active) · closing (just left → shrinks diagonally) · closed
+              const phase =
+                isMobile || isActive ? "open" : i === prevRef.current ? "closing" : "closed";
+              const innerAnim =
+                phase === "open"
+                  ? { opacity: 1, scale: 1, clipPath: "inset(0% 0% 0% 0%)" }
+                  : phase === "closing"
+                    ? { opacity: 0, scale: 0.42, clipPath: "inset(0% 0% 0% 0%)" }
+                    : { opacity: 0, scale: 1, clipPath: "inset(0% 100% 0% 0%)" };
+              return (
+                <li key={project.id} className={`worklist-row${isActive ? " is-active" : ""}`}>
+                  <Link
+                    href={`/work/${project.id}`}
+                    className="worklist-link"
+                    aria-label={`${project.client} — ${project.title}`}
+                  >
+                    <span className="worklist-cell worklist-brand">
+                      <span className="worklist-idx" aria-hidden="true">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      {project.client}
+                    </span>
+                    <span className="worklist-cell worklist-project">{project.title}</span>
+                    <span className="worklist-cell worklist-cat">
+                      {project.category}
+                      <ArrowUpRight aria-hidden="true" />
+                    </span>
+                  </Link>
+
+                  <motion.div
+                    className="worklist-reveal"
+                    initial={false}
+                    animate={{ height: phase === "open" ? "auto" : 0 }}
+                    transition={reduced ? { duration: 0 } : { duration: 0.55, ease: WORKLIST_EASE }}
+                  >
+                    <Link
+                      href={`/work/${project.id}`}
+                      className="worklist-media"
+                      onMouseMove={isMobile ? undefined : trackPuck}
+                      aria-hidden="true"
+                      tabIndex={-1}
+                    >
+                      <motion.span
+                        className="worklist-media-inner"
+                        initial={false}
+                        animate={innerAnim}
+                        transition={reduced ? { duration: 0 } : { duration: 0.7, ease: WORKLIST_EASE }}
+                      >
+                        <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
+                      </motion.span>
+                      {!isMobile ? (
+                        <motion.span className="worklist-puck" style={{ x: px, y: py }} aria-hidden="true">
+                          View
+                          <br />
+                          Project
+                        </motion.span>
+                      ) : null}
+                    </Link>
+                  </motion.div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <div className="wdc-image">
-          <img
-            src={project.cover.src}
-            alt={project.cover.alt}
-            loading="lazy"
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-            }}
-          />
-          <span className="wdc-image-overlay" aria-hidden="true" />
-        </div>
-      </Link>
-      </motion.div>
-    </motion.article>
+      </div>
+    </section>
   );
 }
 
@@ -564,160 +828,74 @@ function ClientWordmark({ name }: { name: string }) {
 }
 
 function CrewSection({ crew }: { crew: CrewMember[] }) {
+  // selectedIndex → full-bio modal · activeIndex → name-wall spotlight
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const selected = selectedIndex === null ? null : crew[selectedIndex];
+  const active = crew[activeIndex] ?? crew[0];
 
-  const selectCrew = (index: number) => setSelectedIndex(index);
   const close = () => setSelectedIndex(null);
   const previous = () =>
     setSelectedIndex((current) => (current === null ? 0 : (current - 1 + crew.length) % crew.length));
   const next = () =>
     setSelectedIndex((current) => (current === null ? 0 : (current + 1) % crew.length));
 
-  // Lightweight single IntersectionObserver — replaces 28 framer-motion whileInView elements
-  const teamRef = useRef<HTMLDivElement>(null);
-  const [teamVisible, setTeamVisible] = useState(false);
-  useEffect(() => {
-    const el = teamRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setTeamVisible(true); obs.disconnect(); } },
-      { threshold: 0.05 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-
-  const leaders = crew.filter((m) => m.tier === "leader");
-  const team = crew.filter((m) => m.tier !== "leader");
-
-  type OfficeCell = { kind: "office"; src: string; alt: string; split?: "top" | "bottom"; zoom?: number; origin?: string };
-  type CrewCell = { kind: "crew"; member: CrewMember; globalIndex: number };
-  type GridCell = CrewCell | OfficeCell;
-
-  const o = (src: string, alt: string, zoom?: number, origin?: string): OfficeCell => ({ kind: "office", src, alt, zoom, origin });
-  const oSplit = (src: string, alt: string, split: "top" | "bottom"): OfficeCell => ({ kind: "office", src, alt, split });
-  const c = (idx: number): CrewCell => ({ kind: "crew", member: team[idx], globalIndex: crew.indexOf(team[idx]) });
-
-  const teamGrid: GridCell[] = [
-    c(0),  o("/crew/office-trophies.jpg",     "Garage trophies"),          c(1),  c(2),  c(3),
-    c(4),  c(5),                               o("/crew/office-chandelier.jpg", "Headlights chandelier"), c(6),  o("/crew/office-stools.jpg", "Garage workspace"),
-    c(7),  oSplit("/crew/office-mural.jpg",    "Rules mural", "top"),       c(8),  c(9),  c(10),
-    c(11), oSplit("/crew/office-mural.jpg",    "Garage office interior", "bottom"), o("/crew/office-entrepreneur.jpg", "Entrepreneur Mindsets Welcome", 1.7, "38% 44%"), c(12), c(13),
-  ];
-
   return (
-    <section id="crew" className="section-band crew-section" aria-labelledby="crew-title">
+    <section id="crew" className="section-band crew-section crew-wall-section" aria-labelledby="crew-title">
       <div className="section-inner">
         <SectionHeading id="crew-title">Crew</SectionHeading>
+        <p className="crew-wall-sub">
+          The people who start it messy and sign their name to the work. Hover a name to
+          meet them — click to read the full story.
+        </p>
 
-        <motion.div
-          className="crew-leaders"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.1 } } }}
-        >
-          {leaders.map((member) => {
-            const globalIndex = crew.indexOf(member);
-            return (
-              <motion.button
-                key={member.id}
-                type="button"
-                className="crew-leader-card"
-                variants={reveal}
-                onClick={() => selectCrew(globalIndex)}
-              >
-                <span className="crew-leader-photo">
-                  {member.portrait?.src ? (
-                    <img
-                      src={member.portrait.src}
-                      alt={member.portrait.alt}
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
-                    />
-                  ) : (
-                    <span aria-hidden="true" />
-                  )}
-                </span>
-                <span className="crew-leader-caption">
-                  <span className="crew-leader-name">{member.name}</span>
-                  <small className="crew-leader-role">{member.role}</small>
-                </span>
-              </motion.button>
-            );
-          })}
-        </motion.div>
-
-        <div
-          ref={teamRef}
-          className={`crew-team${teamVisible ? " crew-team--visible" : ""}`}
-        >
-          {teamGrid.map((cell, i) => {
-            if (cell.kind === "office") {
-              if (cell.split) {
-                return (
-                  <span
-                    key={`office-${i}`}
-                    className={`crew-office-cell crew-office-split crew-office-split--${cell.split}`}
-                    style={{ backgroundImage: `url("${cell.src}")`, "--i": i } as React.CSSProperties}
-                    role="img"
-                    aria-label={cell.alt}
+        <div className="crew-wall">
+          <div className="crew-spotlight">
+            <button
+              type="button"
+              className="crew-spotlight-card"
+              onClick={() => setSelectedIndex(activeIndex)}
+              aria-label={`Read ${active.name}'s bio`}
+            >
+              <span className="crew-spotlight-photo">
+                {active.portrait?.src ? (
+                  <img
+                    key={active.id}
+                    src={active.portrait.src}
+                    alt={active.portrait.alt}
+                    style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
                   />
-                );
-              }
-              return (
-                <span
-                  key={`office-${i}`}
-                  className="crew-office-cell"
-                  style={{ "--i": i } as React.CSSProperties}
+                ) : (
+                  <span aria-hidden="true" />
+                )}
+              </span>
+              <span className="crew-spotlight-meta">
+                <span className="crew-spotlight-name">{active.name}</span>
+                <span className="crew-spotlight-role">{active.role}</span>
+                <span className="crew-spotlight-loc">Mumbai</span>
+                <span className="crew-spotlight-cta">
+                  Read bio <ArrowUpRight aria-hidden="true" />
+                </span>
+              </span>
+            </button>
+          </div>
+
+          <ul className="crew-names" role="list">
+            {crew.map((member, index) => (
+              <li key={member.id}>
+                <button
+                  type="button"
+                  className={`crew-name${index === activeIndex ? " is-active" : ""}`}
+                  onMouseEnter={() => setActiveIndex(index)}
+                  onFocus={() => setActiveIndex(index)}
+                  onClick={() => setSelectedIndex(index)}
                 >
-                  <span className="crew-photo">
-                    <img
-                      src={cell.src}
-                      alt={cell.alt}
-                      loading="lazy"
-                      style={{
-                        position: "absolute",
-                        inset: 0,
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        objectPosition: "center",
-                        transform: cell.zoom ? `scale(${cell.zoom})` : undefined,
-                        transformOrigin: cell.origin ?? "center",
-                      }}
-                    />
-                  </span>
-                </span>
-              );
-            }
-            return (
-              <button
-                key={cell.member.id}
-                type="button"
-                className="crew-card crew-team-card"
-                style={{ "--i": i } as React.CSSProperties}
-                onClick={() => selectCrew(cell.globalIndex)}
-              >
-                <span className="crew-photo">
-                  {cell.member.portrait?.src ? (
-                    <img
-                      src={cell.member.portrait.src}
-                      alt={cell.member.portrait.alt}
-                      loading="lazy"
-                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
-                    />
-                  ) : (
-                    <span aria-hidden="true" />
-                  )}
-                </span>
-                <span className="crew-overlay">
-                  <span>{cell.member.name}</span>
-                  <small>{cell.member.role}</small>
-                </span>
-              </button>
-            );
-          })}
+                  <span className="crew-name-text">{member.name}</span>
+                  <span className="crew-name-role">{member.role}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
       <CrewModal
@@ -726,6 +904,52 @@ function CrewSection({ crew }: { crew: CrewMember[] }) {
         onPrevious={previous}
         onNext={next}
       />
+    </section>
+  );
+}
+
+// Crew — Option 2: black-and-white sliced portrait strips. Hover expands a strip to the full
+// face (in colour) with name + designation; click opens the bio.
+function CrewSlices({ crew }: { crew: CrewMember[] }) {
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const selected = selectedIndex === null ? null : crew[selectedIndex];
+  const close = () => setSelectedIndex(null);
+  const previous = () =>
+    setSelectedIndex((current) => (current === null ? 0 : (current - 1 + crew.length) % crew.length));
+  const next = () =>
+    setSelectedIndex((current) => (current === null ? 0 : (current + 1) % crew.length));
+
+  return (
+    <section id="crew-slices" className="section-band crew-slices-section" aria-labelledby="crew-slices-title">
+      <div className="section-inner">
+        <SectionHeading id="crew-slices-title">Crew</SectionHeading>
+        <p className="crew-wall-sub">
+          One garage, many faces. Hover a strip to meet them — click for the full story.
+        </p>
+      </div>
+      <div className="crew-slices" role="list">
+        {crew.map((member, index) => (
+          <button
+            key={member.id}
+            type="button"
+            className="crew-slice"
+            role="listitem"
+            onClick={() => setSelectedIndex(index)}
+            aria-label={`${member.name}, ${member.role}`}
+          >
+            <span
+              className="crew-slice-img"
+              style={member.portrait?.src ? { backgroundImage: `url("${member.portrait.src}")` } : undefined}
+            />
+            <span className="crew-slice-shade" aria-hidden="true" />
+            <span className="crew-slice-meta">
+              <b className="crew-slice-name">{member.name}</b>
+              <small className="crew-slice-role">{member.role}</small>
+            </span>
+          </button>
+        ))}
+      </div>
+      <CrewModal member={selected} onClose={close} onPrevious={previous} onNext={next} />
     </section>
   );
 }

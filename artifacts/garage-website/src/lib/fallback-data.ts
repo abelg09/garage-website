@@ -14,7 +14,7 @@ export const fallbackContent: GarageContent = {
       "Mumbai, 400012"
     ],
     wordmark: {
-      src: `${ppt}garage-wordmark.png`,
+      src: `${ppt}garage-wordmark.webp`,
       alt: "GARAGE wordmark"
     }
   },
@@ -27,16 +27,16 @@ export const fallbackContent: GarageContent = {
       "We are an ad agency built on that same principle. We start with what is real: the product, the people, the story, and the nerve to begin before everything feels ready."
     ],
     garageFacade: {
-      src: `${ppt}garage-facade.png`,
+      src: `${ppt}garage-facade.webp`,
       alt: "Industrial red facade with a single closed metal garage shutter"
     },
     garageOrigin: {
-      src: `${ppt}garage-origin.png`,
+      src: `${ppt}garage-origin.webp`,
       alt: "Black and white collage of early garages for Apple, Google, Amazon, Harley, Disney, and Mattel"
     },
     garageOriginLabel: "Where it all started",
     heroCollage: {
-      src: `${ppt}hero-garage-collage.jpg`,
+      src: `${ppt}hero-garage-collage.webp`,
       alt: "Black and white collage of famous garages and early workspaces"
     }
   },
@@ -51,12 +51,12 @@ export const fallbackContent: GarageContent = {
       impact:
         "The #AapkaShukriya film — a heartfelt tribute to the karigars behind every Senco masterpiece — celebrated artisan craftsmanship and cultural heritage, driving brand love and digital engagement across the campaign.",
       cover: {
-        src: `${ppt}work-senco.jpg`,
+        src: `${ppt}work-senco.webp`,
         alt: "Senco Gold & Diamonds — Khushiyon Ki Reet campaign visual"
       },
       gallery: [
         {
-          src: `${ppt}work-senco.jpg`,
+          src: `${ppt}work-senco.webp`,
           alt: "Senco Gold & Diamonds — Khushiyon Ki Reet campaign visual"
         }
       ]
@@ -71,12 +71,12 @@ export const fallbackContent: GarageContent = {
       impact:
         "The creative strategy wove SIB's technology advances into a trusted-banking-partner narrative, centred on the newly launched Mirror+ App. Younger customer testimonials on social and a showcase of new asset and liability products anchored the campaign film \u2018Trust meets Tech since 1929\u2019.",
       cover: {
-        src: `${ppt}work-sib.jpg`,
+        src: `${ppt}work-sib.webp`,
         alt: "South Indian Bank — Trust meets Tech since 1929 campaign"
       },
       gallery: [
         {
-          src: `${ppt}work-sib.jpg`,
+          src: `${ppt}work-sib.webp`,
           alt: "South Indian Bank — Trust meets Tech since 1929 campaign"
         }
       ]
@@ -91,12 +91,12 @@ export const fallbackContent: GarageContent = {
       impact:
         "The wedding film and conference film carried the \u2018Jaldi Kya Hai?\u2019 platform across occasions, building brand recall around the idea of unhurried, traditional indulgence in a market dominated by fast snacking.",
       cover: {
-        src: `${ppt}work-grameen-kulfi-new.png`,
+        src: `${ppt}work-grameen-kulfi-new.webp`,
         alt: "Grameen Kulfi — Jaldi Kya Hai? campaign visual"
       },
       gallery: [
         {
-          src: `${ppt}work-grameen-kulfi-new.png`,
+          src: `${ppt}work-grameen-kulfi-new.webp`,
           alt: "Grameen Kulfi — Jaldi Kya Hai? campaign visual"
         }
       ]
@@ -111,12 +111,12 @@ export const fallbackContent: GarageContent = {
       impact:
         "By blending functional innovation with entertainment, the films achieved high recall and everyday relevance — making tile performance tangible and memorable for consumers across retail and digital.",
       cover: {
-        src: `${ppt}work-johnson.jpg`,
+        src: `${ppt}work-johnson.webp`,
         alt: "H&R Johnson — Dada Jackson MaxGrip campaign visual"
       },
       gallery: [
         {
-          src: `${ppt}work-johnson.jpg`,
+          src: `${ppt}work-johnson.webp`,
           alt: "H&R Johnson — Dada Jackson MaxGrip campaign visual"
         }
       ]
@@ -131,12 +131,12 @@ export const fallbackContent: GarageContent = {
       impact:
         "The GOAT campaign, Diwali Vox Pop series, and New Year \u2018Grape Theory\u2019 film drove curiosity and meaningful engagement across Instagram, Facebook, and YouTube — positioning Nippon India as the GOAT of mutual funds among India's Gen Z investors.",
       cover: {
-        src: `${ppt}work-nippon.jpg`,
+        src: `${ppt}work-nippon.webp`,
         alt: "Nippon India Mutual Fund — GOAT campaign visual"
       },
       gallery: [
         {
-          src: `${ppt}work-nippon.jpg`,
+          src: `${ppt}work-nippon.webp`,
           alt: "Nippon India Mutual Fund — GOAT campaign visual"
         }
       ]
@@ -151,32 +151,32 @@ export const fallbackContent: GarageContent = {
       impact:
         "The \u2018Quiet Little Kid\u2019 launch film celebrated children who know the answer but lack the confidence to say it — earning strong digital reach across English and Hindi versions, and amplified through a full teaser-to-sustenance content arc on social media.",
       cover: {
-        src: `${ppt}work-tata.jpg`,
+        src: `${ppt}work-tata.webp`,
         alt: "Tata Sons — The Quiet Little Kid essay competition film"
       },
       gallery: [
         {
-          src: `${ppt}work-tata.jpg`,
+          src: `${ppt}work-tata.webp`,
           alt: "Tata Sons — The Quiet Little Kid essay competition film"
         }
       ]
     }
   ],
   clients: [
-    { name: "Grameen Kulfi",          logo: "/clients/grameen-kulfi.png"   },
-    { name: "H&R Johnson",            logo: "/clients/johnson.png"         },
-    { name: "Croma",                  logo: "/clients/croma.png"           },
-    { name: "Nippon India Mutual Fund", logo: "/clients/nippon.png"        },
-    { name: "Tata Sons",              logo: "/clients/tata.png"            },
-    { name: "Kalpa-Taru",             logo: "/clients/kalpataru.png"       },
-    { name: "Jameson",                logo: "/clients/jameson.png"         },
+    { name: "Grameen Kulfi",          logo: "/clients/grameen-kulfi.webp"   },
+    { name: "H&R Johnson",            logo: "/clients/johnson.webp"         },
+    { name: "Croma",                  logo: "/clients/croma.webp"           },
+    { name: "Nippon India Mutual Fund", logo: "/clients/nippon.webp"        },
+    { name: "Tata Sons",              logo: "/clients/tata.webp"            },
+    { name: "Kalpa-Taru",             logo: "/clients/kalpataru.webp"       },
+    { name: "Jameson",                logo: "/clients/jameson.webp"         },
     { name: "Marvel",                 logo: null                           },
-    { name: "Senco Gold & Diamonds",  logo: "/clients/senco.png"           },
-    { name: "IFB",                    logo: "/clients/ifb.png"             },
-    { name: "Plum",                   logo: "/clients/plum.png"            },
-    { name: "South Indian Bank",      logo: "/clients/south-indian-bank.png" },
-    { name: "Jacob's Creek",          logo: "/clients/jacobs-creek.png"   },
-    { name: "Imperial Blue",          logo: "/clients/imperial-blue.png"  },
+    { name: "Senco Gold & Diamonds",  logo: "/clients/senco.webp"           },
+    { name: "IFB",                    logo: "/clients/ifb.webp"             },
+    { name: "Plum",                   logo: "/clients/plum.webp"            },
+    { name: "South Indian Bank",      logo: "/clients/south-indian-bank.webp" },
+    { name: "Jacob's Creek",          logo: "/clients/jacobs-creek.webp"   },
+    { name: "Imperial Blue",          logo: "/clients/imperial-blue.webp"  },
   ].map(({ name, logo }) => ({
     id: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     name,
@@ -188,7 +188,7 @@ export const fallbackContent: GarageContent = {
       name: "Ashish Chakravarty",
       role: "Managing Partner and Chief Creative Officer",
       tier: "leader",
-      portrait: { src: "/crew/ashish.jpg", alt: "Ashish Chakravarty portrait" },
+      portrait: { src: "/crew/ashish.webp", alt: "Ashish Chakravarty portrait" },
       bio: [
         "Ashish Chakravarty is one of India's most awarded and respected creative leaders. Over a career spanning more than two decades, he has held senior creative leadership roles at some of the country's most influential agencies and worked on some of the world's biggest global brands as well as India's most iconic homegrown names.",
         "His body of work spans brands such as Nestle, Coca-Cola, Dabur, Air India, Microsoft, Hero, Lupin, ITC, Britannia, Domino's, General Motors, Docomo, Emami, Campa, and assignments for the Government of India and BJP, among many others. Across categories and markets, Ashish has created talked-about campaigns, enduring brand platforms, and long-term narratives that have shaped how brands are built and remembered.",
@@ -202,7 +202,7 @@ export const fallbackContent: GarageContent = {
       name: "Swati Bobde",
       role: "Chief Operating Officer",
       tier: "leader",
-      portrait: { src: "/crew/swati.jpg", alt: "Swati Bobde portrait" },
+      portrait: { src: "/crew/swati.webp", alt: "Swati Bobde portrait" },
       bio: [
         "Swati Bobde is a business leader, entrepreneur, and brand strategist with over two decades of experience spanning advertising, design, branding, production, and business transformation.",
         "Prior to joining Garage Worldwide, she held senior leadership roles at Publicis, was a co-founder of Clay Strategy & Design, worked across leading agencies including JWT and Rediffusion, and spent time in production as an Executive Producer. Throughout her career, she has successfully led multi-crore business portfolios, built and scaled brands, delivered award-winning integrated campaigns, driven significant revenue growth, and partnered with global teams across Asia-Pacific markets.",
@@ -215,7 +215,7 @@ export const fallbackContent: GarageContent = {
       name: "Bryan Elijah",
       role: "Creative Head \u2013 Art",
       tier: "leader",
-      portrait: { src: "/crew/bryan.jpg", alt: "Bryan Elijah portrait" },
+      portrait: { src: "/crew/bryan.webp", alt: "Bryan Elijah portrait" },
       bio: [
         "Bryan brings over 20 years of experience in the advertising industry, consistently delivering innovative campaigns across digital media, integrated marketing, and branding \u2014 with a particular mark in the luxury automobile sector.",
         "His career spans leading agencies including Rediffusion, Creativeland, Percept/H, IBD Percept, Law & Kenneth, and RMG David, where he shaped campaigns that resonate with audiences across high-end and mass-market brands alike.",
@@ -227,7 +227,7 @@ export const fallbackContent: GarageContent = {
       name: "Utsav Shinde",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/utsav.jpg", alt: "Utsav Shinde portrait" },
+      portrait: { src: "/crew/utsav.webp", alt: "Utsav Shinde portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -235,7 +235,7 @@ export const fallbackContent: GarageContent = {
       name: "Rujvi Sankpal",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/rujvi.jpg", alt: "Rujvi Sankpal portrait" },
+      portrait: { src: "/crew/rujvi.webp", alt: "Rujvi Sankpal portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -243,7 +243,7 @@ export const fallbackContent: GarageContent = {
       name: "Aniket Sharma",
       role: "Copywriter",
       tier: "team",
-      portrait: { src: "/crew/aniket.jpg", alt: "Aniket Sharma portrait" },
+      portrait: { src: "/crew/aniket.webp", alt: "Aniket Sharma portrait" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -251,7 +251,7 @@ export const fallbackContent: GarageContent = {
       name: "Vedant Sarda",
       role: "Copywriter",
       tier: "team",
-      portrait: { src: "/crew/vedant.jpg", alt: "Vedant Sarda portrait" },
+      portrait: { src: "/crew/vedant.webp", alt: "Vedant Sarda portrait" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -259,7 +259,7 @@ export const fallbackContent: GarageContent = {
       name: "Shay D\u2019Souza",
       role: "Account Executive",
       tier: "team",
-      portrait: { src: "/crew/shay.jpg", alt: "Shay D\u2019Souza portrait" },
+      portrait: { src: "/crew/shay.webp", alt: "Shay D\u2019Souza portrait" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -267,7 +267,7 @@ export const fallbackContent: GarageContent = {
       name: "Mobaiyana Parveen",
       role: "Copywriter",
       tier: "team",
-      portrait: { src: "/crew/mobaiyana.jpg", alt: "Mobaiyana Parveen portrait" },
+      portrait: { src: "/crew/mobaiyana.webp", alt: "Mobaiyana Parveen portrait" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -275,7 +275,7 @@ export const fallbackContent: GarageContent = {
       name: "Aryan Sunil",
       role: "Junior Visualiser",
       tier: "team",
-      portrait: { src: "/crew/aryan.jpg", alt: "Aryan Sunil portrait" },
+      portrait: { src: "/crew/aryan.webp", alt: "Aryan Sunil portrait" },
       bio: ["Junior Visualiser at Garage Worldwide."]
     },
     {
@@ -283,7 +283,7 @@ export const fallbackContent: GarageContent = {
       name: "Pranali Pawar",
       role: "Sr. Account Executive",
       tier: "team",
-      portrait: { src: "/crew/pranali.jpg", alt: "Pranali Pawar portrait" },
+      portrait: { src: "/crew/pranali.webp", alt: "Pranali Pawar portrait" },
       bio: ["Sr. Account Executive at Garage Worldwide."]
     },
     {
@@ -291,7 +291,7 @@ export const fallbackContent: GarageContent = {
       name: "Tanvi Mahabre",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/tanvi.jpg", alt: "Tanvi Mahabre portrait" },
+      portrait: { src: "/crew/tanvi.webp", alt: "Tanvi Mahabre portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -299,7 +299,7 @@ export const fallbackContent: GarageContent = {
       name: "Kyle Misquitta",
       role: "Account Executive",
       tier: "team",
-      portrait: { src: "/crew/kyle.jpg", alt: "Kyle Misquitta portrait" },
+      portrait: { src: "/crew/kyle.webp", alt: "Kyle Misquitta portrait" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -307,7 +307,7 @@ export const fallbackContent: GarageContent = {
       name: "Samir Pinzara",
       role: "Account Executive",
       tier: "team",
-      portrait: { src: "/crew/samir.jpg", alt: "Samir Pinzara portrait" },
+      portrait: { src: "/crew/samir.webp", alt: "Samir Pinzara portrait" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -315,7 +315,7 @@ export const fallbackContent: GarageContent = {
       name: "Adwait Gurav",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/adwait.jpg", alt: "Adwait Gurav portrait" },
+      portrait: { src: "/crew/adwait.webp", alt: "Adwait Gurav portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -323,7 +323,7 @@ export const fallbackContent: GarageContent = {
       name: "Saniya Jadhav",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/saniya.jpg", alt: "Saniya Jadhav portrait" },
+      portrait: { src: "/crew/saniya.webp", alt: "Saniya Jadhav portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -331,7 +331,7 @@ export const fallbackContent: GarageContent = {
       name: "Christine",
       role: "Team",
       tier: "team",
-      portrait: { src: "/crew/christine.jpg", alt: "Christine portrait" },
+      portrait: { src: "/crew/christine.webp", alt: "Christine portrait" },
       bio: ["Team member at Garage Worldwide."]
     },
   ],
@@ -352,7 +352,7 @@ export const fallbackContent: GarageContent = {
   ],
   contact: {
     collage: {
-      src: `${ppt}contact-office-collage.jpg`,
+      src: `${ppt}contact-office-collage.webp`,
       alt: "Black and white GARAGE office contact collage"
     }
   }
