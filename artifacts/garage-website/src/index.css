@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Detroit";
-  src: url("/Detroit-05Base.otf") format("opentype");
+  src: url("./assets/fonts/Detroit-05Base.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "Helvetica";
-  src: url("/Helvetica.ttc") format("truetype");
+  src: url("./assets/fonts/Helvetica.ttc") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -17,7 +17,7 @@
 /* Hand-marker face — handwritten headlines & doodle labels (GARAGE 2.0 look) */
 @font-face {
   font-family: "Permanent Marker";
-  src: url("/PermanentMarker.woff2") format("woff2");
+  src: url("./assets/fonts/PermanentMarker.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -26,7 +26,7 @@
 /* Elegant serif — used by the minimal Work option (oddlymade-style) */
 @font-face {
   font-family: "Playfair Display";
-  src: url("/PlayfairDisplay.woff2") format("woff2");
+  src: url("./assets/fonts/PlayfairDisplay.woff2") format("woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;

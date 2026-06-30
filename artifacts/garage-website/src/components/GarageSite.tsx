@@ -25,6 +25,7 @@ import type { CrewMember, GarageContent, ImageAsset, Project } from "../lib/type
 import { ServicesStack } from "./ServicesStack";
 import { ContactForm } from "./ContactForm";
 import { BananaScrollProgress } from "./BananaScrollProgress";
+import { publicAsset } from "../lib/public-asset";
 
 type GarageSiteProps = {
   content: GarageContent;
@@ -194,7 +195,7 @@ function HeroSection({ content }: { content: GarageContent }) {
 
   const heroArt = (
     <Illustration
-      src="/assets/illustrations/toolbox.png"
+      src={publicAsset("assets/illustrations/toolbox.png")}
       alt={`${content.site.title} tool chest`}
       className="illus-toolbox"
     >

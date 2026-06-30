@@ -1,6 +1,9 @@
 import type { GarageContent } from "./types";
+import { publicAsset } from "./public-asset";
 
-const ppt = "/assets/ppt/";
+const ppt = publicAsset("assets/ppt/");
+const crewImg = publicAsset("crew/");
+const clientImg = publicAsset("clients/");
 
 export const fallbackContent: GarageContent = {
   site: {
@@ -163,20 +166,20 @@ export const fallbackContent: GarageContent = {
     }
   ],
   clients: [
-    { name: "Grameen Kulfi",          logo: "/clients/grameen-kulfi.webp"   },
-    { name: "H&R Johnson",            logo: "/clients/johnson.webp"         },
-    { name: "Croma",                  logo: "/clients/croma.webp"           },
-    { name: "Nippon India Mutual Fund", logo: "/clients/nippon.webp"        },
-    { name: "Tata Sons",              logo: "/clients/tata.webp"            },
-    { name: "Kalpa-Taru",             logo: "/clients/kalpataru.webp"       },
-    { name: "Jameson",                logo: "/clients/jameson.webp"         },
+    { name: "Grameen Kulfi",          logo: `${clientImg}grameen-kulfi.webp`   },
+    { name: "H&R Johnson",            logo: `${clientImg}johnson.webp`         },
+    { name: "Croma",                  logo: `${clientImg}croma.webp`           },
+    { name: "Nippon India Mutual Fund", logo: `${clientImg}nippon.webp`        },
+    { name: "Tata Sons",              logo: `${clientImg}tata.webp`            },
+    { name: "Kalpa-Taru",             logo: `${clientImg}kalpataru.webp`       },
+    { name: "Jameson",                logo: `${clientImg}jameson.webp`         },
     { name: "Marvel",                 logo: null                           },
-    { name: "Senco Gold & Diamonds",  logo: "/clients/senco.webp"           },
-    { name: "IFB",                    logo: "/clients/ifb.webp"             },
-    { name: "Plum",                   logo: "/clients/plum.webp"            },
-    { name: "South Indian Bank",      logo: "/clients/south-indian-bank.webp" },
-    { name: "Jacob's Creek",          logo: "/clients/jacobs-creek.webp"   },
-    { name: "Imperial Blue",          logo: "/clients/imperial-blue.webp"  },
+    { name: "Senco Gold & Diamonds",  logo: `${clientImg}senco.webp`           },
+    { name: "IFB",                    logo: `${clientImg}ifb.webp`             },
+    { name: "Plum",                   logo: `${clientImg}plum.webp`            },
+    { name: "South Indian Bank",      logo: `${clientImg}south-indian-bank.webp` },
+    { name: "Jacob's Creek",          logo: `${clientImg}jacobs-creek.webp`   },
+    { name: "Imperial Blue",          logo: `${clientImg}imperial-blue.webp`  },
   ].map(({ name, logo }) => ({
     id: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     name,
@@ -188,7 +191,7 @@ export const fallbackContent: GarageContent = {
       name: "Ashish Chakravarty",
       role: "Managing Partner and Chief Creative Officer",
       tier: "leader",
-      portrait: { src: "/crew/ashish.webp", alt: "Ashish Chakravarty portrait" },
+      portrait: { src: `${crewImg}ashish.webp`, alt: "Ashish Chakravarty portrait" },
       bio: [
         "Ashish Chakravarty is one of India's most awarded and respected creative leaders. Over a career spanning more than two decades, he has held senior creative leadership roles at some of the country's most influential agencies and worked on some of the world's biggest global brands as well as India's most iconic homegrown names.",
         "His body of work spans brands such as Nestle, Coca-Cola, Dabur, Air India, Microsoft, Hero, Lupin, ITC, Britannia, Domino's, General Motors, Docomo, Emami, Campa, and assignments for the Government of India and BJP, among many others. Across categories and markets, Ashish has created talked-about campaigns, enduring brand platforms, and long-term narratives that have shaped how brands are built and remembered.",
@@ -202,7 +205,7 @@ export const fallbackContent: GarageContent = {
       name: "Swati Bobde",
       role: "Chief Operating Officer",
       tier: "leader",
-      portrait: { src: "/crew/swati.webp", alt: "Swati Bobde portrait" },
+      portrait: { src: `${crewImg}swati.webp`, alt: "Swati Bobde portrait" },
       bio: [
         "Swati Bobde is a business leader, entrepreneur, and brand strategist with over two decades of experience spanning advertising, design, branding, production, and business transformation.",
         "Prior to joining Garage Worldwide, she held senior leadership roles at Publicis, was a co-founder of Clay Strategy & Design, worked across leading agencies including JWT and Rediffusion, and spent time in production as an Executive Producer. Throughout her career, she has successfully led multi-crore business portfolios, built and scaled brands, delivered award-winning integrated campaigns, driven significant revenue growth, and partnered with global teams across Asia-Pacific markets.",
@@ -215,7 +218,7 @@ export const fallbackContent: GarageContent = {
       name: "Bryan Elijah",
       role: "Creative Head \u2013 Art",
       tier: "leader",
-      portrait: { src: "/crew/bryan.webp", alt: "Bryan Elijah portrait" },
+      portrait: { src: `${crewImg}bryan.webp`, alt: "Bryan Elijah portrait" },
       bio: [
         "Bryan brings over 20 years of experience in the advertising industry, consistently delivering innovative campaigns across digital media, integrated marketing, and branding \u2014 with a particular mark in the luxury automobile sector.",
         "His career spans leading agencies including Rediffusion, Creativeland, Percept/H, IBD Percept, Law & Kenneth, and RMG David, where he shaped campaigns that resonate with audiences across high-end and mass-market brands alike.",
@@ -227,7 +230,7 @@ export const fallbackContent: GarageContent = {
       name: "Utsav Shinde",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/utsav.webp", alt: "Utsav Shinde portrait" },
+      portrait: { src: `${crewImg}utsav.webp`, alt: "Utsav Shinde portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -235,7 +238,7 @@ export const fallbackContent: GarageContent = {
       name: "Rujvi Sankpal",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/rujvi.webp", alt: "Rujvi Sankpal portrait" },
+      portrait: { src: `${crewImg}rujvi.webp`, alt: "Rujvi Sankpal portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -243,7 +246,7 @@ export const fallbackContent: GarageContent = {
       name: "Aniket Sharma",
       role: "Copywriter",
       tier: "team",
-      portrait: { src: "/crew/aniket.webp", alt: "Aniket Sharma portrait" },
+      portrait: { src: `${crewImg}aniket.webp`, alt: "Aniket Sharma portrait" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -251,7 +254,7 @@ export const fallbackContent: GarageContent = {
       name: "Vedant Sarda",
       role: "Copywriter",
       tier: "team",
-      portrait: { src: "/crew/vedant.webp", alt: "Vedant Sarda portrait" },
+      portrait: { src: `${crewImg}vedant.webp`, alt: "Vedant Sarda portrait" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -259,7 +262,7 @@ export const fallbackContent: GarageContent = {
       name: "Shay D\u2019Souza",
       role: "Account Executive",
       tier: "team",
-      portrait: { src: "/crew/shay.webp", alt: "Shay D\u2019Souza portrait" },
+      portrait: { src: `${crewImg}shay.webp`, alt: "Shay D\u2019Souza portrait" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -267,7 +270,7 @@ export const fallbackContent: GarageContent = {
       name: "Mobaiyana Parveen",
       role: "Copywriter",
       tier: "team",
-      portrait: { src: "/crew/mobaiyana.webp", alt: "Mobaiyana Parveen portrait" },
+      portrait: { src: `${crewImg}mobaiyana.webp`, alt: "Mobaiyana Parveen portrait" },
       bio: ["Copywriter at Garage Worldwide."]
     },
     {
@@ -275,7 +278,7 @@ export const fallbackContent: GarageContent = {
       name: "Aryan Sunil",
       role: "Junior Visualiser",
       tier: "team",
-      portrait: { src: "/crew/aryan.webp", alt: "Aryan Sunil portrait" },
+      portrait: { src: `${crewImg}aryan.webp`, alt: "Aryan Sunil portrait" },
       bio: ["Junior Visualiser at Garage Worldwide."]
     },
     {
@@ -283,7 +286,7 @@ export const fallbackContent: GarageContent = {
       name: "Pranali Pawar",
       role: "Sr. Account Executive",
       tier: "team",
-      portrait: { src: "/crew/pranali.webp", alt: "Pranali Pawar portrait" },
+      portrait: { src: `${crewImg}pranali.webp`, alt: "Pranali Pawar portrait" },
       bio: ["Sr. Account Executive at Garage Worldwide."]
     },
     {
@@ -291,7 +294,7 @@ export const fallbackContent: GarageContent = {
       name: "Tanvi Mahabre",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/tanvi.webp", alt: "Tanvi Mahabre portrait" },
+      portrait: { src: `${crewImg}tanvi.webp`, alt: "Tanvi Mahabre portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -299,7 +302,7 @@ export const fallbackContent: GarageContent = {
       name: "Kyle Misquitta",
       role: "Account Executive",
       tier: "team",
-      portrait: { src: "/crew/kyle.webp", alt: "Kyle Misquitta portrait" },
+      portrait: { src: `${crewImg}kyle.webp`, alt: "Kyle Misquitta portrait" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -307,7 +310,7 @@ export const fallbackContent: GarageContent = {
       name: "Samir Pinzara",
       role: "Account Executive",
       tier: "team",
-      portrait: { src: "/crew/samir.webp", alt: "Samir Pinzara portrait" },
+      portrait: { src: `${crewImg}samir.webp`, alt: "Samir Pinzara portrait" },
       bio: ["Account Executive at Garage Worldwide."]
     },
     {
@@ -315,7 +318,7 @@ export const fallbackContent: GarageContent = {
       name: "Adwait Gurav",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/adwait.webp", alt: "Adwait Gurav portrait" },
+      portrait: { src: `${crewImg}adwait.webp`, alt: "Adwait Gurav portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -323,7 +326,7 @@ export const fallbackContent: GarageContent = {
       name: "Saniya Jadhav",
       role: "Art Director",
       tier: "team",
-      portrait: { src: "/crew/saniya.webp", alt: "Saniya Jadhav portrait" },
+      portrait: { src: `${crewImg}saniya.webp`, alt: "Saniya Jadhav portrait" },
       bio: ["Art Director at Garage Worldwide."]
     },
     {
@@ -331,7 +334,7 @@ export const fallbackContent: GarageContent = {
       name: "Christine",
       role: "Team",
       tier: "team",
-      portrait: { src: "/crew/christine.webp", alt: "Christine portrait" },
+      portrait: { src: `${crewImg}christine.webp`, alt: "Christine portrait" },
       bio: ["Team member at Garage Worldwide."]
     },
   ],
