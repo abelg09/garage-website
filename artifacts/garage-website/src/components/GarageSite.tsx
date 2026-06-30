@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   ChevronDown,
@@ -10,6 +10,7 @@ import {
 import {
   AnimatePresence,
   motion,
+  useMotionValue,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -147,10 +148,21 @@ export function SiteHeader({ wordmark }: { wordmark: ImageAsset }) {
 function HeroSection({ content }: { content: GarageContent }) {
   const sectionRef = useRef<HTMLElement>(null);
   const reducedMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
+  const heroProgress = useMotionValue(0);
+
+  const updateHeroProgress = useCallback(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const rootStyle = getComputedStyle(document.documentElement);
+    const stickyTop = Number.parseFloat(rootStyle.getPropertyValue("--header-height")) || 0;
+    const stage = section.querySelector<HTMLElement>(".hero-stage");
+    const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+    const stageHeight = stage?.offsetHeight ?? Math.max(1, window.innerHeight - stickyTop);
+    const start = Math.max(0, sectionTop - stickyTop);
+    const end = Math.max(start + 1, sectionTop + section.offsetHeight - stickyTop - stageHeight);
+    heroProgress.set(Math.min(1, Math.max(0, (window.scrollY - start) / (end - start))));
+  }, [heroProgress]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -162,13 +174,25 @@ function HeroSection({ content }: { content: GarageContent }) {
     return () => { delete root.dataset.reducedMotion; };
   }, [reducedMotion]);
 
-  const closedOpacity = useTransform(scrollYProgress, [0, 0.24, 0.4], [1, 1, 0]);
-  const openOpacity = useTransform(scrollYProgress, [0.18, 0.42], [0, 1]);
-  const copyOpacity = useTransform(scrollYProgress, [0.28, 0.48], [0, 1]);
-  const copyY = useTransform(scrollYProgress, [0.28, 0.48], [28, 0]);
-  const artScale = useTransform(scrollYProgress, [0, 1], [1, 0.985]);
-  const bananaY = useTransform(scrollYProgress, [0, 1], ["0vh", "46vh"]);
-  const bananaRotate = useTransform(scrollYProgress, [0, 1], [-12, 18]);
+  useEffect(() => {
+    updateHeroProgress();
+    window.addEventListener("scroll", updateHeroProgress, { passive: true });
+    window.addEventListener("resize", updateHeroProgress);
+    window.addEventListener("orientationchange", updateHeroProgress);
+    return () => {
+      window.removeEventListener("scroll", updateHeroProgress);
+      window.removeEventListener("resize", updateHeroProgress);
+      window.removeEventListener("orientationchange", updateHeroProgress);
+    };
+  }, [updateHeroProgress]);
+
+  const closedOpacity = useTransform(heroProgress, [0, 0.28, 0.48], [1, 1, 0]);
+  const openOpacity = useTransform(heroProgress, [0.22, 0.52], [0, 1]);
+  const copyOpacity = useTransform(heroProgress, [0.34, 0.62], [0, 1]);
+  const copyY = useTransform(heroProgress, [0.34, 0.62], [28, 0]);
+  const artScale = useTransform(heroProgress, [0, 1], [1, 0.985]);
+  const bananaY = useTransform(heroProgress, [0, 1], ["0vh", "46vh"]);
+  const bananaRotate = useTransform(heroProgress, [0, 1], [-12, 18]);
 
   return (
     <>
