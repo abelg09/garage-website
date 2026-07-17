@@ -115,7 +115,7 @@
 /* ═══ HERO — shutter opens to the navy GARAGE door ═══ */
 .v3-hero {
   position: relative;
-  height: 230vh;
+  height: 185vh;
   background: var(--navy);
 }
 .v3-hero-stage {
@@ -295,15 +295,56 @@
   margin-left: -2.5rem;
   margin-bottom: 0.4rem;
 }
+.v3-work-sub {
+  margin: -0.4rem 0 1.1rem;
+  font-family: var(--lacquer);
+  font-size: clamp(1.05rem, 1.7vw, 1.6rem);
+  color: var(--navy);
+  text-transform: uppercase;
+}
+.v3-work-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.7rem, 2vw, 1.6rem);
+  margin-bottom: clamp(1.4rem, 3vw, 2.4rem);
+}
+.v3-work-pill {
+  padding: 0.35rem 0.9rem;
+  border: 0;
+  background: transparent;
+  font-family: var(--mader);
+  font-size: clamp(1.05rem, 1.7vw, 1.5rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--navy);
+  cursor: pointer;
+  transition: transform 140ms ease, background 140ms ease, color 140ms ease;
+}
+.v3-work-pill:hover { transform: rotate(-1.6deg) scale(1.05); }
+.v3-work-pill.is-active {
+  background: var(--og);
+  color: var(--cream);
+  transform: rotate(-1deg);
+}
 .v3-work-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(1.2rem, 2.6vw, 2.2rem);
 }
-.v3-work-card--wide {
-  grid-column: 1 / -1;
-  aspect-ratio: 21 / 8;
+.v3-work-cell {
+  opacity: 0;
+  animation: v3riseIn 320ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 55ms);
 }
+@keyframes v3riseIn {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3-work-cell { animation-duration: 1ms; animation-delay: 0ms; }
+}
+.v3-work-cell--wide { grid-column: 1 / -1; }
+.v3-work-cell--wide .v3-work-card { aspect-ratio: 21 / 8; }
 .v3-work-card {
   position: relative;
   display: block;
@@ -312,9 +353,10 @@
   background: var(--og);
   text-decoration: none;
   border: 2px solid rgba(5, 5, 129, 0.0);
-  transition: transform 260ms ease, box-shadow 260ms ease;
+  transition: transform 170ms ease, box-shadow 170ms ease;
 }
 .v3-work-card:hover { transform: translateY(-5px) rotate(-0.4deg); box-shadow: 8px 10px 0 rgba(5, 5, 129, 0.25); }
+.v3-work-cell .v3-work-card { display: block; height: 100%; }
 .v3-work-card img {
   position: absolute;
   top: 3%;
@@ -322,7 +364,7 @@
   width: 94%;
   height: 80%;
   object-fit: contain;
-  transition: transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .v3-work-card:hover img { transform: scale(1.04); }
 .v3-work-card-strip {
@@ -336,15 +378,31 @@
   clip-path: polygon(0 55%, 100% 18%, 100% 100%, 0 100%);
   display: flex;
   justify-content: flex-end;
+  align-items: baseline;
+  gap: 1rem;
 }
-.v3-work-card-strip span {
+.v3-work-card-brand {
   font-family: var(--lacquer);
   font-size: clamp(1.05rem, 1.6vw, 1.5rem);
   color: var(--cream);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
-.v3-work-card:nth-child(even) .v3-work-card-strip {
+.v3-work-card-view {
+  font-family: var(--lacquer);
+  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  color: var(--og);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.v3-work-card:hover .v3-work-card-view {
+  opacity: 1;
+  transform: none;
+}
+.v3-work-cell:nth-child(even) .v3-work-card-strip {
   clip-path: polygon(0 18%, 100% 55%, 100% 100%, 0 100%);
   justify-content: flex-start;
 }
@@ -687,7 +745,7 @@
 
 @media (max-width: 700px) {
   .v3-work-grid { grid-template-columns: 1fr; }
-  .v3-work-card--wide { aspect-ratio: 16 / 11; }
+  .v3-work-cell--wide .v3-work-card { aspect-ratio: 16 / 11; }
 }
 
 @media (max-width: 640px) {

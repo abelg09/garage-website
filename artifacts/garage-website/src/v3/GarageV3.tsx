@@ -51,12 +51,12 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
       setFrame((f) => {
         if (f >= frames.length - 1) {
           window.clearInterval(timer);
-          window.setTimeout(onDone, 900);
+          window.setTimeout(onDone, 450);
           return f;
         }
         return f + 1;
       });
-    }, 540);
+    }, 400);
     return () => window.clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduced]);
@@ -67,7 +67,7 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
       onClick={onDone}
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.35 }}
       aria-hidden="true"
     >
       {frames.map((src, i) => (
@@ -103,8 +103,8 @@ function HeroGarage({ active }: { active: boolean }) {
     return () => cancelAnimationFrame(raf);
   }, [reduced, progress]);
 
-  const shutterY = useTransform(progress, [0.05, 0.6], ["0%", "-104%"]);
-  const doorScale = useTransform(progress, [0.05, 0.7], [1.06, 1]);
+  const shutterY = useTransform(progress, [0.04, 0.5], ["0%", "-104%"]);
+  const doorScale = useTransform(progress, [0.04, 0.6], [1.06, 1]);
   const cueOpacity = useTransform(progress, [0, 0.1], [1, 0]);
 
   return (
@@ -196,8 +196,18 @@ function AboutV3() {
   );
 }
 
-/* ── Work (page 11) ── */
+/* ── Work (page 11 + fleshandbones-style filters) ── */
+const WORK_FILTERS: { label: string; match: (p: Project) => boolean }[] = [
+  { label: "All", match: () => true },
+  { label: "Campaigns", match: (p) => /campaign/i.test(p.category) },
+  { label: "Films", match: (p) => /film/i.test(p.category) },
+  { label: "Digital & Social", match: (p) => /digital|social/i.test(p.category) },
+];
+
 function WorkV3({ projects }: { projects: Project[] }) {
+  const [filter, setFilter] = useState(0);
+  const shown = projects.filter(WORK_FILTERS[filter].match);
+
   return (
     <section id="work" className="v3-work" aria-labelledby="v3-work-title">
       <div className="v3-work-inner">
@@ -207,18 +217,36 @@ function WorkV3({ projects }: { projects: Project[] }) {
           </h2>
           <img className="v3-work-couch" src={v2("couch")} alt="" aria-hidden="true" />
         </div>
-        <div className="v3-work-grid">
-          {projects.map((project, index) => (
-            <Link
-              key={project.id}
-              href={`/work/${project.id}`}
-              className={`v3-work-card${index % 3 === 2 ? " v3-work-card--wide" : ""}`}
+        <p className="v3-work-sub">All the things we make, parked in one garage.</p>
+        <div className="v3-work-filters" role="tablist" aria-label="Filter work">
+          {WORK_FILTERS.map((f, i) => (
+            <button
+              key={f.label}
+              type="button"
+              role="tab"
+              aria-selected={filter === i}
+              className={`v3-work-pill${filter === i ? " is-active" : ""}`}
+              onClick={() => setFilter(i)}
             >
-              <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
-              <span className="v3-work-card-strip">
-                <span>{project.client}</span>
-              </span>
-            </Link>
+              {f.label}
+            </button>
+          ))}
+        </div>
+        <div className="v3-work-grid" key={WORK_FILTERS[filter].label}>
+          {shown.map((project, index) => (
+            <div
+              key={project.id}
+              style={{ "--i": index } as React.CSSProperties}
+              className={index % 3 === 2 ? "v3-work-cell v3-work-cell--wide" : "v3-work-cell"}
+            >
+              <Link href={`/work/${project.id}`} className="v3-work-card">
+                <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
+                <span className="v3-work-card-strip">
+                  <span className="v3-work-card-brand">{project.client}</span>
+                  <span className="v3-work-card-view">View case ↗</span>
+                </span>
+              </Link>
+            </div>
           ))}
         </div>
       </div>
