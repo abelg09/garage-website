@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Route, Router, Switch } from "wouter";
 import { Toaster } from "sonner";
 
-import { GarageSite } from "./components/GarageSite";
+import { GarageV3 } from "./v3/GarageV3";
 import { WorkIndex } from "./pages/WorkIndex";
 import { CaseStudy } from "./pages/CaseStudy";
 import { getGarageContent } from "./lib/content";
@@ -22,7 +22,7 @@ export default function App() {
     <Router base={routerBase}>
       <Switch>
         <Route path="/">
-          <GarageSite content={content} />
+          <GarageV3 content={content} />
         </Route>
         <Route path="/work">
           <WorkIndex content={content} />
@@ -31,7 +31,7 @@ export default function App() {
           <CaseStudy content={content} />
         </Route>
         <Route>
-          <GarageSite content={content} />
+          <GarageV3 content={content} />
         </Route>
       </Switch>
       <Toaster position="bottom-right" theme="dark" richColors />
