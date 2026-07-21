@@ -730,7 +730,7 @@
 .v3-contact-plate-wrap {
   position: relative;
   width: fit-content;
-  margin: 0 0 clamp(3rem, 6vw, 4.5rem) clamp(0.5rem, 3vw, 3rem);
+  margin: 0 0 clamp(3.5rem, 7vw, 5.5rem) clamp(2rem, 8vw, 9rem);
 }
 .v3-contact-plate {
   display: inline-block;
@@ -744,11 +744,13 @@
 }
 .v3-contact-phone {
   position: absolute;
-  left: 8%;
-  top: 84%;
-  width: clamp(70px, 8vw, 120px);
+  left: 94%;
+  top: 82%;
+  width: clamp(58px, 6vw, 90px);
   pointer-events: none;
+  z-index: 1;
 }
+.v3-contact-plate { position: relative; z-index: 2; }
 .v3-contact-grid {
   display: grid;
   grid-template-columns: minmax(260px, 0.85fr) 1.6fr;
@@ -758,6 +760,7 @@
 .v3-contact-info {
   display: grid;
   gap: 1.6rem;
+  padding-top: 2.4rem;
   font-family: var(--lacquer);
   color: var(--og);
   font-size: clamp(1.05rem, 1.5vw, 1.45rem);
