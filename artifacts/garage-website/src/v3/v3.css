@@ -744,8 +744,8 @@
 }
 .v3-contact-phone {
   position: absolute;
-  left: 94%;
-  top: 82%;
+  left: 85%;
+  top: 76%;
   width: clamp(58px, 6vw, 90px);
   pointer-events: none;
   z-index: 1;
