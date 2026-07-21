@@ -10,14 +10,26 @@ import "./v3.css";
 
 const v2 = (name: string) => publicAsset(`v2/${name}.webp`);
 
+const MENU_ITEMS: [string, string][] = [
+  ["about us", "story"],
+  ["work", "work"],
+  ["crew", "crew"],
+  ["contact us", "contact"],
+];
+
 export function GarageV3({ content }: { content: GarageContent }) {
   const [introDone, setIntroDone] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const go = (id: string) => {
+    setMenuOpen(false);
+    window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 60);
+  };
 
   return (
     <div className="v3" style={{ "--v3-texture": `url("${v2("texture")}")`, "--v3-fabric": `url("${v2("fabric-navy")}")` } as React.CSSProperties}>
       {!introDone ? <IntroLoader onDone={() => setIntroDone(true)} /> : null}
       <HeroGarage active={introDone} />
-      <HeaderV3 />
       <AboutV3 />
       <WorkV3 projects={content.projects} />
       <BrandsV3 clients={content.clients} />
@@ -25,12 +37,32 @@ export function GarageV3({ content }: { content: GarageContent }) {
       <ContactV3 site={content.site} />
       <button
         type="button"
-        className="v3-banana-corner"
-        aria-label="Go to the crew"
-        onClick={() => document.getElementById("crew")?.scrollIntoView({ behavior: "smooth" })}
+        className={`v3-banana-corner${menuOpen ? " is-open" : ""}`}
+        aria-label={menuOpen ? "Close menu" : "Open menu"}
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen(!menuOpen)}
       >
         <img src={v2("banana")} alt="" />
       </button>
+      <AnimatePresence>
+        {menuOpen ? (
+          <motion.div
+            className="v3-menu v3-fabric"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            <nav aria-label="Menu">
+              {MENU_ITEMS.map(([label, id]) => (
+                <button key={id} type="button" onClick={() => go(id)}>
+                  {label}
+                </button>
+              ))}
+            </nav>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
     </div>
   );
 }
@@ -51,12 +83,12 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
       setFrame((f) => {
         if (f >= frames.length - 1) {
           window.clearInterval(timer);
-          window.setTimeout(onDone, 450);
+          window.setTimeout(onDone, 350);
           return f;
         }
         return f + 1;
       });
-    }, 400);
+    }, 300);
     return () => window.clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduced]);
@@ -73,7 +105,6 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
       {frames.map((src, i) => (
         <img key={src} src={src} alt="" className={i === frame ? "is-on" : ""} loading="eager" />
       ))}
-      <span className="v3-intro-skip">click to skip</span>
     </motion.div>
   );
 }
@@ -110,8 +141,8 @@ function HeroGarage({ active }: { active: boolean }) {
   return (
     <section id="about" ref={ref} className="v3-hero" aria-label="GARAGE">
       <div className="v3-hero-stage">
-        <motion.div className="v3-hero-door" style={{ scale: reduced ? 1 : doorScale }}>
-          <img className="v3-door-art" src={v2("door")} alt="Hand-drawn garage door with GARAGE painted on it" />
+        <motion.div className="v3-hero-door v3-fabric" style={{ scale: reduced ? 1 : doorScale }}>
+          <img className="v3-door-art" src={v2("door-art")} alt="Hand-drawn garage door with GARAGE painted on it" />
         </motion.div>
         <motion.div className="v3-hero-shutter" style={{ y: reduced ? "-104%" : shutterY }} aria-hidden="true">
           <img src={v2("shutter")} alt="" />
@@ -160,7 +191,7 @@ function HeaderV3() {
 /* ── About (page 10) ── */
 function AboutV3() {
   return (
-    <section className="v3-about-wrap" aria-label="About Garage">
+    <section id="story" className="v3-about-wrap" aria-label="About Garage">
       <div className="v3-about-navy v3-fabric">
         <div className="v3-about-navy-inner">
           <img className="v3-about-horns" src={v2("horns")} alt="" aria-hidden="true" />
@@ -237,7 +268,7 @@ function WorkV3({ projects }: { projects: Project[] }) {
             <div
               key={project.id}
               style={{ "--i": index } as React.CSSProperties}
-              className={index % 3 === 2 ? "v3-work-cell v3-work-cell--wide" : "v3-work-cell"}
+              className="v3-work-cell"
             >
               <Link href={`/work/${project.id}`} className="v3-work-card">
                 <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
@@ -263,10 +294,19 @@ function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
         <h2 id="v3-brands-title" className="v3-brands-title">
           Brands
         </h2>
-        <div className="v3-brands-strip">
-          {withLogos.map((client) => (
-            <img key={client.name} src={client.logo!.src} alt={client.name} loading="lazy" />
-          ))}
+        <div className="v3-brands-marquee" aria-label="Our brands">
+          <div className="v3-brands-track">
+            {[0, 1].map((dup) => (
+              <div className="v3-brands-row" key={dup} aria-hidden={dup === 1}>
+                {withLogos.map((client) => (
+                  <span className="v3-brand-box" key={`${dup}-${client.name}`}>
+                    <img src={client.logo!.src} alt={dup === 0 ? client.name : ""} loading="lazy" />
+                    <span className="v3-brand-band">{client.name.toLowerCase()}</span>
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <div className="v3-brands-diagonal">
@@ -331,7 +371,7 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
               {OG_ZONES.filter((z) => z.key === ogHover).map((zone) => (
                 <motion.span
                   key={zone.key}
-                  className="v3-og-card"
+                  className={`v3-og-card ${OG_ZONES.findIndex((z) => z.key === zone.key) % 2 ? "v3-og-card--r" : "v3-og-card--l"}`}
                   style={{ left: `${zone.cx}%` }}
                   initial={{ opacity: 0, y: 26 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -385,9 +425,18 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
         </div>
       </div>
 
-      <button type="button" className="v3-team-banana" onClick={() => setFlipped(!flipped)}>
-        <img src={v2("banana")} alt="" />
-        <span>{flipped ? "Meet the OGs" : "Click the banana!"}</span>
+      <button
+        type="button"
+        className={`v3-team-switch${flipped ? " is-on" : ""}`}
+        role="switch"
+        aria-checked={flipped}
+        onClick={() => setFlipped(!flipped)}
+      >
+        <span className="v3-team-switch-label">{flipped ? "meet the ogs" : "meet the crew"}</span>
+        <span className="v3-team-switch-track" aria-hidden="true">
+          <i>{flipped ? "on" : "off"}</i>
+          <b />
+        </span>
       </button>
     </section>
   );
