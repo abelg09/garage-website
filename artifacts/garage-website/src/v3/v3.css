@@ -385,7 +385,6 @@
   transition: transform 170ms ease, box-shadow 170ms ease;
 }
 .v3-work-card:hover { transform: translateY(-5px) rotate(-0.4deg); box-shadow: 8px 10px 0 rgba(5, 5, 129, 0.25); }
-.v3-work-cell .v3-work-card { display: block; height: 100%; }
 .v3-work-card img {
   position: absolute;
   top: 3%;
@@ -624,7 +623,7 @@
   position: absolute;
   inset: 0;
   display: grid;
-  place-items: center;
+  place-items: end center;
   container-type: size;
 }
 /* exact 16:9 frame (contain) so hover zones map 1:1 onto the group photo */
@@ -731,7 +730,7 @@
 .v3-contact-plate-wrap {
   position: relative;
   width: fit-content;
-  margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+  margin: 0 0 clamp(3rem, 6vw, 4.5rem) clamp(0.5rem, 3vw, 3rem);
 }
 .v3-contact-plate {
   display: inline-block;
@@ -745,9 +744,10 @@
 }
 .v3-contact-phone {
   position: absolute;
-  left: -24%;
-  top: 92%;
+  left: 8%;
+  top: 84%;
   width: clamp(70px, 8vw, 120px);
+  pointer-events: none;
 }
 .v3-contact-grid {
   display: grid;
