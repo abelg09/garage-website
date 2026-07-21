@@ -88,7 +88,7 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
         }
         return f + 1;
       });
-    }, 300);
+    }, 100);
     return () => window.clearInterval(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduced]);

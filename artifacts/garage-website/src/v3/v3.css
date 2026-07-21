@@ -127,7 +127,7 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 320ms ease;
+  transition: opacity 90ms ease;
 }
 .v3-intro img.is-on { opacity: 1; }
 .v3-intro-skip {
