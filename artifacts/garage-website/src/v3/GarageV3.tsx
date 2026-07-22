@@ -35,6 +35,7 @@ export function GarageV3({ content }: { content: GarageContent }) {
       <BrandsV3 clients={content.clients} />
       <TeamFlip crew={content.crew} />
       <ContactV3 site={content.site} />
+      <img className="v3-wordmark-fixed" src={v2("wordmark-white")} alt="GARAGE" />
       <button
         type="button"
         className={`v3-banana-corner${menuOpen ? " is-open" : ""}`}
@@ -71,7 +72,7 @@ export function GarageV3({ content }: { content: GarageContent }) {
 function IntroLoader({ onDone }: { onDone: () => void }) {
   const reduced = useReducedMotion() ?? false;
   const [frame, setFrame] = useState(0);
-  const frames = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => v2(`intro-${n}`));
+  const frames = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((n) => v2(`intro-${n}`));
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -79,12 +80,17 @@ function IntroLoader({ onDone }: { onDone: () => void }) {
       onDone();
       return;
     }
+    let cycles = 0;
     const timer = window.setInterval(() => {
       setFrame((f) => {
         if (f >= frames.length - 1) {
-          window.clearInterval(timer);
-          window.setTimeout(onDone, 350);
-          return f;
+          cycles += 1;
+          if (cycles >= 2) {
+            window.clearInterval(timer);
+            window.setTimeout(onDone, 250);
+            return f;
+          }
+          return 0;
         }
         return f + 1;
       });
@@ -147,7 +153,6 @@ function HeroGarage({ active }: { active: boolean }) {
         <motion.div className="v3-hero-shutter" style={{ y: reduced ? "-104%" : shutterY }} aria-hidden="true">
           <img src={v2("shutter")} alt="" />
         </motion.div>
-        <img className="v3-hero-wordmark" src={v2("wordmark-white")} alt="GARAGE" />
         {active ? (
           <motion.span className="v3-hero-cue" style={{ opacity: cueOpacity }}>
             scroll to open
@@ -200,7 +205,6 @@ function AboutV3() {
           </h2>
         </div>
       </div>
-      <img className="v3-torn" src={v2("torn-edge")} alt="" aria-hidden="true" />
       <div className="v3-about-cream">
         <div className="v3-about-cream-inner">
           <h3 className="v3-og-title">
@@ -327,7 +331,7 @@ const OG_ZONES = [
 const CREW_ZONES: { name: string; role: string; x: number; y: number; w: number; h: number; lx: number; ly: number }[] = [
   { name: "Aryan", role: "Junior Visualizer", x: 10, y: 22, w: 11, h: 38, lx: 15.4, ly: 41 },
   { name: "Rujvi", role: "Sr. Visualizer", x: 23, y: 33, w: 10, h: 36, lx: 24.6, ly: 46.4 },
-  { name: "Utsav", role: "Art Director", x: 31, y: 13, w: 10, h: 32, lx: 31.3, ly: 25 },
+  { name: "Maithili", role: "Art Director", x: 31, y: 13, w: 10, h: 32, lx: 31.3, ly: 25 },
   { name: "Vedant", role: "Copywriter", x: 41, y: 31, w: 11, h: 38, lx: 40.4, ly: 46 },
   { name: "Tanvi", role: "Visualizer", x: 48, y: 13, w: 10, h: 34, lx: 46.4, ly: 23.5 },
   { name: "Aniket", role: "Sr. Copywriter", x: 55, y: 33, w: 11, h: 36, lx: 56.6, ly: 53 },
@@ -342,7 +346,6 @@ const CREW_ZONES: { name: string; role: string; x: number; y: number; w: number;
 
 function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
   const [flipped, setFlipped] = useState(false);
-  const [ogHover, setOgHover] = useState<string | null>(null);
   const [crewHover, setCrewHover] = useState<string | null>(null);
 
   const bioFor = (key: string) => {
@@ -357,36 +360,20 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
           <h2 className="v3-team-title">Meet the OGs</h2>
           <div className="v3-ogs-stage">
             <img src={v2("ogs")} alt="The three Garage founders" />
-            {OG_ZONES.map((zone) => (
+            {OG_ZONES.map((zone, i) => (
               <span
                 key={zone.key}
-                className="v3-og-zone"
-                style={{ left: zone.left, width: zone.width }}
-                onMouseEnter={() => setOgHover(zone.key)}
-                onMouseLeave={() => setOgHover(null)}
-                onClick={() => setOgHover(ogHover === zone.key ? null : zone.key)}
-              />
+                className={`v3-og-card ${i % 2 ? "v3-og-card--r" : "v3-og-card--l"}`}
+                style={{ left: `${zone.cx}%` }}
+              >
+                <span className="v3-og-card-name">
+                  {zone.name}
+                  <br />
+                  {zone.role}
+                </span>
+                <span className="v3-og-card-bio">{bioFor(zone.key)}</span>
+              </span>
             ))}
-            <AnimatePresence>
-              {OG_ZONES.filter((z) => z.key === ogHover).map((zone) => (
-                <motion.span
-                  key={zone.key}
-                  className={`v3-og-card ${OG_ZONES.findIndex((z) => z.key === zone.key) % 2 ? "v3-og-card--r" : "v3-og-card--l"}`}
-                  style={{ left: `${zone.cx}%` }}
-                  initial={{ opacity: 0, y: 26 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 18 }}
-                  transition={{ duration: 0.28, ease: [0.2, 0.8, 0.2, 1] }}
-                >
-                  <span className="v3-og-card-name">
-                    {zone.name}
-                    <br />
-                    {zone.role}
-                  </span>
-                  <span className="v3-og-card-bio">{bioFor(zone.key)}</span>
-                </motion.span>
-              ))}
-            </AnimatePresence>
           </div>
         </div>
 

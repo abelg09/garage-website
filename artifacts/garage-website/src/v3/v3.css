@@ -66,6 +66,17 @@
   background-position: center;
 }
 
+/* ── fixed wordmark (all pages) ── */
+.v3-wordmark-fixed {
+  position: fixed;
+  top: clamp(0.9rem, 2vw, 1.5rem);
+  left: clamp(1rem, 2.4vw, 1.8rem);
+  z-index: 90;
+  width: clamp(96px, 9vw, 150px);
+  pointer-events: none;
+  filter: drop-shadow(0 1px 5px rgba(4, 4, 106, 0.45));
+}
+
 /* ── fixed corner banana (all pages) ── */
 .v3-banana-corner {
   position: fixed;
@@ -243,7 +254,9 @@
 .v3-about-navy {
   background: var(--navy);
   color: var(--og);
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.2rem, 5vw, 5rem) clamp(2.5rem, 5vw, 4.5rem);
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.2rem, 5vw, 5rem) clamp(4.5rem, 9vw, 8rem);
+  clip-path: polygon(0 0, 100% 0, 100% 91%, 88% 89.4%, 76% 90.6%, 63% 89.2%, 50% 90.2%, 38% 88.8%, 25% 89.8%, 12% 88.4%, 0 89.2%);
+  margin-bottom: -1px;
 }
 .v3-torn {
   display: block;
@@ -275,12 +288,14 @@
 }
 .v3-about-cream-inner {
   display: grid;
-  grid-template-columns: minmax(220px, 0.62fr) 1.38fr minmax(140px, 0.5fr);
-  gap: clamp(1.4rem, 3vw, 3rem);
-  align-items: center;
-  max-width: 1500px;
+  grid-template-columns: minmax(200px, 0.52fr) 1.42fr minmax(140px, 0.42fr);
+  gap: clamp(1.4rem, 3vw, 2.6rem);
+  align-items: start;
+  max-width: 1420px;
   margin: 0 auto;
 }
+.v3-og-title { margin-top: 0.1em; }
+.v3-about-stairs { margin-top: 0.4rem; }
 .v3-og-title {
   margin: 0;
   font-family: var(--mader);
@@ -321,9 +336,9 @@
   text-transform: lowercase;
 }
 .v3-work-couch {
-  width: min(52%, 620px);
-  margin-left: -2.5rem;
-  margin-bottom: 0.4rem;
+  width: min(46%, 560px);
+  margin-left: clamp(-2.4rem, -1.8vw, -1.2rem);
+  margin-bottom: 0.15em;
 }
 .v3-work-sub {
   margin: -0.4rem 0 1.1rem;
@@ -569,7 +584,7 @@
 }
 .v3-ogs-stage {
   position: relative;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 .v3-ogs-stage > img { display: block; width: 100%; height: auto; }
@@ -582,12 +597,12 @@
 }
 .v3-og-card {
   position: absolute;
-  bottom: 3%;
+  bottom: 2%;
   transform: translateX(-50%);
-  width: clamp(250px, 27vw, 380px);
+  width: clamp(240px, 25vw, 370px);
   z-index: 6;
   pointer-events: none;
-  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
 }
 .v3-og-card-name {
   display: block;
@@ -730,7 +745,7 @@
 .v3-contact-plate-wrap {
   position: relative;
   width: fit-content;
-  margin: 0 0 clamp(3.5rem, 7vw, 5.5rem) clamp(2rem, 8vw, 9rem);
+  margin: 0 auto clamp(3.5rem, 7vw, 5.5rem);
 }
 .v3-contact-plate {
   display: inline-block;
@@ -744,8 +759,8 @@
 }
 .v3-contact-phone {
   position: absolute;
-  left: 85%;
-  top: 76%;
+  left: 2%;
+  top: 82%;
   width: clamp(58px, 6vw, 90px);
   pointer-events: none;
   z-index: 1;
@@ -753,8 +768,8 @@
 .v3-contact-plate { position: relative; z-index: 2; }
 .v3-contact-grid {
   display: grid;
-  grid-template-columns: minmax(260px, 0.85fr) 1.6fr;
-  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(240px, 0.8fr) 1.55fr;
+  gap: clamp(3rem, 9vw, 9rem);
   align-items: start;
 }
 .v3-contact-info {
