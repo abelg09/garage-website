@@ -402,11 +402,10 @@
 .v3-work-card:hover { transform: translateY(-5px) rotate(-0.4deg); box-shadow: 8px 10px 0 rgba(5, 5, 129, 0.25); }
 .v3-work-card img {
   position: absolute;
-  top: 3%;
-  left: 3%;
-  width: 94%;
-  height: 80%;
-  object-fit: contain;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .v3-work-card:hover img { transform: scale(1.04); }
@@ -565,7 +564,7 @@
 .v3-team-face--ogs {
   position: relative;
   background: var(--navy);
-  padding: clamp(2rem, 4vw, 3.5rem) clamp(1rem, 4vw, 4rem) 0;
+  padding: clamp(1.2rem, 2.4vw, 2rem) clamp(1rem, 3vw, 3rem) 0;
 }
 .v3-team-face--crew {
   position: absolute;
@@ -574,7 +573,7 @@
   background: var(--og-crew);
 }
 .v3-team-title {
-  margin: 0 0 clamp(0.8rem, 2vw, 1.6rem);
+  margin: 0 0 clamp(0.3rem, 0.8vw, 0.7rem);
   font-family: var(--lacquer);
   font-size: clamp(2.2rem, 5.5vw, 4.6rem);
   text-align: center;
@@ -584,7 +583,7 @@
 }
 .v3-ogs-stage {
   position: relative;
-  max-width: 1500px;
+  max-width: 1680px;
   margin: 0 auto;
 }
 .v3-ogs-stage > img { display: block; width: 100%; height: auto; }
@@ -739,13 +738,14 @@
 .v3-contact {
   background: var(--navy);
   color: var(--cream);
-  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.2rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem);
+  padding: clamp(1.2rem, 2.6vw, 2.2rem) clamp(1.2rem, 5vw, 5rem) clamp(3rem, 6vw, 5rem);
 }
 .v3-contact-inner { max-width: 1400px; margin: 0 auto; }
 .v3-contact-plate-wrap {
   position: relative;
   width: fit-content;
-  margin: 0 auto clamp(3.5rem, 7vw, 5.5rem);
+  margin: 0 0 clamp(2.6rem, 5vw, 4rem) 30%;
+  transform: translateX(-50%);
 }
 .v3-contact-plate {
   display: inline-block;
@@ -856,6 +856,7 @@
   .v3-about-stairs { display: none; }
   .v3-work-couch { margin-left: -1rem; }
   .v3-contact-grid { grid-template-columns: 1fr; }
+  .v3-contact-plate-wrap { margin-left: 50%; }
   .v3-form { grid-template-columns: 1fr; }
   .v3-og-card { width: min(74vw, 300px); }
 }
