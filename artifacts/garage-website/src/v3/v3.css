@@ -866,8 +866,8 @@
   .v3-work-cell--wide .v3-work-card { aspect-ratio: 16 / 11; }
 }
 
-@media (max-width: 640px) {
-  /* OG bio card flows under the trio instead of floating over the tiny stage */
+@media (max-width: 900px) {
+  /* below ~900px the three cards overlap — flow them under the trio instead */
   .v3-og-card {
     position: static;
     transform: none;
@@ -876,6 +876,11 @@
     filter: none;
   }
   .v3-og-card-bio { font-size: 0.78rem; }
+  .v3-og-card--l .v3-og-card-name, .v3-og-card--r .v3-og-card-name,
+  .v3-og-card--l .v3-og-card-bio, .v3-og-card--r .v3-og-card-bio { transform: none; }
+}
+
+@media (max-width: 640px) {
   .v3-team-switch {
     position: static;
     display: flex;
