@@ -10,6 +10,19 @@ import "./v3.css";
 
 const v2 = (name: string) => publicAsset(`v2/${name}.webp`);
 
+function useMax(px: number) {
+  const [m, setM] = useState(() => typeof window !== "undefined" && window.matchMedia(`(max-width:${px}px)`).matches);
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width:${px}px)`);
+    const on = () => setM(mq.matches);
+    on();
+    mq.addEventListener("change", on);
+    window.addEventListener("resize", on);
+    return () => { mq.removeEventListener("change", on); window.removeEventListener("resize", on); };
+  }, [px]);
+  return m;
+}
+
 const MENU_ITEMS: [string, string][] = [
   ["about us", "story"],
   ["work", "work"],
@@ -347,6 +360,8 @@ const CREW_ZONES: { name: string; role: string; x: number; y: number; w: number;
 function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
   const [flipped, setFlipped] = useState(false);
   const [crewHover, setCrewHover] = useState<string | null>(null);
+  const compact = useMax(900);
+  const [ogActive, setOgActive] = useState<string | null>(null);
 
   const bioFor = (key: string) => {
     const member = crew.find((m) => m.id.startsWith(key));
@@ -360,10 +375,22 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
           <h2 className="v3-team-title">Meet the OGs</h2>
           <div className="v3-ogs-stage">
             <img src={v2("ogs")} alt="The three Garage founders" />
-            {OG_ZONES.map((zone, i) => (
+            {compact
+              ? OG_ZONES.map((zone) => (
+                  <button
+                    key={`tap-${zone.key}`}
+                    type="button"
+                    className="v3-og-tap"
+                    style={{ left: zone.left, width: zone.width }}
+                    aria-label={`Show ${zone.name}`}
+                    onClick={() => setOgActive(ogActive === zone.key ? null : zone.key)}
+                  />
+                ))
+              : null}
+            {OG_ZONES.filter((z) => !compact || z.key === ogActive).map((zone, i) => (
               <span
                 key={zone.key}
-                className={`v3-og-card ${i % 2 ? "v3-og-card--r" : "v3-og-card--l"}`}
+                className={`v3-og-card ${i % 2 ? "v3-og-card--r" : "v3-og-card--l"}${compact ? " v3-og-card--pop" : ""}`}
                 style={{ left: `${zone.cx}%` }}
               >
                 <span className="v3-og-card-name">
@@ -374,6 +401,9 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
                 <span className="v3-og-card-bio">{bioFor(zone.key)}</span>
               </span>
             ))}
+            {compact && !ogActive ? (
+              <span className="v3-og-hint">tap a face to meet them</span>
+            ) : null}
           </div>
         </div>
 
