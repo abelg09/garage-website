@@ -401,7 +401,7 @@
   border: 2px solid rgba(5, 5, 129, 0.0);
   transition: transform 170ms ease, box-shadow 170ms ease;
 }
-.v3-work-card:hover { transform: translateY(-5px) rotate(-0.4deg); box-shadow: 8px 10px 0 rgba(5, 5, 129, 0.25); }
+.v3-work-card:hover { transform: translateY(-5px) rotate(-0.4deg); }
 .v3-work-card img {
   position: absolute;
   inset: 0;
@@ -598,10 +598,12 @@
   bottom: 2%;
   transform: translateX(-50%);
   width: clamp(280px, 30vw, 480px);
-  z-index: 6;
+  z-index: 12;
   pointer-events: none;
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
 }
+.v3-og-card--edge-l { left: 1%; transform: none; }
+.v3-og-card--edge-r { left: auto; right: 1%; transform: none; }
 .v3-og-card-name {
   display: block;
   padding: 1rem 1.2rem 0.9rem;

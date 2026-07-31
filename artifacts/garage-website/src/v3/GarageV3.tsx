@@ -390,8 +390,8 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
             {OG_ZONES.filter((z) => z.key === ogActive).map((zone) => (
               <span
                 key={zone.key}
-                className="v3-og-card v3-og-card--pop"
-                style={{ left: `${zone.cx}%` }}
+                className={`v3-og-card v3-og-card--pop ${zone.cx < 35 ? "v3-og-card--edge-l" : zone.cx > 65 ? "v3-og-card--edge-r" : ""}`}
+                style={zone.cx >= 35 && zone.cx <= 65 ? { left: `${zone.cx}%` } : undefined}
               >
                 <span className="v3-og-card-name">
                   {zone.name}
