@@ -34,6 +34,8 @@
   --mader: "WTC Mader", Impact, "Arial Narrow Bold", sans-serif;
   --lacquer: "Lacquer", "Comic Sans MS", cursive;
   --leelu: "Leelawadee UI", "Segoe UI", Helvetica, sans-serif;
+  --fs-head: clamp(2.2rem, 4.6vw, 4.2rem);
+  --fs-body: clamp(0.95rem, 1.15vw, 1.15rem);
 
   font-family: var(--leelu);
   color: var(--navy);
@@ -114,7 +116,7 @@
   border: 0;
   background: none;
   font-family: var(--mader);
-  font-size: clamp(2.2rem, 6vw, 4.6rem);
+  font-size: var(--fs-head);
   letter-spacing: 0.03em;
   color: var(--og);
   cursor: pointer;
@@ -208,7 +210,7 @@
   align-items: center;
   gap: 0.25rem;
   font-family: var(--lacquer);
-  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
+  font-size: var(--fs-body);
   color: var(--navy);
   letter-spacing: 0.08em;
 }
@@ -277,7 +279,7 @@
 .v3-about-headline {
   margin: 0;
   font-family: var(--mader);
-  font-size: clamp(1.9rem, 4.6vw, 4.3rem);
+  font-size: var(--fs-head);
   line-height: 1.04;
   text-transform: lowercase;
   letter-spacing: 0.015em;
@@ -299,7 +301,7 @@
 .v3-og-title {
   margin: 0;
   font-family: var(--mader);
-  font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+  font-size: var(--fs-head);
   line-height: 0.95;
   text-align: right;
   text-transform: lowercase;
@@ -308,7 +310,7 @@
 .v3-og-copy {
   margin: 0;
   font-family: var(--lacquer);
-  font-size: clamp(1.02rem, 1.55vw, 1.5rem);
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--navy);
   text-transform: lowercase;
@@ -330,7 +332,7 @@
 .v3-work-title {
   margin: 0;
   font-family: var(--mader);
-  font-size: clamp(4rem, 11vw, 10rem);
+  font-size: var(--fs-head);
   line-height: 0.8;
   color: var(--navy);
   text-transform: lowercase;
@@ -343,7 +345,7 @@
 .v3-work-sub {
   margin: -0.4rem 0 1.1rem;
   font-family: var(--lacquer);
-  font-size: clamp(1.05rem, 1.7vw, 1.6rem);
+  font-size: var(--fs-body);
   color: var(--navy);
   text-transform: lowercase;
 }
@@ -406,6 +408,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .v3-work-card:hover img { transform: scale(1.04); }
@@ -425,14 +428,14 @@
 }
 .v3-work-card-brand {
   font-family: var(--lacquer);
-  font-size: clamp(1.05rem, 1.6vw, 1.5rem);
+  font-size: var(--fs-body);
   color: var(--cream);
   text-transform: lowercase;
   letter-spacing: 0.05em;
 }
 .v3-work-card-view {
   font-family: var(--lacquer);
-  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  font-size: var(--fs-body);
   color: var(--og);
   text-transform: lowercase;
   letter-spacing: 0.05em;
@@ -458,7 +461,7 @@
 .v3-brands-title {
   margin: 0 0 clamp(1.2rem, 2.6vw, 2rem);
   font-family: var(--mader);
-  font-size: clamp(2.6rem, 6vw, 5rem);
+  font-size: var(--fs-head);
   text-align: center;
   color: var(--navy);
   text-transform: lowercase;
@@ -510,13 +513,9 @@
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 0.9rem 0.7rem 0.35rem;
+  height: 30%;
   background: var(--navy);
-  clip-path: polygon(0 45%, 100% 12%, 100% 100%, 0 100%);
-  font-family: var(--lacquer);
-  font-size: clamp(0.72rem, 0.95vw, 0.95rem);
-  color: var(--cream);
-  text-align: right;
+  clip-path: polygon(0 58%, 100% 8%, 100% 100%, 0 100%);
   transform: translateY(105%);
   transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
@@ -575,7 +574,7 @@
 .v3-team-title {
   margin: 0 0 clamp(0.3rem, 0.8vw, 0.7rem);
   font-family: var(--lacquer);
-  font-size: clamp(2.2rem, 5.5vw, 4.6rem);
+  font-size: var(--fs-head);
   text-align: center;
   color: var(--og);
   letter-spacing: 0.14em;
@@ -598,7 +597,7 @@
   position: absolute;
   bottom: 2%;
   transform: translateX(-50%);
-  width: clamp(240px, 25vw, 370px);
+  width: clamp(280px, 30vw, 480px);
   z-index: 6;
   pointer-events: none;
   filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
@@ -610,7 +609,7 @@
   clip-path: polygon(0 16%, 100% 0, 97% 84%, 3% 100%);
   text-align: center;
   font-family: var(--mader);
-  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
+  font-size: var(--fs-body);
   line-height: 1.12;
   color: var(--navy);
   text-transform: lowercase;
@@ -623,16 +622,17 @@
   display: block;
   margin: 0.55rem auto 0;
   width: 100%;
-  padding: 1rem 1.1rem 1.1rem;
+  padding: 1.2rem 1.3rem 1.3rem;
   background: var(--cream);
-  clip-path: polygon(2% 3%, 100% 0, 98% 96%, 0 100%);
-  font-family: var(--lacquer);
-  font-size: clamp(0.7rem, 0.9vw, 0.88rem);
+  clip-path: polygon(2% 2%, 100% 0, 98% 97%, 0 100%);
+  font-family: var(--leelu);
+  font-size: var(--fs-body);
   line-height: 1.5;
   color: var(--navy);
   text-align: center;
-  text-transform: lowercase;
 }
+.v3-og-card-para { display: block; }
+.v3-og-card-para + .v3-og-card-para { margin-top: 0.7em; }
 .v3-crew-stage {
   position: absolute;
   inset: 0;
@@ -662,7 +662,7 @@
   z-index: 4;
   pointer-events: none;
   font-family: var(--lacquer);
-  font-size: clamp(0.85rem, 1.5cqw, 1.5rem);
+  font-size: var(--fs-body);
   line-height: 1.1;
   color: var(--cream);
   text-transform: lowercase;
@@ -691,7 +691,7 @@
 }
 .v3-team-switch-label {
   font-family: var(--lacquer);
-  font-size: clamp(0.85rem, 1.1vw, 1.05rem);
+  font-size: var(--fs-body);
   color: var(--cream);
   background: rgba(5, 5, 129, 0.85);
   padding: 0.28rem 0.6rem;
@@ -703,7 +703,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  width: clamp(74px, 6.4vw, 96px);
+  width: clamp(86px, 7.4vw, 112px);
   height: clamp(34px, 3vw, 44px);
   border: 2.5px solid var(--cream);
   border-radius: 999px;
@@ -716,7 +716,7 @@
   right: 12px;
   font-style: normal;
   font-family: var(--lacquer);
-  font-size: clamp(0.7rem, 0.9vw, 0.85rem);
+  font-size: var(--fs-body);
   color: var(--cream);
   text-transform: lowercase;
 }
@@ -731,7 +731,7 @@
   transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .v3-team-switch.is-on .v3-team-switch-track b {
-  transform: translateX(clamp(38px, 3.4vw, 52px));
+  transform: translateX(clamp(50px, 4.4vw, 68px));
 }
 
 /* ═══ CONTACT (page 17) ═══ */
@@ -753,7 +753,7 @@
   background: var(--og);
   clip-path: polygon(3% 18%, 100% 0, 97% 88%, 0 100%);
   font-family: var(--mader);
-  font-size: clamp(2rem, 4.6vw, 4rem);
+  font-size: var(--fs-head);
   color: var(--navy);
   text-transform: lowercase;
 }
@@ -778,7 +778,7 @@
   padding-top: 2.4rem;
   font-family: var(--lacquer);
   color: var(--og);
-  font-size: clamp(1.05rem, 1.5vw, 1.45rem);
+  font-size: var(--fs-body);
   text-transform: lowercase;
   line-height: 1.5;
 }
@@ -805,7 +805,7 @@
 .v3-field--full { grid-column: 1 / -1; }
 .v3-field label {
   font-family: var(--lacquer);
-  font-size: clamp(1rem, 1.3vw, 1.3rem);
+  font-size: var(--fs-body);
   color: var(--cream);
   letter-spacing: 0.08em;
   text-transform: lowercase;
@@ -837,7 +837,7 @@
   background: var(--cream);
   clip-path: polygon(2% 22%, 100% 0, 98% 84%, 0 100%);
   font-family: var(--lacquer);
-  font-size: clamp(0.95rem, 1.3vw, 1.2rem);
+  font-size: var(--fs-body);
   color: var(--navy);
   cursor: pointer;
   text-transform: lowercase;
@@ -868,8 +868,8 @@
 
 .v3-og-tap {
   position: absolute;
-  top: 6%;
-  height: 94%;
+  top: 4%;
+  height: 96%;
   border: 0;
   background: transparent;
   cursor: pointer;

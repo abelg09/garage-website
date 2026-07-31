@@ -85,7 +85,7 @@ export function GarageV3({ content }: { content: GarageContent }) {
 function IntroLoader({ onDone }: { onDone: () => void }) {
   const reduced = useReducedMotion() ?? false;
   const [frame, setFrame] = useState(0);
-  const frames = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].map((n) => v2(`intro-${n}`));
+  const frames = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].map((n) => v2(`intro-${n}`));
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -253,8 +253,7 @@ const WORK_FILTERS: { label: string; match: (p: Project) => boolean }[] = [
 ];
 
 function WorkV3({ projects }: { projects: Project[] }) {
-  const [filter, setFilter] = useState(0);
-  const shown = projects.filter(WORK_FILTERS[filter].match);
+  const shown = projects;
 
   return (
     <section id="work" className="v3-work" aria-labelledby="v3-work-title">
@@ -266,21 +265,7 @@ function WorkV3({ projects }: { projects: Project[] }) {
           <img className="v3-work-couch" src={v2("couch")} alt="" aria-hidden="true" />
         </div>
         <p className="v3-work-sub">All the things we make, parked in one garage.</p>
-        <div className="v3-work-filters" role="tablist" aria-label="Filter work">
-          {WORK_FILTERS.map((f, i) => (
-            <button
-              key={f.label}
-              type="button"
-              role="tab"
-              aria-selected={filter === i}
-              className={`v3-work-pill${filter === i ? " is-active" : ""}`}
-              onClick={() => setFilter(i)}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-        <div className="v3-work-grid" key={WORK_FILTERS[filter].label}>
+        <div className="v3-work-grid">
           {shown.map((project, index) => (
             <div
               key={project.id}
@@ -318,7 +303,7 @@ function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
                 {withLogos.map((client) => (
                   <span className="v3-brand-box" key={`${dup}-${client.name}`}>
                     <img src={client.logo!.src} alt={dup === 0 ? client.name : ""} loading="lazy" />
-                    <span className="v3-brand-band">{client.name.toLowerCase()}</span>
+                    <span className="v3-brand-band" aria-hidden="true" />
                   </span>
                 ))}
               </div>
@@ -335,9 +320,29 @@ function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
 
 /* ── Team flip (pages 13–16): OGs ⇄ Crew, flipped by the banana ── */
 const OG_ZONES = [
-  { key: "bryan", name: "Bryan Elijah", role: "Art Head", left: "8%", width: "28%", cx: 22 },
-  { key: "swati", name: "Swati Bobde", role: "Business Head & COO", left: "37%", width: "26%", cx: 50 },
-  { key: "ashish", name: "Ashish Chakravarty", role: "Managing Partner & CCO", left: "64%", width: "28%", cx: 78 },
+  {
+    key: "bryan", name: "Bryan Elijah", role: "Creative Head", left: "8%", width: "28%", cx: 22,
+    bio: [
+      "Bryan Elijah is a seasoned creative professional with over 20 years of experience delivering innovative campaigns across digital media, integrated marketing, and branding. Known for his work in the luxury automobile and high-end sectors, his agency background includes Rediffusion, Creativeland, Law & Kenneth, and Percept.",
+      "Bryan has crafted impactful brand experiences for leading clients like Mercedes-Benz, Taj Hotels, and Electrolux. His work has earned top industry honors at Goafest, Spikes Asia, Effies, DMA, and Adfest, along with finalist recognition at D&AD, One Show Design, and New York Festivals.",
+    ],
+  },
+  {
+    key: "swati", name: "Swati Bobde", role: "Chief Operating Officer", left: "37%", width: "26%", cx: 50,
+    bio: [
+      "Swati Bobde is a growth leader, entrepreneur, and brand strategist with over 20 years of experience scaling brands and agencies. With hands-on expertise across advertising, design, digital, and production, she brings a rare end-to-end perspective to brand building. Her work has earned top industry honors, including Cannes Lions and Kyoorius awards.",
+      "Swati co-founded Clay Strategy & Design and held leadership roles at Publicis, JWT, and Rediffusion. She has partnered with Global and APAC leadership across Emerging Markets, driving strategy for top brands like Garnier, Lakm\u00e9, Kellogg's, Marico, Colgate, and HDFC Ergo.",
+      "As COO of Garage Worldwide, Swati shapes agency strategy and delivers measurable business impact by integrating creativity, technology, and culture.",
+    ],
+  },
+  {
+    key: "ashish", name: "Ashish Chakravarty", role: "Managing Partner & CCO", left: "64%", width: "28%", cx: 78,
+    bio: [
+      "Ashish Chakravarty is one of India's most awarded creative leaders, with over two decades of experience shaping iconic brands. Consistently ranked among the country's top creative directors, including Campaign India's No. 1 Creative Director (2026). He regularly chairs global award juries and mentors international talent through the London International Awards program.",
+      "With nearly 500 awards from Cannes Lions, D&AD, One Show, Clio, Spikes Asia, and Effies, Ashish has led creative strategy at top agencies. His portfolio spans major global, homegrown, and political clients, including Nestl\u00e9, Coca-Cola, Dabur, Air India, Microsoft, Britannia, ITC, and the Government of India.",
+      "As Managing Partner and CCO of Garage Worldwide, Ashish drives creative vision, brand strategy, and growth through bold, high-impact ideas.",
+    ],
+  },
 ];
 
 // x/y/w/h = hover zone; lx/ly = the design's exact label anchor (page 16), % of the 16:9 frame
@@ -363,11 +368,6 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
   const compact = useMax(900);
   const [ogActive, setOgActive] = useState<string | null>(null);
 
-  const bioFor = (key: string) => {
-    const member = crew.find((m) => m.id.startsWith(key));
-    return member?.bio?.[0] ?? "";
-  };
-
   return (
     <section id="crew" className={`v3-team${flipped ? " is-flipped" : ""}`} aria-label="Meet the team">
       <div className="v3-team-flipper">
@@ -375,22 +375,22 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
           <h2 className="v3-team-title">Meet the OGs</h2>
           <div className="v3-ogs-stage">
             <img src={v2("ogs")} alt="The three Garage founders" />
-            {compact
-              ? OG_ZONES.map((zone) => (
-                  <button
-                    key={`tap-${zone.key}`}
-                    type="button"
-                    className="v3-og-tap"
-                    style={{ left: zone.left, width: zone.width }}
-                    aria-label={`Show ${zone.name}`}
-                    onClick={() => setOgActive(ogActive === zone.key ? null : zone.key)}
-                  />
-                ))
-              : null}
-            {OG_ZONES.filter((z) => !compact || z.key === ogActive).map((zone, i) => (
+            {OG_ZONES.map((zone) => (
+              <button
+                key={`tap-${zone.key}`}
+                type="button"
+                className="v3-og-tap"
+                style={{ left: zone.left, width: zone.width }}
+                aria-label={`Show ${zone.name}`}
+                onMouseEnter={compact ? undefined : () => setOgActive(zone.key)}
+                onMouseLeave={compact ? undefined : () => setOgActive(null)}
+                onClick={() => setOgActive(ogActive === zone.key ? null : zone.key)}
+              />
+            ))}
+            {OG_ZONES.filter((z) => z.key === ogActive).map((zone) => (
               <span
                 key={zone.key}
-                className={`v3-og-card ${i % 2 ? "v3-og-card--r" : "v3-og-card--l"}${compact ? " v3-og-card--pop" : ""}`}
+                className="v3-og-card v3-og-card--pop"
                 style={{ left: `${zone.cx}%` }}
               >
                 <span className="v3-og-card-name">
@@ -398,11 +398,15 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
                   <br />
                   {zone.role}
                 </span>
-                <span className="v3-og-card-bio">{bioFor(zone.key)}</span>
+                <span className="v3-og-card-bio">
+                  {zone.bio.map((para) => (
+                    <span key={para.slice(0, 24)} className="v3-og-card-para">{para}</span>
+                  ))}
+                </span>
               </span>
             ))}
-            {compact && !ogActive ? (
-              <span className="v3-og-hint">tap a face to meet them</span>
+            {!ogActive ? (
+              <span className="v3-og-hint">{compact ? "tap a face to meet them" : "hover a face to meet them"}</span>
             ) : null}
           </div>
         </div>
@@ -451,7 +455,7 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
       >
         <span className="v3-team-switch-label">{flipped ? "meet the ogs" : "meet the crew"}</span>
         <span className="v3-team-switch-track" aria-hidden="true">
-          <i>{flipped ? "on" : "off"}</i>
+          <i>{flipped ? "crew" : "og"}</i>
           <b />
         </span>
       </button>
@@ -520,14 +524,14 @@ function ContactV3({ site }: { site: GarageContent["site"] }) {
               ))}
             </p>
             <div className="v3-contact-social">
-              <a href="https://www.instagram.com" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <a href="https://www.instagram.com/garageworldwide/" target="_blank" rel="noreferrer" aria-label="Instagram">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <rect x="3" y="3" width="18" height="18" rx="5" />
                   <circle cx="12" cy="12" r="4" />
                   <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
                 </svg>
               </a>
-              <a href="https://www.linkedin.com" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/company/garage-worldwide/" target="_blank" rel="noreferrer" aria-label="LinkedIn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <rect x="3" y="3" width="18" height="18" rx="3" />
                   <path d="M8 10v7M8 7v.1M12 17v-4a2.2 2.2 0 0 1 4.4 0v4" />
