@@ -1,0 +1,14 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "garage",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": [
+        "-c",
+        "export NVM_DIR=\"$HOME/.nvm\"; . \"$NVM_DIR/nvm.sh\"; export PORT=5173; export BASE_PATH=/; cd /Users/Abel/Desktop/garage-website && exec pnpm --filter @workspace/garage-website dev"
+      ],
+      "port": 5173
+    }
+  ]
+}

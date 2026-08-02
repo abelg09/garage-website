@@ -442,6 +442,15 @@
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 160ms ease, transform 160ms ease;
+  /* keep the brand name pinned at the strip corner (artboard) — the
+     hover-only link must not reserve flex space */
+  position: absolute;
+  left: 1.4rem;
+  bottom: 0.85rem;
+}
+.v3-work-cell:nth-child(even) .v3-work-card-view {
+  left: auto;
+  right: 1.4rem;
 }
 .v3-work-card:hover .v3-work-card-view {
   opacity: 1;
@@ -466,11 +475,13 @@
   color: var(--navy);
   text-transform: lowercase;
 }
+/* one long bordered box holding the whole logo marquee (artboard p12) */
 .v3-brands-marquee {
   overflow: hidden;
-  border-top: 1.5px solid var(--navy);
-  border-bottom: 1.5px solid var(--navy);
-  padding: clamp(1rem, 2vw, 1.6rem) 0;
+  border: 1.5px solid var(--navy);
+  padding: 0;
+  display: flex;
+  align-items: stretch;
 }
 .v3-brands-track {
   display: flex;
@@ -482,23 +493,20 @@
 .v3-brands-row {
   display: flex;
   flex-shrink: 0;
-  gap: clamp(1rem, 2vw, 1.8rem);
-  padding-right: clamp(1rem, 2vw, 1.8rem);
 }
 .v3-brand-box {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(150px, 15vw, 230px);
-  height: clamp(90px, 9vw, 130px);
-  border: 1.5px solid var(--navy);
-  background: var(--cream);
+  width: clamp(150px, 14vw, 260px);
+  height: clamp(90px, 10.6vw, 210px);
+  background: transparent;
   overflow: hidden;
 }
 .v3-brand-box img {
   max-width: 72%;
-  max-height: 56%;
+  max-height: 46%;
   object-fit: contain;
   filter: grayscale(1) contrast(1.05);
   mix-blend-mode: multiply;
@@ -523,19 +531,16 @@
 @media (prefers-reduced-motion: reduce) {
   .v3-brands-track { animation: none; }
 }
-.v3-brands-diagonal {
-  height: clamp(110px, 17vw, 240px);
-  background: var(--cream);
-  clip-path: polygon(0 100%, 100% 0, 100% 100%, 0 100%);
-  margin-top: clamp(2rem, 5vw, 4rem);
-  /* full-bleed: cancel the section's side padding so the triangle spans edge to edge */
+/* torn orange band lifted straight from artboard p12 */
+.v3-torn-orange {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: clamp(1.5rem, 3.4vw, 4rem);
+  /* full-bleed: cancel the section's side padding */
   margin-left: calc(-1 * clamp(1.2rem, 5vw, 5rem));
   margin-right: calc(-1 * clamp(1.2rem, 5vw, 5rem));
-}
-.v3-brands-diagonal-fill {
-  width: 100%;
-  height: 100%;
-  background: var(--og-crew);
+  min-width: 100vw;
 }
 
 /* ═══ TEAM FLIP (pages 13-16) ═══ */
@@ -850,6 +855,10 @@
 .v3-submit:disabled { opacity: 0.6; cursor: default; }
 
 /* ═══ responsive ═══ */
+@media (max-width: 900px) {
+  /* the artboard's hard line breaks only apply to the wide desktop layout */
+  .v3-og-copy br { display: none; }
+}
 @media (max-width: 860px) {
   .v3-about-navy-inner { grid-template-columns: 1fr; }
   .v3-about-horns { width: min(52%, 240px); }
@@ -916,4 +925,114 @@
 @media (prefers-reduced-motion: reduce) {
   .v3-team-flipper { transition: none; }
   .v3-hero-cue svg { animation: none; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   EXACT-REPLICA PASS — all values measured from the 1920x1080 artboards
+   (percent of page → vw units; applies to desktop, mobile keeps flow)
+   ═══════════════════════════════════════════════════════════════════ */
+@media (min-width: 901px) {
+  /* ── fixed chrome: wordmark + banana sized off the artboards ── */
+  .v3-wordmark-fixed { width: 11vw; left: 2vw; top: 1.9vw; }
+  .v3-banana-corner { width: 5.9vw; right: 2.1vw; top: 1.85vw; }
+
+  /* ── ABOUT (artboard p10) ── */
+  .v3-about-navy {
+    height: 26.44vw;                /* navy band: 47% of page height */
+    padding: 0 10vw 0 16.2vw;
+    display: flex;
+    align-items: center;
+    clip-path: polygon(0 0, 100% 0, 100% 82.7%, 88% 84.6%, 75% 86.4%, 62% 88.6%, 50% 90.1%, 38% 92.3%, 25% 94.2%, 12% 96.8%, 0 100%);
+  }
+  .v3-about-navy-inner {
+    display: grid;
+    grid-template-columns: 13.3vw 1fr;
+    gap: 0.2vw;
+    align-items: center;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+  .v3-about-horns { width: 13.3vw; max-width: none; margin-top: -2.3vw; }
+  .v3-about-headline { font-size: 6vw; line-height: 1.85; letter-spacing: 0; }
+  .v3-about-cream {
+    position: relative;
+    height: 29.81vw;                /* rest of the artboard */
+    padding: 0 17.5vw 0 12.5vw;
+    display: flex;
+    align-items: center;
+  }
+  .v3-about-cream-inner {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    transform: translateY(-2.3vw);
+    grid-template-columns: 17.3vw 1fr;
+    gap: 1.3vw;
+    align-items: center;
+  }
+  .v3-og-title { font-size: 5.85vw; line-height: 0.85; margin: 0; }
+  .v3-og-copy { font-size: 1.77vw; line-height: 1.18; }
+  .v3-about-stairs {
+    position: absolute;
+    right: 9.65vw;
+    top: 43.2%;
+    transform: translateY(-50%);
+    width: 9.15vw;
+    max-width: none;
+    margin: 0;
+    display: block;
+  }
+
+  /* ── WORK (artboard p11) ── */
+  .v3-work { padding: 3.1vw 5.2vw 0.6vw; }
+  .v3-work-inner { max-width: none; }
+  .v3-work-head { margin-bottom: 1.55vw; align-items: flex-end; }
+  .v3-work-title { font-size: 13.9vw; line-height: 0.95; }
+  .v3-work-couch { width: 36.6vw; margin-left: -1.45vw; margin-bottom: -1vw; }
+  .v3-work-grid { grid-template-columns: 36.5fr 52fr; gap: 1.6vw 1.1vw; }
+  .v3-work-card { height: 35.4vw; }
+  .v3-work-card-strip { padding: 2vw 1.3vw 0.65vw; }
+  .v3-work-card-view { left: 1.3vw; bottom: 0.65vw; }
+  .v3-work-cell:nth-child(even) .v3-work-card-view { left: auto; right: 1.3vw; }
+
+  /* ── BRANDS (artboard p12) ── */
+  .v3-brands {
+    padding: 3.05vw 0 0;
+    height: 56.25vw;               /* full artboard page incl. torn band */
+    display: flex;
+    flex-direction: column;
+  }
+  .v3-brands-inner { max-width: none; width: 100%; }
+  .v3-brands-title { font-size: 6.5vw; margin-bottom: 0; }
+  .v3-brands-marquee { width: 84.4vw; margin: 0 auto; height: 10.6vw; border-width: 2px; }
+  .v3-brand-box { width: 14vw; height: 10.6vw; }
+  .v3-torn-orange { margin: auto 0 0; min-width: 0; }
+
+  /* ── TEAM (artboards p13/p15) ── */
+  .v3-team-face--ogs { padding: 1vw 0 0; overflow: hidden; }
+  .v3-team-title { font-size: 6.28vw; margin-bottom: 0.2vw; letter-spacing: 0.01em; text-transform: none; }
+  .v3-ogs-stage { max-width: none; width: 82.15vw; margin: -2.2vw auto 0 7.2vw; }
+  .v3-og-card-name { font-size: 1.5vw; }
+  .v3-og-card-bio { font-size: 1.05vw; }
+  .v3-og-card { width: 30vw; }
+
+  /* ── CONTACT (artboard p17) ── */
+  .v3-contact { min-height: 56.25vw; padding: 6.2vw 4.7vw 4vw; }
+  .v3-contact-inner { max-width: none; }
+  .v3-contact-plate-wrap { margin: 0 0 9.1vw 33.5vw; transform: none; }
+  .v3-contact-plate { width: 23.6vw; padding: 1.55vw 0 1.7vw; font-size: 6.3vw; line-height: 1; text-align: center; }
+  .v3-contact-phone { left: 0.34vw; top: 9.6vw; width: 3.45vw; }
+  .v3-contact-grid { grid-template-columns: 39.9vw 1fr; gap: 0; }
+  .v3-contact-info { font-size: 1.93vw; gap: 1vw; padding-top: 0.65vw; }
+  .v3-contact-info a { font-size: 1.93vw; }
+  .v3-contact-info p { line-height: 2.15; }
+  .v3-contact-social a { width: 2vw; height: 2vw; }
+  .v3-field label { font-size: 1.3vw; letter-spacing: 0.02em; }
+  .v3-field input, .v3-field textarea { font-size: 1.3vw; }
+  .v3-field textarea { min-height: 5.8vw; }
+  .v3-form { max-width: 35.4vw; gap: 2.3vw 1.6vw; }
+  .v3-form-actions { margin-top: -1.6vw; margin-right: -5vw; }
+  .v3-submit { font-size: 1.3vw; padding: 0.55vw 1.6vw; }
 }

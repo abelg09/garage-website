@@ -212,9 +212,11 @@ function AboutV3() {
     <section id="story" className="v3-about-wrap" aria-label="About Garage">
       <div className="v3-about-navy v3-fabric">
         <div className="v3-about-navy-inner">
-          <img className="v3-about-horns" src={v2("horns")} alt="" aria-hidden="true" />
+          <img className="v3-about-horns" src={v2("horns-tight")} alt="" aria-hidden="true" />
           <h2 className="v3-about-headline">
-            Historically, the best ideas have one place in common. A garage.
+            Historically, the best ideas have
+            <br />
+            one place in common. A garage.
           </h2>
         </div>
       </div>
@@ -228,17 +230,22 @@ function AboutV3() {
             room.
           </h3>
           <p className="v3-og-copy">
-            HP in 1939. Apple in 1976. Amazon in 1994… the list goes on. We&rsquo;re continuing this
-            rich tradition.
+            HP in 1939. Apple in 1976. Amazon in 1994… the list goes on.
             <br />
-            Fresh ideas, fresher faces, and the freshest resources all come together to create
-            something real. And something that works.
+            We&rsquo;re continuing this rich tradition.
             <br />
-            Because for us as an integrated ad&#8209;agency, there&rsquo;s no better world than an
-            ideas world.
+            Fresh ideas, fresher faces, and the freshest resources
+            <br />
+            all come together to create something real. And something
+            <br />
+            that works.
+            <br />
+            Because for us as an integrated ad&#8209;agency, there&rsquo;s no
+            <br />
+            better world than an ideas world.
           </p>
-          <img className="v3-about-stairs" src={v2("stairs")} alt="" aria-hidden="true" />
         </div>
+        <img className="v3-about-stairs" src={v2("stairs-tight")} alt="" aria-hidden="true" />
       </div>
     </section>
   );
@@ -264,7 +271,6 @@ function WorkV3({ projects }: { projects: Project[] }) {
           </h2>
           <img className="v3-work-couch" src={v2("couch")} alt="" aria-hidden="true" />
         </div>
-        <p className="v3-work-sub">All the things we make, parked in one garage.</p>
         <div className="v3-work-grid">
           {shown.map((project, index) => (
             <div
@@ -311,9 +317,7 @@ function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
           </div>
         </div>
       </div>
-      <div className="v3-brands-diagonal">
-        <div className="v3-brands-diagonal-fill v3-tex" />
-      </div>
+      <img className="v3-torn-orange" src={v2("torn-orange")} alt="" aria-hidden="true" />
     </section>
   );
 }
@@ -372,9 +376,9 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
     <section id="crew" className={`v3-team${flipped ? " is-flipped" : ""}`} aria-label="Meet the team">
       <div className="v3-team-flipper">
         <div className="v3-team-face v3-team-face--ogs v3-fabric">
-          <h2 className="v3-team-title">Meet the OGs</h2>
+          <h2 className="v3-team-title">MEET THE OGs</h2>
           <div className="v3-ogs-stage">
-            <img src={v2("ogs")} alt="The three Garage founders" />
+            <img src={v2("ogs13")} alt="The three Garage founders" />
             {OG_ZONES.map((zone) => (
               <button
                 key={`tap-${zone.key}`}
@@ -510,7 +514,7 @@ function ContactV3({ site }: { site: GarageContent["site"] }) {
           <h2 id="v3-contact-title" className="v3-contact-plate">
             Contact us
           </h2>
-          <img className="v3-contact-phone" src={v2("phone")} alt="" aria-hidden="true" />
+          <img className="v3-contact-phone" src={v2("phone-tight")} alt="" aria-hidden="true" />
         </div>
         <div className="v3-contact-grid">
           <div className="v3-contact-info">
