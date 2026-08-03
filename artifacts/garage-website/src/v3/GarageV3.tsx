@@ -40,7 +40,7 @@ export function GarageV3({ content }: { content: GarageContent }) {
   };
 
   return (
-    <div className="v3" style={{ "--v3-texture": `url("${v2("texture")}")`, "--v3-fabric": `url("${v2("fabric-navy")}")` } as React.CSSProperties}>
+    <div className="v3" style={{ "--v3-texture": `url("${v2("texture")}")`, "--v3-fabric": `url("${v2("fabric-navy")}")`, "--v3-menu-tear": `url("${v2("menu-tear")}")` } as React.CSSProperties}>
       {!introDone ? <IntroLoader onDone={() => setIntroDone(true)} /> : null}
       <HeroGarage active={introDone} />
       <AboutV3 />
@@ -48,7 +48,7 @@ export function GarageV3({ content }: { content: GarageContent }) {
       <BrandsV3 clients={content.clients} />
       <TeamFlip crew={content.crew} />
       <ContactV3 site={content.site} />
-      <img className="v3-wordmark-fixed" src={v2("wordmark-white")} alt="GARAGE" />
+      <img className={`v3-wordmark-fixed${menuOpen ? " is-hidden" : ""}`} src={v2("wordmark-white")} alt="GARAGE" />
       <button
         type="button"
         className={`v3-banana-corner${menuOpen ? " is-open" : ""}`}
@@ -62,11 +62,12 @@ export function GarageV3({ content }: { content: GarageContent }) {
         {menuOpen ? (
           <motion.div
             className="v3-menu v3-fabric"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            initial={{ y: "-104%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "-104%" }}
+            transition={{ duration: 0.34, ease: [0.22, 0.8, 0.3, 1] }}
           >
+            <img className="v3-menu-wordmark" src={v2("wordmark-white")} alt="" aria-hidden="true" />
             <nav aria-label="Menu">
               {MENU_ITEMS.map(([label, id]) => (
                 <button key={id} type="button" onClick={() => go(id)}>
@@ -353,7 +354,7 @@ const OG_ZONES = [
 const CREW_ZONES: { name: string; role: string; x: number; y: number; w: number; h: number; lx: number; ly: number }[] = [
   { name: "Aryan", role: "Junior Visualizer", x: 10, y: 22, w: 11, h: 38, lx: 15.4, ly: 41 },
   { name: "Rujvi", role: "Sr. Visualizer", x: 23, y: 33, w: 10, h: 36, lx: 24.6, ly: 46.4 },
-  { name: "Maithili", role: "Art Director", x: 31, y: 13, w: 10, h: 32, lx: 31.3, ly: 25 },
+  { name: "Utsav", role: "Art Director", x: 31, y: 13, w: 10, h: 32, lx: 31.3, ly: 25 },
   { name: "Vedant", role: "Copywriter", x: 41, y: 31, w: 11, h: 38, lx: 40.4, ly: 46 },
   { name: "Tanvi", role: "Visualizer", x: 48, y: 13, w: 10, h: 34, lx: 46.4, ly: 23.5 },
   { name: "Aniket", role: "Sr. Copywriter", x: 55, y: 33, w: 11, h: 36, lx: 56.6, ly: 53 },
@@ -376,7 +377,9 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
     <section id="crew" className={`v3-team${flipped ? " is-flipped" : ""}`} aria-label="Meet the team">
       <div className="v3-team-flipper">
         <div className="v3-team-face v3-team-face--ogs v3-fabric">
-          <h2 className="v3-team-title">MEET THE OGs</h2>
+          <h2 className="v3-team-title">
+            meet the og<span className="v3-title-s">S</span>
+          </h2>
           <div className="v3-ogs-stage">
             <img src={v2("ogs13")} alt="The three Garage founders" />
             {OG_ZONES.map((zone) => (
@@ -395,7 +398,8 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
               <span
                 key={zone.key}
                 className={`v3-og-card v3-og-card--pop ${zone.cx < 35 ? "v3-og-card--edge-l" : zone.cx > 65 ? "v3-og-card--edge-r" : ""}`}
-                style={zone.cx >= 35 && zone.cx <= 65 ? { left: `${zone.cx}%` } : undefined}
+                data-key={zone.key}
+                style={{ "--cx": `${zone.cx}%`, ...(zone.cx >= 35 && zone.cx <= 65 ? { left: `${zone.cx}%` } : null) } as React.CSSProperties}
               >
                 <span className="v3-og-card-name">
                   {zone.name}
@@ -560,7 +564,7 @@ function ContactV3({ site }: { site: GarageContent["site"] }) {
               <label htmlFor="v3-topic">Topic</label>
               <input id="v3-topic" value={form.topic} onChange={update("topic")} />
             </div>
-            <div className="v3-field v3-field--full">
+            <div className="v3-field v3-field--message">
               <label htmlFor="v3-message">Message</label>
               <textarea id="v3-message" value={form.message} onChange={update("message")} />
             </div>
