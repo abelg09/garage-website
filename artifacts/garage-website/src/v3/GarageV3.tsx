@@ -378,7 +378,7 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
       <div className="v3-team-flipper">
         <div className="v3-team-face v3-team-face--ogs v3-fabric">
           <h2 className="v3-team-title">
-            meet the og<span className="v3-title-s">S</span>
+            meet the og<span className="v3-title-s">s</span>
           </h2>
           <div className="v3-ogs-stage">
             <img src={v2("ogs13")} alt="The three Garage founders" />
