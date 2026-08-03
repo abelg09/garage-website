@@ -4,6 +4,7 @@ import { publicAsset } from "./public-asset";
 const ppt = publicAsset("assets/ppt/");
 const crewImg = publicAsset("crew/");
 const clientImg = publicAsset("clients/");
+const v2img = publicAsset("v2/");
 
 export const fallbackContent: GarageContent = {
   site: {
@@ -43,6 +44,46 @@ export const fallbackContent: GarageContent = {
   },
   projects: [
     {
+      id: "jameson",
+      title: "Moments Worth Sharing",
+      client: "Jameson",
+      category: "Digital & Social",
+      summary:
+        "Always-on social storytelling for Jameson Ginger Ale — from #WorldHelloDay and festive content calendars to Halloween drops and carousel series that keep the brand living in culture all year round.",
+      impact:
+        "A steady drumbeat of thumb-stopping social content built an engaged community around the brand's easy-going, social-first personality across Instagram and beyond.",
+      cover: {
+        src: `${v2img}work-jameson.webp`,
+        alt: "Jameson — Sometimes it's about the hellos after you hang up"
+      },
+      gallery: [
+        {
+          src: `${v2img}work-jameson.webp`,
+          alt: "Jameson — Sometimes it's about the hellos after you hang up"
+        }
+      ]
+    },
+    {
+      id: "nippon-india-mf",
+      title: "GOAT Campaign",
+      client: "Nippon India",
+      category: "Digital & Social",
+      summary:
+        "To build a stronger connection with younger audiences, GARAGE partnered with Nippon India Mutual Fund to launch a Gen Z-first social ecosystem — simplifying mutual funds by speaking the audience's language, both verbally and visually. From leveraging Gen Z slang to culturally relevant, thumb-stopping content, finance was made less intimidating and more relatable.",
+      impact:
+        "The GOAT campaign, Diwali Vox Pop series, and New Year \u2018Grape Theory\u2019 film drove curiosity and meaningful engagement across Instagram, Facebook, and YouTube — positioning Nippon India as the GOAT of mutual funds among India's Gen Z investors.",
+      cover: {
+        src: `${v2img}work-nippon.webp`,
+        alt: "Nippon India Mutual Fund — GOAT campaign visual"
+      },
+      gallery: [
+        {
+          src: `${v2img}work-nippon.webp`,
+          alt: "Nippon India Mutual Fund — GOAT campaign visual"
+        }
+      ]
+    },
+    {
       id: "senco-gold",
       title: "Khushiyon Ki Reet",
       client: "Senco Gold & Diamonds",
@@ -52,13 +93,53 @@ export const fallbackContent: GarageContent = {
       impact:
         "The #AapkaShukriya film — a heartfelt tribute to the karigars behind every Senco masterpiece — celebrated artisan craftsmanship and cultural heritage, driving brand love and digital engagement across the campaign.",
       cover: {
-        src: `${ppt}work-senco.webp`,
+        src: `${v2img}work-senco2.webp`,
         alt: "Senco Gold & Diamonds — Khushiyon Ki Reet campaign visual"
       },
       gallery: [
         {
-          src: `${ppt}work-senco.webp`,
+          src: `${v2img}work-senco2.webp`,
           alt: "Senco Gold & Diamonds — Khushiyon Ki Reet campaign visual"
+        }
+      ]
+    },
+    {
+      id: "grameen-kulfi",
+      title: "Jaldi Kya Hai?",
+      client: "Grameen Kulfi",
+      category: "Campaign",
+      summary:
+        "A kulfi crafted with so much care, it deserves to be savoured. This campaign positioned Grameen Kulfi as an antidote to today's fast-paced world — celebrating slow living, mindful indulgence, and the craftsmanship behind every kulfi. Flavours include Desi Malai, Kesar Pista, Alphonso Mango and more; available in stick, slice, and matka formats.",
+      impact:
+        "The wedding film and conference film carried the \u2018Jaldi Kya Hai?\u2019 platform across occasions, building brand recall around the idea of unhurried, traditional indulgence in a market dominated by fast snacking.",
+      cover: {
+        src: `${v2img}work-grameen.webp`,
+        alt: "Grameen Kulfi — Jaldi Kya Hai? campaign visual"
+      },
+      gallery: [
+        {
+          src: `${v2img}work-grameen.webp`,
+          alt: "Grameen Kulfi — Jaldi Kya Hai? campaign visual"
+        }
+      ]
+    },
+    {
+      id: "jacobs-creek",
+      title: "Unvined",
+      client: "Jacob's Creek",
+      category: "Digital & Social",
+      summary:
+        "Launching Jacob's Creek Unvined \u2014 the non-alcoholic wine range \u2014 with a social platform built around moments worth celebrating without compromise. From festive occasions to cricket contests, the content kept the brand effortlessly in the conversation.",
+      impact:
+        "The Unvined launch content and always-on social calendar drove awareness and trial for the new range, framing it as the easy pick for every celebration.",
+      cover: {
+        src: `${v2img}work-jacobs-creek.webp`,
+        alt: "Jacob's Creek Unvined \u2014 bottle clock campaign visual"
+      },
+      gallery: [
+        {
+          src: `${v2img}work-jacobs-creek.webp`,
+          alt: "Jacob's Creek Unvined \u2014 bottle clock campaign visual"
         }
       ]
     },
@@ -79,86 +160,6 @@ export const fallbackContent: GarageContent = {
         {
           src: `${ppt}work-sib.webp`,
           alt: "South Indian Bank — Trust meets Tech since 1929 campaign"
-        }
-      ]
-    },
-    {
-      id: "grameen-kulfi",
-      title: "Jaldi Kya Hai?",
-      client: "Grameen Kulfi",
-      category: "Campaign",
-      summary:
-        "A kulfi crafted with so much care, it deserves to be savoured. This campaign positioned Grameen Kulfi as an antidote to today's fast-paced world — celebrating slow living, mindful indulgence, and the craftsmanship behind every kulfi. Flavours include Desi Malai, Kesar Pista, Alphonso Mango and more; available in stick, slice, and matka formats.",
-      impact:
-        "The wedding film and conference film carried the \u2018Jaldi Kya Hai?\u2019 platform across occasions, building brand recall around the idea of unhurried, traditional indulgence in a market dominated by fast snacking.",
-      cover: {
-        src: `${ppt}work-grameen-kulfi-new.webp`,
-        alt: "Grameen Kulfi — Jaldi Kya Hai? campaign visual"
-      },
-      gallery: [
-        {
-          src: `${ppt}work-grameen-kulfi-new.webp`,
-          alt: "Grameen Kulfi — Jaldi Kya Hai? campaign visual"
-        }
-      ]
-    },
-    {
-      id: "johnson",
-      title: "Dada Jackson & Ram–Shyam",
-      client: "H&R Johnson",
-      category: "Brand Film",
-      summary:
-        "An integrated campaign highlighting the real-world benefits of Johnson's innovative tile solutions through two lighthearted, performance-driven films. Dada Jackson demonstrates unshakable confidence on MaxGrip anti-skid tiles; Ram and Shyam deliver comic contrast showcasing Cool-Roof tiles.",
-      impact:
-        "By blending functional innovation with entertainment, the films achieved high recall and everyday relevance — making tile performance tangible and memorable for consumers across retail and digital.",
-      cover: {
-        src: `${ppt}work-johnson.webp`,
-        alt: "H&R Johnson — Dada Jackson MaxGrip campaign visual"
-      },
-      gallery: [
-        {
-          src: `${ppt}work-johnson.webp`,
-          alt: "H&R Johnson — Dada Jackson MaxGrip campaign visual"
-        }
-      ]
-    },
-    {
-      id: "nippon-india-mf",
-      title: "GOAT Campaign",
-      client: "Nippon India Mutual Fund",
-      category: "Digital & Social",
-      summary:
-        "To build a stronger connection with younger audiences, GARAGE partnered with Nippon India Mutual Fund to launch a Gen Z-first social ecosystem — simplifying mutual funds by speaking the audience's language, both verbally and visually. From leveraging Gen Z slang to culturally relevant, thumb-stopping content, finance was made less intimidating and more relatable.",
-      impact:
-        "The GOAT campaign, Diwali Vox Pop series, and New Year \u2018Grape Theory\u2019 film drove curiosity and meaningful engagement across Instagram, Facebook, and YouTube — positioning Nippon India as the GOAT of mutual funds among India's Gen Z investors.",
-      cover: {
-        src: `${ppt}work-nippon.webp`,
-        alt: "Nippon India Mutual Fund — GOAT campaign visual"
-      },
-      gallery: [
-        {
-          src: `${ppt}work-nippon.webp`,
-          alt: "Nippon India Mutual Fund — GOAT campaign visual"
-        }
-      ]
-    },
-    {
-      id: "tata-sons",
-      title: "The Quiet Little Kid",
-      client: "Tata Sons",
-      category: "Digital & Creative Strategy",
-      summary:
-        "The Tata Building India School Essay Competition is one of the Tata Group's key initiatives to ignite the imagination of the young and instil a spirit of nation building. Over 15+ years it has touched 33+ million school students, with participation from 500+ cities in 13 languages.",
-      impact:
-        "The \u2018Quiet Little Kid\u2019 launch film celebrated children who know the answer but lack the confidence to say it — earning strong digital reach across English and Hindi versions, and amplified through a full teaser-to-sustenance content arc on social media.",
-      cover: {
-        src: `${ppt}work-tata.webp`,
-        alt: "Tata Sons — The Quiet Little Kid essay competition film"
-      },
-      gallery: [
-        {
-          src: `${ppt}work-tata.webp`,
-          alt: "Tata Sons — The Quiet Little Kid essay competition film"
         }
       ]
     }

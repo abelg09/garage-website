@@ -297,7 +297,7 @@
   max-width: 1500px;
   margin: 0 auto;
 }
-.v3-about-horns { width: min(100%, 340px); justify-self: center; }
+.v3-about-horns { display: block; width: min(100%, 340px); margin: 0 auto 1rem; }
 .v3-about-headline {
   margin: 0;
   font-family: var(--mader);
@@ -961,23 +961,30 @@
 
   /* ── ABOUT (artboard p10) ── */
   .v3-about-navy {
+    position: relative;
     height: 26.44vw;                /* navy band: 47% of page height */
-    padding: 0 10vw 0 16.2vw;
+    padding: 0 10vw 0 29.6vw;
     display: flex;
     align-items: center;
     clip-path: polygon(0 0, 100% 0, 100% 82.7%, 88% 84.6%, 75% 86.4%, 62% 88.6%, 50% 90.1%, 38% 92.3%, 25% 94.2%, 12% 96.8%, 0 100%);
   }
   .v3-about-navy-inner {
-    display: grid;
-    grid-template-columns: 13.3vw 1fr;
-    gap: 0.2vw;
-    align-items: center;
+    display: block;
     width: 100%;
     max-width: none;
     margin: 0;
+    transform: translateY(-1.7vw);
   }
-  .v3-about-horns { width: 13.3vw; max-width: none; margin-top: -2.3vw; }
-  .v3-about-headline { font-size: 6.02vw; line-height: 1.83; letter-spacing: 0; }
+  /* chandelier overlaps the headline start, like the file */
+  .v3-about-horns {
+    position: absolute;
+    left: 16.2vw;
+    top: 2.87vw;
+    width: 15vw;
+    max-width: none;
+    margin: 0;
+  }
+  .v3-about-headline { font-size: 6.02vw; line-height: 1.26; letter-spacing: 0; }
   .v3-about-cream {
     position: relative;
     height: 29.81vw;                /* rest of the artboard */
@@ -995,13 +1002,13 @@
     align-items: center;
   }
   .v3-og-title { font-size: 5.85vw; line-height: 0.85; margin: 0; }
-  .v3-og-copy { font-size: 1.77vw; line-height: 1.18; }
+  .v3-og-copy { font-size: 2.19vw; line-height: 1.1; }
   .v3-about-stairs {
     position: absolute;
-    right: 9.65vw;
-    top: 43.2%;
+    right: 9.64vw;
+    top: 42.3%;
     transform: translateY(-50%);
-    width: 9.15vw;
+    width: 10.96vw;
     max-width: none;
     margin: 0;
     display: block;

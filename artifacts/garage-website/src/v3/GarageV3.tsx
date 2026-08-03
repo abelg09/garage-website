@@ -238,8 +238,8 @@ function AboutV3() {
   return (
     <section id="story" className="v3-about-wrap" aria-label="About Garage">
       <div className="v3-about-navy v3-fabric">
+        <img className="v3-about-horns" src={v2("horns-fill")} alt="" aria-hidden="true" />
         <div className="v3-about-navy-inner">
-          <img className="v3-about-horns" src={v2("horns-tight")} alt="" aria-hidden="true" />
           <h2 className="v3-about-headline">
             Historically, the best ideas have
             <br />
@@ -257,22 +257,20 @@ function AboutV3() {
             room.
           </h3>
           <p className="v3-og-copy">
-            HP in 1939. Apple in 1976. Amazon in 1994… the list goes on.
+            HP in 1939. Apple in 1976. Amazon in 1994…
+            <br />
+            the list goes on.
             <br />
             We&rsquo;re continuing this rich tradition.
             <br />
-            Fresh ideas, fresher faces, and the freshest resources
+            Fresh ideas, fresher faces, and the freshest
             <br />
-            all come together to create something real. And something
+            resources all come together to create
             <br />
-            that works.
-            <br />
-            Because for us as an integrated ad&#8209;agency, there&rsquo;s no
-            <br />
-            better world than an ideas world.
+            something real. And something that works.
           </p>
         </div>
-        <img className="v3-about-stairs" src={v2("stairs-tight")} alt="" aria-hidden="true" />
+        <img className="v3-about-stairs" src={v2("stairs-new")} alt="" aria-hidden="true" />
       </div>
     </section>
   );
@@ -380,14 +378,14 @@ const OG_ZONES = [
 const CREW_ZONES: { name: string; role: string; x: number; y: number; w: number; h: number; lx: number; ly: number }[] = [
   { name: "Aryan", role: "Junior Visualizer", x: 10, y: 22, w: 11, h: 38, lx: 15.4, ly: 41 },
   { name: "Rujvi", role: "Sr. Visualizer", x: 23, y: 33, w: 10, h: 36, lx: 24.6, ly: 46.4 },
-  { name: "Utsav", role: "Art Director", x: 31, y: 13, w: 10, h: 32, lx: 31.3, ly: 25 },
+  { name: "Maithili", role: "Sr. Executive", x: 31, y: 13, w: 10, h: 32, lx: 31.3, ly: 25 },
   { name: "Vedant", role: "Copywriter", x: 41, y: 31, w: 11, h: 38, lx: 40.4, ly: 46 },
-  { name: "Tanvi", role: "Visualizer", x: 48, y: 13, w: 10, h: 34, lx: 46.4, ly: 23.5 },
+  { name: "Tanvi", role: "Sr. Visualizer", x: 48, y: 13, w: 10, h: 34, lx: 46.4, ly: 23.5 },
   { name: "Aniket", role: "Sr. Copywriter", x: 55, y: 33, w: 11, h: 36, lx: 56.6, ly: 53 },
   { name: "Kyle", role: "Account Manager", x: 64, y: 16, w: 12, h: 34, lx: 71.6, ly: 21.6 },
   { name: "Saniya", role: "Visualizer", x: 74, y: 31, w: 11, h: 36, lx: 80.6, ly: 43.8 },
   { name: "Mobaiyana", role: "Copywriter", x: 8, y: 60, w: 13, h: 36, lx: 10, ly: 76.2 },
-  { name: "Bryan", role: "Art Head", x: 26, y: 55, w: 11, h: 41, lx: 27.9, ly: 72.2 },
+  { name: "Utsav", role: "Art Director", x: 26, y: 55, w: 11, h: 41, lx: 27.9, ly: 72.2 },
   { name: "Samir", role: "Sr. Account Manager", x: 40, y: 53, w: 12, h: 43, lx: 51.8, ly: 68.6 },
   { name: "Pranali", role: "Sr. Account Manager", x: 55, y: 56, w: 13, h: 40, lx: 66.4, ly: 73.7 },
   { name: "Adwait", role: "Art Director", x: 71, y: 55, w: 16, h: 41, lx: 83.6, ly: 76.2 },
