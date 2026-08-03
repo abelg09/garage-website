@@ -396,6 +396,17 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
   const [crewHover, setCrewHover] = useState<string | null>(null);
   const compact = useMax(900);
   const [ogActive, setOgActive] = useState<string | null>(null);
+  // debounced hover: moving between a face zone and its card must never
+  // drop the card (the overlay steals the zone's mouseleave)
+  const ogTimer = useRef<number | undefined>(undefined);
+  const ogEnter = (key: string) => {
+    window.clearTimeout(ogTimer.current);
+    setOgActive(key);
+  };
+  const ogLeave = () => {
+    window.clearTimeout(ogTimer.current);
+    ogTimer.current = window.setTimeout(() => setOgActive(null), 160);
+  };
 
   return (
     <section id="crew" className={`v3-team${flipped ? " is-flipped" : ""}`} aria-label="Meet the team">
@@ -413,8 +424,8 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
                 className="v3-og-tap"
                 style={{ left: zone.left, width: zone.width }}
                 aria-label={`Show ${zone.name}`}
-                onMouseEnter={compact ? undefined : () => setOgActive(zone.key)}
-                onMouseLeave={compact ? undefined : () => setOgActive(null)}
+                onMouseEnter={compact ? undefined : () => ogEnter(zone.key)}
+                onMouseLeave={compact ? undefined : ogLeave}
                 onClick={() => setOgActive(ogActive === zone.key ? null : zone.key)}
               />
             ))}
@@ -424,8 +435,8 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
                 className={`v3-og-card v3-og-card--pop ${zone.cx < 35 ? "v3-og-card--edge-l" : zone.cx > 65 ? "v3-og-card--edge-r" : ""}`}
                 data-key={zone.key}
                 style={{ "--cx": `${zone.cx}%`, ...(zone.cx >= 35 && zone.cx <= 65 ? { left: `${zone.cx}%` } : null) } as React.CSSProperties}
-                onMouseEnter={compact ? undefined : () => setOgActive(zone.key)}
-                onMouseLeave={compact ? undefined : () => setOgActive(null)}
+                onMouseEnter={compact ? undefined : () => ogEnter(zone.key)}
+                onMouseLeave={compact ? undefined : ogLeave}
               >
                 <span className="v3-og-card-name">
                   {zone.name}
@@ -442,9 +453,6 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
                 </span>
               </span>
             ))}
-            {!ogActive ? (
-              <span className="v3-og-hint">{compact ? "tap a face to meet them" : "hover a face to meet them"}</span>
-            ) : null}
           </div>
         </div>
 

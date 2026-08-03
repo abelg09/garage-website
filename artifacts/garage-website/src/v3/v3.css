@@ -788,9 +788,9 @@
 }
 .v3-contact-phone {
   position: absolute;
-  left: 2%;
-  top: 82%;
-  width: clamp(58px, 6vw, 90px);
+  left: 4%;
+  top: 96%;
+  width: clamp(34px, 4.5vw, 66px);
   pointer-events: none;
   z-index: 1;
 }
@@ -852,7 +852,7 @@
   padding: 0.4rem 0.1rem;
   outline: none;
 }
-.v3-field textarea { resize: vertical; min-height: 84px; }
+.v3-field textarea { resize: none; min-height: 84px; }
 .v3-field input:focus-visible,
 .v3-field textarea:focus-visible { border-bottom-color: var(--og); }
 .v3-form-actions {
@@ -917,7 +917,12 @@
   color: var(--cream);
   opacity: 0.85;
 }
-.v3-og-card--pop { animation: v3riseIn 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+/* fade only — v3riseIn's `transform: none` would wipe the card's centering translate */
+.v3-og-card--pop { animation: v3fadeIn 240ms ease-out both; }
+@keyframes v3fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
 @media (max-width: 900px) {
   /* below ~900px: tap a person to reveal their card under the trio */
@@ -1068,6 +1073,7 @@
   }
   .v3-og-card-bio::-webkit-scrollbar { width: 5px; }
   .v3-og-card-bio::-webkit-scrollbar-thumb { background: rgba(5, 5, 129, 0.4); border-radius: 3px; }
+  .v3-og-card--pop { animation: v3cardpop 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
   .v3-amp { font-family: var(--lacquer); font-size: 0.82em; }
   .v3-og-card-name { font-size: 2.75vw; line-height: 0.95; padding: 0.9vw 1vw 0.8vw; }
   .v3-og-card[data-key="ashish"] .v3-og-card-name { font-size: 2.25vw; }
@@ -1088,16 +1094,12 @@
   .v3-contact-social a { width: 2vw; height: 2vw; }
   .v3-field label { font-size: 1.56vw; letter-spacing: 0.02em; }
   .v3-field input, .v3-field textarea { font-size: 1.3vw; }
-  /* message = col-1 only, three hand-ruled rows; button sits beside it (p17) */
+  /* message = col-1 only, one clean ruled line; button sits beside it (p17) */
   .v3-field textarea {
-    min-height: 5.2vw;
+    min-height: 4.6vw;
     border-bottom-width: 2px;
-    background-image:
-      repeating-linear-gradient(to right, var(--cream) 0 8px, transparent 8px 16px),
-      repeating-linear-gradient(to right, var(--cream) 0 8px, transparent 8px 16px);
-    background-size: 100% 2px, 100% 2px;
-    background-position: 0 2.3vw, 0 4.6vw;
-    background-repeat: no-repeat, no-repeat;
+    background-image: none;
+    resize: none;
   }
   .v3-form { max-width: none; grid-template-columns: 21.8vw 21.8vw; gap: 1.9vw 4.6vw; }
   .v3-field { gap: 0; }
@@ -1106,4 +1108,9 @@
   .v3-field--message { grid-column: 1; }
   .v3-form-actions { grid-column: 2; align-self: start; justify-content: flex-start; margin: 5vw 0 0 1vw; }
   .v3-submit { font-size: 1.39vw; padding: 0.5vw 1.2vw; }
+}
+
+@keyframes v3cardpop {
+  from { opacity: 0; transform: translateX(-50%) translateY(0.9vw); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
