@@ -424,11 +424,16 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
                 className={`v3-og-card v3-og-card--pop ${zone.cx < 35 ? "v3-og-card--edge-l" : zone.cx > 65 ? "v3-og-card--edge-r" : ""}`}
                 data-key={zone.key}
                 style={{ "--cx": `${zone.cx}%`, ...(zone.cx >= 35 && zone.cx <= 65 ? { left: `${zone.cx}%` } : null) } as React.CSSProperties}
+                onMouseEnter={compact ? undefined : () => setOgActive(zone.key)}
+                onMouseLeave={compact ? undefined : () => setOgActive(null)}
               >
                 <span className="v3-og-card-name">
                   {zone.name}
                   <br />
-                  {zone.role}
+                  {/* demo Mader maps "&" to a watermark glyph — draw it in Lacquer */}
+                  {zone.role.split("&").flatMap((part, i) =>
+                    i === 0 ? [part] : [<span key={`amp-${i}`} className="v3-amp">&</span>, part]
+                  )}
                 </span>
                 <span className="v3-og-card-bio">
                   {zone.bio.map((para) => (
