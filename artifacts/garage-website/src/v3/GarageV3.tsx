@@ -33,6 +33,32 @@ const MENU_ITEMS: [string, string][] = [
 export function GarageV3({ content }: { content: GarageContent }) {
   const [introDone, setIntroDone] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [overCream, setOverCream] = useState(false);
+
+  // The design file only shows the white wordmark on navy pages — fade it
+  // out while the cream Work/Brands pages sit under it.
+  useEffect(() => {
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const work = document.getElementById("work");
+      const crew = document.getElementById("crew");
+      if (!work || !crew) return;
+      const y = 70;
+      setOverCream(work.getBoundingClientRect().top <= y && crew.getBoundingClientRect().top > y);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(check);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    check();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const go = (id: string) => {
     setMenuOpen(false);
@@ -48,7 +74,7 @@ export function GarageV3({ content }: { content: GarageContent }) {
       <BrandsV3 clients={content.clients} />
       <TeamFlip crew={content.crew} />
       <ContactV3 site={content.site} />
-      <img className={`v3-wordmark-fixed${menuOpen ? " is-hidden" : ""}`} src={v2("wordmark-white")} alt="GARAGE" />
+      <img className={`v3-wordmark-fixed${menuOpen || overCream ? " is-hidden" : ""}`} src={v2("wordmark-white")} alt="GARAGE" />
       <button
         type="button"
         className={`v3-banana-corner${menuOpen ? " is-open" : ""}`}
