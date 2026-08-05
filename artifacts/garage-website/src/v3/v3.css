@@ -447,36 +447,17 @@
   justify-content: flex-end;
   align-items: baseline;
   gap: 1rem;
+  /* the navy name strip only slides in on hover (client note, Aug 3) */
+  transform: translateY(104%);
+  transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.v3-work-card:hover .v3-work-card-strip { transform: translateY(0); }
 .v3-work-card-brand {
   font-family: var(--lacquer);
   font-size: var(--fs-body);
   color: var(--cream);
   text-transform: lowercase;
   letter-spacing: 0.05em;
-}
-.v3-work-card-view {
-  font-family: var(--lacquer);
-  font-size: var(--fs-body);
-  color: var(--og);
-  text-transform: lowercase;
-  letter-spacing: 0.05em;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 160ms ease, transform 160ms ease;
-  /* keep the brand name pinned at the strip corner (artboard) — the
-     hover-only link must not reserve flex space */
-  position: absolute;
-  left: 1.4rem;
-  bottom: 0.85rem;
-}
-.v3-work-cell:nth-child(even) .v3-work-card-view {
-  left: auto;
-  right: 1.4rem;
-}
-.v3-work-card:hover .v3-work-card-view {
-  opacity: 1;
-  transform: none;
 }
 .v3-work-cell:nth-child(even) .v3-work-card-strip {
   clip-path: polygon(0 18%, 100% 55%, 100% 100%, 0 100%);
@@ -538,18 +519,6 @@
   filter: grayscale(0);
   transform: scale(1.06);
 }
-.v3-brand-band {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 30%;
-  background: var(--navy);
-  clip-path: polygon(0 58%, 100% 8%, 100% 100%, 0 100%);
-  transform: translateY(105%);
-  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-.v3-brand-box:hover .v3-brand-band { transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
   .v3-brands-track { animation: none; }
 }
@@ -780,7 +749,8 @@
   display: inline-block;
   padding: 0.9rem 3rem 1.1rem;
   background: var(--og);
-  clip-path: polygon(3% 18%, 100% 0, 97% 88%, 0 100%);
+  /* exact plate quad from the design file (p17) */
+  clip-path: polygon(4.9% 8.9%, 94.2% 0, 100% 93.7%, 6.4% 100%);
   font-family: var(--mader);
   font-size: var(--fs-head);
   color: var(--navy);
@@ -880,6 +850,8 @@
 @media (max-width: 900px) {
   /* the artboard's hard line breaks only apply to the wide desktop layout */
   .v3-og-copy br { display: none; }
+  /* no hover on touch — keep the name strips visible */
+  .v3-work-card-strip { transform: none; }
 }
 @media (max-width: 860px) {
   .v3-about-navy-inner { grid-template-columns: 1fr; }
@@ -1029,8 +1001,6 @@
   .v3-work-card { height: 35.4vw; }
   .v3-work-card-strip { padding: 2vw 1.3vw 0.65vw; }
   .v3-work-card-brand { font-size: 1.82vw; }
-  .v3-work-card-view { left: 1.3vw; bottom: 0.65vw; font-size: 1.2vw; }
-  .v3-work-cell:nth-child(even) .v3-work-card-view { left: auto; right: 1.3vw; }
 
   /* ── BRANDS (artboard p12) ── */
   .v3-brands {
@@ -1068,11 +1038,10 @@
     flex: 1 1 auto;
     min-height: 0;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(5, 5, 129, 0.45) transparent;
+    /* no visible scrollbar — the note's clipped corners cut it off */
+    scrollbar-width: none;
   }
-  .v3-og-card-bio::-webkit-scrollbar { width: 5px; }
-  .v3-og-card-bio::-webkit-scrollbar-thumb { background: rgba(5, 5, 129, 0.4); border-radius: 3px; }
+  .v3-og-card-bio::-webkit-scrollbar { display: none; }
   .v3-og-card--pop { animation: v3cardpop 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
   .v3-amp { font-family: var(--lacquer); font-size: 0.82em; }
   .v3-og-card-name { font-size: 2.75vw; line-height: 0.95; padding: 0.9vw 1vw 0.8vw; }
@@ -1085,7 +1054,7 @@
   .v3-contact { min-height: 56.25vw; padding: 6.2vw 4.7vw 4vw; }
   .v3-contact-inner { max-width: none; }
   .v3-contact-plate-wrap { margin: 0 0 9.1vw 33.5vw; transform: none; }
-  .v3-contact-plate { width: 23.6vw; padding: 1.55vw 0 1.7vw; font-size: 6.22vw; line-height: 1; text-align: center; }
+  .v3-contact-plate { width: 23.6vw; padding: 1.85vw 0 1.88vw; font-size: 6.22vw; line-height: 1; text-align: center; }
   .v3-contact-phone { left: 0.34vw; top: 9.6vw; width: 3.45vw; }
   .v3-contact-grid { grid-template-columns: 39.9vw 1fr; gap: 0; }
   .v3-contact-info { font-size: 1.9vw; gap: 1.9vw; padding-top: 0.65vw; }

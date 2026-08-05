@@ -307,7 +307,6 @@ function WorkV3({ projects }: { projects: Project[] }) {
                 <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
                 <span className="v3-work-card-strip">
                   <span className="v3-work-card-brand">{project.client}</span>
-                  <span className="v3-work-card-view">View case ↗</span>
                 </span>
               </Link>
             </div>
@@ -334,7 +333,6 @@ function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
                 {withLogos.map((client) => (
                   <span className="v3-brand-box" key={`${dup}-${client.name}`}>
                     <img src={client.logo!.src} alt={dup === 0 ? client.name : ""} loading="lazy" />
-                    <span className="v3-brand-band" aria-hidden="true" />
                   </span>
                 ))}
               </div>
