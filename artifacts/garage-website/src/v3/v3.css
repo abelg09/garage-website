@@ -749,8 +749,9 @@
   display: inline-block;
   padding: 0.9rem 3rem 1.1rem;
   background: var(--og);
-  /* exact plate quad from the design file (p17) */
-  clip-path: polygon(4.9% 8.9%, 94.2% 0, 100% 93.7%, 6.4% 100%);
+  /* exact plate silhouette traced from the design file (p17) —
+     incl. the kinked lower-left edge */
+  clip-path: polygon(10.1% 9%, 94.3% 0%, 100% 93%, 11.5% 100%, 11.9% 77%, 5.6% 71%);
   font-family: var(--mader);
   font-size: var(--fs-head);
   color: var(--navy);
@@ -1053,9 +1054,10 @@
   /* ── CONTACT (artboard p17) ── */
   .v3-contact { min-height: 56.25vw; padding: 6.2vw 4.7vw 4vw; }
   .v3-contact-inner { max-width: none; }
-  .v3-contact-plate-wrap { margin: 0 0 9.1vw 33.5vw; transform: none; }
-  .v3-contact-plate { width: 23.6vw; padding: 1.85vw 0 1.88vw; font-size: 6.22vw; line-height: 1; text-align: center; }
-  .v3-contact-phone { left: 0.34vw; top: 9.6vw; width: 3.45vw; }
+  /* plate box is oversized so the clipped quad lands at the file's 23.5vw */
+  .v3-contact-plate-wrap { margin: 0 0 8.8vw 32.1vw; transform: none; }
+  .v3-contact-plate { width: 24.8vw; padding: 1.85vw 0 1.88vw 1.4vw; font-size: 6.22vw; line-height: 1; text-align: center; }
+  .v3-contact-phone { left: 1.74vw; top: 9.6vw; width: 3.45vw; }
   .v3-contact-grid { grid-template-columns: 39.9vw 1fr; gap: 0; }
   .v3-contact-info { font-size: 1.9vw; gap: 1.9vw; padding-top: 0.65vw; }
   .v3-contact-info a { font-size: 1.9vw; }
