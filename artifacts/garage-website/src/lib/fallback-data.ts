@@ -60,6 +60,14 @@ export const fallbackContent: GarageContent = {
         {
           src: `${v2img}work-jameson.webp`,
           alt: "Jameson — Sometimes it's about the hellos after you hang up"
+        },
+        {
+          src: `${v2img}case-jameson-2.webp`,
+          alt: "Jameson — Halloween social drop"
+        },
+        {
+          src: `${v2img}case-jameson-3.webp`,
+          alt: "Jameson — What The Drink content series"
         }
       ]
     },
@@ -80,6 +88,14 @@ export const fallbackContent: GarageContent = {
         {
           src: `${v2img}work-nippon.webp`,
           alt: "Nippon India Mutual Fund — GOAT campaign visual"
+        },
+        {
+          src: `${v2img}case-nippon-2.webp`,
+          alt: "Nippon India — Investing is like your skincare routine"
+        },
+        {
+          src: `${v2img}case-nippon-3.webp`,
+          alt: "Nippon India — comic strip social post"
         }
       ]
     },
@@ -120,6 +136,14 @@ export const fallbackContent: GarageContent = {
         {
           src: `${v2img}work-grameen.webp`,
           alt: "Grameen Kulfi — Jaldi Kya Hai? campaign visual"
+        },
+        {
+          src: `${v2img}case-grameen-2.webp`,
+          alt: "Grameen Kulfi — carousel creative"
+        },
+        {
+          src: `${v2img}case-grameen-3.webp`,
+          alt: "Grameen Kulfi — product creative"
         }
       ]
     },
@@ -140,6 +164,14 @@ export const fallbackContent: GarageContent = {
         {
           src: `${v2img}work-jacobs-creek.webp`,
           alt: "Jacob's Creek Unvined \u2014 bottle clock campaign visual"
+        },
+        {
+          src: `${v2img}case-jc-2.webp`,
+          alt: "Jacob's Creek Unvined — Valentine's social"
+        },
+        {
+          src: `${v2img}case-jc-3.webp`,
+          alt: "Jacob's Creek — cricket contest creative"
         }
       ]
     },

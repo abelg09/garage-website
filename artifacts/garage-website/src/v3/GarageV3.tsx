@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
 import { ChevronDown } from "lucide-react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { toast } from "sonner";
 
 import type { GarageContent, Project } from "../lib/types";
@@ -25,15 +25,28 @@ function useMax(px: number) {
 
 const MENU_ITEMS: [string, string][] = [
   ["about us", "story"],
-  ["work", "work"],
+  ["work", "/work"],
   ["crew", "crew"],
   ["contact us", "contact"],
 ];
 
 export function GarageV3({ content }: { content: GarageContent }) {
-  const [introDone, setIntroDone] = useState(false);
+  // arriving with a hash (e.g. from /work's nav) skips the intro and
+  // lands directly on the section
+  const [introDone, setIntroDone] = useState(() => typeof window !== "undefined" && !!window.location.hash);
   const [menuOpen, setMenuOpen] = useState(false);
   const [overCream, setOverCream] = useState(false);
+  const [, navigate] = useLocation();
+
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (!hash) return;
+    const t = window.setTimeout(
+      () => document.getElementById(hash)?.scrollIntoView({ behavior: "auto", block: "start" }),
+      120
+    );
+    return () => window.clearTimeout(t);
+  }, []);
 
   // The design file only shows the white wordmark on navy pages — fade it
   // out while the cream Work/Brands pages sit under it.
@@ -62,6 +75,10 @@ export function GarageV3({ content }: { content: GarageContent }) {
 
   const go = (id: string) => {
     setMenuOpen(false);
+    if (id.startsWith("/")) {
+      navigate(id);
+      return;
+    }
     window.setTimeout(() => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }), 60);
   };
 
@@ -303,7 +320,7 @@ function WorkV3({ projects }: { projects: Project[] }) {
               style={{ "--i": index } as React.CSSProperties}
               className="v3-work-cell"
             >
-              <Link href={`/work/${project.id}`} className="v3-work-card">
+              <Link href="/work" className="v3-work-card">
                 <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
                 <span className="v3-work-card-strip">
                   <span className="v3-work-card-brand">{project.client}</span>
