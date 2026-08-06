@@ -1309,3 +1309,40 @@
 }
 
 .v3-case-video { background: var(--navy); object-fit: cover; }
+
+/* carousel posts scroll sideways; loose posts keep their true aspect */
+.v3-case-strip {
+  margin-top: clamp(1.2rem, 2vw, 2.4rem);
+  display: flex;
+  gap: clamp(0.6rem, 1vw, 1.2rem);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(5, 5, 129, 0.4) transparent;
+}
+.v3-case-strip img {
+  flex: 0 0 auto;
+  width: clamp(240px, 30vw, 430px);
+  height: auto;
+  scroll-snap-align: start;
+  border: 2px solid var(--navy);
+  background: var(--cream);
+}
+.v3-case-masonry {
+  margin-top: clamp(1.2rem, 2vw, 2.4rem);
+  columns: 3 300px;
+  column-gap: clamp(0.7rem, 1.2vw, 1.4rem);
+}
+.v3-case-masonry > img,
+.v3-case-masonry > video {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: clamp(0.7rem, 1.2vw, 1.4rem);
+  break-inside: avoid;
+  border: 2px solid var(--navy);
+  background: var(--navy);
+}
+.v3-case-masonry > img { background: var(--cream); }

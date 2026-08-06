@@ -1,160 +1,481 @@
 /* generated from the delivered brand asset folders */
-export const caseMedia: Record<string, { images: string[]; videos: string[] }> = {
-  "grameen-kulfi": {
-    "images": [
-      "img-01.webp",
-      "img-02.webp",
-      "img-03.webp",
-      "img-04.webp",
-      "img-05.webp",
-      "img-06.webp",
-      "img-07.webp",
-      "img-08.webp",
-      "img-09.webp",
-      "img-10.webp",
-      "img-11.webp",
-      "img-12.webp"
-    ],
-    "videos": []
-  },
-  "jacobs-creek": {
-    "images": [
-      "img-01.webp",
-      "img-02.webp",
-      "img-03.webp",
-      "img-04.webp",
-      "img-05.webp",
-      "img-06.webp",
-      "img-07.webp",
-      "img-08.webp",
-      "img-09.webp",
-      "img-10.webp",
-      "img-11.webp"
-    ],
-    "videos": [
-      "vid-01.mp4",
-      "vid-02.mp4"
-    ]
-  },
-  "jameson": {
-    "images": [
-      "img-01.webp",
-      "img-02.webp",
-      "img-03.webp",
-      "img-04.webp",
-      "img-05.webp",
-      "img-06.webp",
-      "img-07.webp",
-      "img-08.webp",
-      "img-09.webp",
-      "img-10.webp",
-      "img-11.webp",
-      "img-12.webp",
-      "img-13.webp",
-      "img-14.webp",
-      "img-15.webp",
-      "img-16.webp",
-      "img-17.webp",
-      "img-18.webp",
-      "img-19.webp",
-      "img-20.webp"
-    ],
-    "videos": [
-      "vid-01.mp4",
-      "vid-02.mp4",
-      "vid-03.mp4",
-      "vid-04.mp4",
-      "vid-05.mp4",
-      "vid-06.mp4",
-      "vid-07.mp4",
-      "vid-08.mp4",
-      "vid-09.mp4",
-      "vid-10.mp4",
-      "vid-11.mp4",
-      "vid-12.mp4",
-      "vid-13.mp4",
-      "vid-14.mp4",
-      "vid-15.mp4"
-    ]
-  },
-  "nippon-india-mf": {
-    "images": [
-      "img-01.webp",
-      "img-02.webp",
-      "img-03.webp",
-      "img-04.webp",
-      "img-05.webp",
-      "img-06.webp",
-      "img-07.webp",
-      "img-08.webp",
-      "img-09.webp",
-      "img-10.webp",
-      "img-11.webp",
-      "img-12.webp",
-      "img-13.webp",
-      "img-14.webp",
-      "img-15.webp",
-      "img-16.webp",
-      "img-17.webp",
-      "img-18.webp",
-      "img-19.webp",
-      "img-20.webp",
-      "img-21.webp",
-      "img-22.webp",
-      "img-23.webp",
-      "img-24.webp",
-      "img-25.webp",
-      "img-26.webp",
-      "img-27.webp",
-      "img-28.webp",
-      "img-29.webp",
-      "img-30.webp",
-      "img-31.webp",
-      "img-32.webp",
-      "img-33.webp",
-      "img-34.webp",
-      "img-35.webp",
-      "img-36.webp",
-      "img-37.webp",
-      "img-38.webp",
-      "img-39.webp",
-      "img-40.webp",
-      "img-41.webp",
-      "img-42.webp",
-      "img-43.webp",
-      "img-44.webp",
-      "img-45.webp",
-      "img-46.webp",
-      "img-47.webp",
-      "img-48.webp",
-      "img-49.webp",
-      "img-50.webp",
-      "img-51.webp",
-      "img-52.webp",
-      "img-53.webp",
-      "img-54.webp",
-      "img-55.webp",
-      "img-56.webp",
-      "img-57.webp",
-      "img-58.webp",
-      "img-59.webp",
-      "img-60.webp",
-      "img-61.webp"
-    ],
-    "videos": []
-  },
-  "senco-gold": {
-    "images": [
-      "img-01.webp"
-    ],
-    "videos": [
-      "vid-01.mp4",
-      "vid-02.mp4",
-      "vid-03.mp4",
-      "vid-04.mp4",
-      "vid-05.mp4",
-      "vid-06.mp4",
-      "vid-07.mp4"
-    ]
-  }
+export type CaseItem = { t: "img" | "vid"; src: string } | { t: "strip"; srcs: string[] };
+export const caseMedia: Record<string, CaseItem[]> = {
+  "grameen-kulfi": [
+    {
+      "t": "strip",
+      "srcs": [
+        "strip1-01.webp",
+        "strip1-02.webp",
+        "strip1-03.webp",
+        "strip1-04.webp",
+        "strip1-05.webp",
+        "strip1-06.webp"
+      ]
+    },
+    {
+      "t": "img",
+      "src": "img-01.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-02.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-03.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-04.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-05.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-06.webp"
+    }
+  ],
+  "jacobs-creek": [
+    {
+      "t": "vid",
+      "src": "vid-01.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-02.mp4"
+    },
+    {
+      "t": "img",
+      "src": "img-01.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-02.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-03.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-04.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-05.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-06.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-07.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-08.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-09.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-10.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-11.webp"
+    }
+  ],
+  "jameson": [
+    {
+      "t": "vid",
+      "src": "vid-01.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-02.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-03.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-04.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-05.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-06.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-07.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-08.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-09.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-10.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-11.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-12.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-13.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-14.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-15.mp4"
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip1-01.webp",
+        "strip1-02.webp",
+        "strip1-03.webp",
+        "strip1-04.webp",
+        "strip1-05.webp"
+      ]
+    },
+    {
+      "t": "img",
+      "src": "img-01.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-02.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-03.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-04.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-05.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-06.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-07.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-08.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-09.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-10.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-11.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-12.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-13.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-14.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-15.webp"
+    }
+  ],
+  "nippon-india-mf": [
+    {
+      "t": "strip",
+      "srcs": [
+        "strip1-01.webp",
+        "strip1-02.webp",
+        "strip1-03.webp",
+        "strip1-04.webp",
+        "strip1-05.webp",
+        "strip1-06.webp"
+      ]
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip2-01.webp",
+        "strip2-02.webp",
+        "strip2-03.webp"
+      ]
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip3-01.webp",
+        "strip3-02.webp"
+      ]
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip4-01.webp",
+        "strip4-02.webp"
+      ]
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip5-01.webp",
+        "strip5-02.webp",
+        "strip5-03.webp",
+        "strip5-04.webp"
+      ]
+    },
+    {
+      "t": "img",
+      "src": "img-01.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-02.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-03.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-04.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-05.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-06.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-07.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-08.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-09.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-10.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-11.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-12.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-13.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-14.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-15.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-16.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-17.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-18.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-19.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-20.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-21.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-22.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-23.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-24.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-25.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-26.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-27.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-28.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-29.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-30.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-31.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-32.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-33.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-34.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-35.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-36.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-37.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-38.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-39.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-40.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-41.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-42.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-43.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-44.webp"
+    }
+  ],
+  "senco-gold": [
+    {
+      "t": "vid",
+      "src": "vid-01.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-02.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-03.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-04.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-05.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-06.mp4"
+    },
+    {
+      "t": "vid",
+      "src": "vid-07.mp4"
+    },
+    {
+      "t": "img",
+      "src": "img-01.webp"
+    }
+  ]
 };
