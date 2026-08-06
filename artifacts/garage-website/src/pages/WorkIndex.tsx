@@ -1,68 +1,37 @@
 import { useEffect } from "react";
+import { Link } from "wouter";
 
-import { publicAsset } from "../lib/public-asset";
+import { WorkBar, WorkFooter, workPageVars } from "../v3/WorkChrome";
 import type { GarageContent } from "../lib/types";
 
-const v2 = (name: string) => publicAsset(`v2/${name}.webp`);
-
-/* V3 work page — one case block per project, modelled on the
-   whiteriversmedia case layout: big title, intro paragraph, media. */
+/* /work — the work index, modelled on whiteriversmedia.com/our-work:
+   a staggered two-column grid of cover tiles. */
 export function WorkIndex({ content }: { content: GarageContent }) {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const home = (hash: string) => `${import.meta.env.BASE_URL}${hash}`;
-
   return (
-    <div
-      className="v3 v3-workpage"
-      style={{
-        "--v3-texture": `url("${v2("texture")}")`,
-        "--v3-fabric": `url("${v2("fabric-navy")}")`,
-        "--v3-menu-tear": `url("${v2("menu-tear")}")`,
-      } as React.CSSProperties}
-    >
-      <header className="v3-wp-bar v3-fabric">
-        <a href={home("")} aria-label="Garage home">
-          <img className="v3-wp-wordmark" src={v2("wordmark-white")} alt="GARAGE" />
-        </a>
-        <nav aria-label="Menu">
-          <a href={home("#story")}>about us</a>
-          <a href={home("work")} aria-current="page">work</a>
-          <a href={home("#crew")}>crew</a>
-          <a href={home("#contact")}>contact us</a>
-        </nav>
-      </header>
-
+    <div className="v3 v3-workpage" style={workPageVars()}>
+      <WorkBar />
       <main className="v3-wp-main">
         <h1 className="v3-wp-title">Work</h1>
-        {content.projects.map((project) => {
-          const gallery = project.gallery.filter((g) => g.src !== project.cover.src);
-          return (
-            <section className="v3-case" key={project.id} aria-label={project.client}>
-              <p className="v3-case-meta">
+        <p className="v3-wi-tag">All the things we make, parked in one garage.</p>
+        <div className="v3-wi-grid">
+          {content.projects.map((project) => (
+            <Link href={`/work/${project.id}`} className="v3-wi-tile" key={project.id}>
+              <span className="v3-wi-media">
+                <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
+              </span>
+              <span className="v3-wi-name">{project.title}</span>
+              <span className="v3-wi-sub">
                 {project.client} · {project.category}
-              </p>
-              <h2 className="v3-case-title">{project.title}</h2>
-              <p className="v3-case-copy">{project.summary}</p>
-              {project.impact ? <p className="v3-case-copy">{project.impact}</p> : null}
-              <div className={`v3-case-media${gallery.length ? "" : " v3-case-media--solo"}`}>
-                <img className="v3-case-cover" src={project.cover.src} alt={project.cover.alt} loading="lazy" />
-                {gallery.map((g) => (
-                  <img key={g.src} className="v3-case-shot" src={g.src} alt={g.alt} loading="lazy" />
-                ))}
-              </div>
-            </section>
-          );
-        })}
+              </span>
+            </Link>
+          ))}
+        </div>
       </main>
-
-      <footer className="v3-wp-footer v3-fabric">
-        <a href={home("#contact")} className="v3-wp-cta">
-          let&rsquo;s go bananas!
-        </a>
-      </footer>
+      <WorkFooter />
     </div>
   );
 }

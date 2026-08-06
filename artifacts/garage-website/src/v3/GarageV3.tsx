@@ -320,7 +320,7 @@ function WorkV3({ projects }: { projects: Project[] }) {
               style={{ "--i": index } as React.CSSProperties}
               className="v3-work-cell"
             >
-              <Link href="/work" className="v3-work-card">
+              <Link href={`/work/${project.id}`} className="v3-work-card">
                 <img src={project.cover.src} alt={project.cover.alt} loading="lazy" />
                 <span className="v3-work-card-strip">
                   <span className="v3-work-card-brand">{project.client}</span>
