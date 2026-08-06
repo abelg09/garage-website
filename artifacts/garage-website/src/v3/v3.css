@@ -1346,3 +1346,7 @@
   background: var(--navy);
 }
 .v3-case-masonry > img { background: var(--cream); }
+@media (max-width: 700px) {
+  /* two-up gallery on phones — keeps long pages (Nippon: 60+ posts) walkable */
+  .v3-case-masonry { columns: 2; }
+}
