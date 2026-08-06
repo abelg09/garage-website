@@ -274,15 +274,15 @@ function AboutV3() {
             room.
           </h3>
           <p className="v3-og-copy">
-            HP in 1939. Apple in 1976. Amazon in 1994…
+            HP in 1939. Apple in 1976. Amazon in 1994…{" "}
             <br />
-            the list goes on.
+            the list goes on.{" "}
             <br />
-            We&rsquo;re continuing this rich tradition.
+            We&rsquo;re continuing this rich tradition.{" "}
             <br />
-            Fresh ideas, fresher faces, and the freshest
+            Fresh ideas, fresher faces, and the freshest{" "}
             <br />
-            resources all come together to create
+            resources all come together to create{" "}
             <br />
             something real. And something that works.
           </p>
@@ -357,7 +357,7 @@ function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
           </div>
         </div>
       </div>
-      <img className="v3-torn-orange" src={v2("torn-orange")} alt="" aria-hidden="true" />
+      <img className="v3-torn-orange" src={v2("torn-orange")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </section>
   );
 }
@@ -431,7 +431,7 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
             meet the og<span className="v3-title-s">s</span>
           </h2>
           <div className="v3-ogs-stage">
-            <img src={v2("ogs13")} alt="The three Garage founders" />
+            <img src={v2("ogs13")} alt="The three Garage founders" loading="lazy" decoding="async" />
             {OG_ZONES.map((zone) => (
               <button
                 key={`tap-${zone.key}`}
@@ -474,7 +474,7 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
         <div className="v3-team-face v3-team-face--crew v3-tex">
           <div className="v3-crew-stage">
             <div className="v3-crew-frame">
-            <img src={v2("crew-scene")} alt="The Garage crew" />
+            <img src={v2("crew-scene")} alt="The Garage crew" loading="lazy" decoding="async" />
             {CREW_ZONES.map((zone) => (
               <span
                 key={zone.name}
