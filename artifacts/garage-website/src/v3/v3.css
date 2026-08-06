@@ -1307,3 +1307,5 @@
   .v3-wi-grid { grid-template-columns: 1fr; }
   .v3-wi-tile:nth-child(even) { transform: none; }
 }
+
+.v3-case-video { background: var(--navy); object-fit: cover; }

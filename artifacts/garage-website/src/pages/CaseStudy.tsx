@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Link, useRoute } from "wouter";
 
 import { WorkBar, WorkFooter, workPageVars } from "../v3/WorkChrome";
+import { caseMedia } from "../lib/case-media";
+import { publicAsset } from "../lib/public-asset";
 import type { GarageContent } from "../lib/types";
 
 /* /work/:id — one campaign per page, modelled on
@@ -15,7 +17,10 @@ export function CaseStudy({ content }: { content: GarageContent }) {
     window.scrollTo(0, 0);
   }, [project.id]);
 
-  const gallery = project.gallery.filter((g) => g.src !== project.cover.src);
+  const media = caseMedia[project.id];
+  const caseImg = (f: string) => publicAsset(`v2/case/${project.id}/${f}`);
+  // fall back to the small gallery when a brand has no delivered folder
+  const gallery = media ? [] : project.gallery.filter((g) => g.src !== project.cover.src);
   const others = content.projects.filter((p) => p.id !== project.id).slice(0, 3);
 
   return (
@@ -29,10 +34,30 @@ export function CaseStudy({ content }: { content: GarageContent }) {
           <h1 className="v3-case-title v3-case-title--page">{project.title}</h1>
           <p className="v3-case-copy">{project.summary}</p>
           {project.impact ? <p className="v3-case-copy">{project.impact}</p> : null}
-          <div className={`v3-case-media${gallery.length ? "" : " v3-case-media--solo"}`}>
+          <div className={`v3-case-media${media || gallery.length ? "" : " v3-case-media--solo"}`}>
             <img className="v3-case-cover" src={project.cover.src} alt={project.cover.alt} />
             {gallery.map((g) => (
               <img key={g.src} className="v3-case-shot" src={g.src} alt={g.alt} loading="lazy" />
+            ))}
+            {media?.videos.map((f) => (
+              <video
+                key={f}
+                className="v3-case-shot v3-case-video"
+                src={caseImg(f)}
+                controls
+                playsInline
+                preload="metadata"
+              />
+            ))}
+            {media?.images.map((f) => (
+              <img
+                key={f}
+                className="v3-case-shot"
+                src={caseImg(f)}
+                alt={`${project.client} campaign creative`}
+                loading="lazy"
+                decoding="async"
+              />
             ))}
           </div>
         </section>
