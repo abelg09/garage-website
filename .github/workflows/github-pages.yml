@@ -59,7 +59,12 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    timeout-minutes: 40
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # the artifact carries case-study videos — give the Pages
+          # backend more than the default 10 minutes to process it
+          timeout: 1800000
