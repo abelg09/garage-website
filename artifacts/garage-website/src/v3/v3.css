@@ -1367,6 +1367,7 @@
 }
 .v3-carousel-track {
   display: flex;
+  align-items: center;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -1420,3 +1421,7 @@
   transition: background 140ms ease, transform 140ms ease;
 }
 .v3-carousel-dots span.is-on { background: var(--og); transform: scale(1.25); }
+
+/* deck-extracted sources are small — show them near natural size */
+.v3-carousel--sm { width: min(300px, 100%); }
+.v3-case-img--sm { max-width: 300px; }

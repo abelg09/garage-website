@@ -1,5 +1,7 @@
 /* generated from the delivered brand asset folders */
-export type CaseItem = { t: "img" | "vid"; src: string } | { t: "strip"; srcs: string[] };
+export type CaseItem =
+  | { t: "img" | "vid"; src: string; sm?: boolean }
+  | { t: "strip"; srcs: string[]; sm?: boolean };
 export const caseMedia: Record<string, CaseItem[]> = {
   "grameen-kulfi": [
     {
@@ -476,6 +478,125 @@ export const caseMedia: Record<string, CaseItem[]> = {
     {
       "t": "img",
       "src": "img-01.webp"
+    }
+  ],
+  "ifb": [
+    {
+      "t": "img",
+      "src": "img-01.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-02.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-03.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-04.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-05.webp",
+      "sm": true
+    },
+    {
+      "t": "img",
+      "src": "img-06.webp",
+      "sm": true
+    },
+    {
+      "t": "img",
+      "src": "img-07.webp"
+    },
+    {
+      "t": "img",
+      "src": "img-08.webp"
+    }
+  ],
+  "croma": [
+    {
+      "t": "strip",
+      "srcs": [
+        "strip1-01.webp",
+        "strip1-02.webp",
+        "strip1-03.webp",
+        "strip1-04.webp",
+        "strip1-05.webp",
+        "strip1-06.webp",
+        "strip1-07.webp",
+        "strip1-08.webp"
+      ],
+      "sm": true
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip2-01.webp",
+        "strip2-02.webp",
+        "strip2-03.webp",
+        "strip2-04.webp",
+        "strip2-05.webp",
+        "strip2-06.webp",
+        "strip2-07.webp",
+        "strip2-08.webp",
+        "strip2-09.webp",
+        "strip2-10.webp"
+      ],
+      "sm": true
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip3-01.webp",
+        "strip3-02.webp",
+        "strip3-03.webp",
+        "strip3-04.webp",
+        "strip3-05.webp",
+        "strip3-06.webp",
+        "strip3-07.webp",
+        "strip3-08.webp"
+      ],
+      "sm": true
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip4-01.webp",
+        "strip4-02.webp",
+        "strip4-03.webp",
+        "strip4-04.webp"
+      ],
+      "sm": true
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip5-01.webp",
+        "strip5-02.webp",
+        "strip5-03.webp",
+        "strip5-04.webp",
+        "strip5-05.webp",
+        "strip5-06.webp",
+        "strip5-07.webp",
+        "strip5-08.webp",
+        "strip5-09.webp",
+        "strip5-10.webp"
+      ],
+      "sm": true
+    },
+    {
+      "t": "strip",
+      "srcs": [
+        "strip6-01.webp",
+        "strip6-02.webp",
+        "strip6-03.webp",
+        "strip6-04.webp",
+        "strip6-05.webp",
+        "strip6-06.webp"
+      ]
     }
   ]
 };

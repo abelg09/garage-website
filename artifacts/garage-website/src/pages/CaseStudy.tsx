@@ -7,7 +7,7 @@ import { publicAsset } from "../lib/public-asset";
 import type { GarageContent } from "../lib/types";
 
 /* one carousel post = one box: swipe / arrows, auto-advance every 3s */
-function CaseCarousel({ srcs, resolve, client }: { srcs: string[]; resolve: (f: string) => string; client: string }) {
+function CaseCarousel({ srcs, resolve, client, small }: { srcs: string[]; resolve: (f: string) => string; client: string; small?: boolean }) {
   const track = useRef<HTMLDivElement>(null);
   const idxRef = useRef(0);
   const paused = useRef(false);
@@ -47,7 +47,7 @@ function CaseCarousel({ srcs, resolve, client }: { srcs: string[]; resolve: (f: 
 
   return (
     <div
-      className="v3-carousel"
+      className={`v3-carousel${small ? " v3-carousel--sm" : ""}`}
       onMouseEnter={hold}
       onMouseLeave={() => {
         paused.current = false;
@@ -118,7 +118,7 @@ export function CaseStudy({ content }: { content: GarageContent }) {
                 <div className="v3-case-carousels">
                   {strips.map((s, i) =>
                     s.t === "strip" ? (
-                      <CaseCarousel key={`strip-${i}`} srcs={s.srcs} resolve={caseImg} client={project.client} />
+                      <CaseCarousel key={`strip-${i}`} srcs={s.srcs} resolve={caseImg} client={project.client} small={s.sm} />
                     ) : null
                   )}
                 </div>
@@ -137,6 +137,7 @@ export function CaseStudy({ content }: { content: GarageContent }) {
                   ) : m.t === "img" ? (
                     <img
                       key={m.src}
+                      className={m.sm ? "v3-case-img--sm" : undefined}
                       src={caseImg(m.src)}
                       alt={`${project.client} campaign creative`}
                       loading="lazy"

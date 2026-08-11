@@ -176,6 +176,46 @@ export const fallbackContent: GarageContent = {
       ]
     },
     {
+      id: "ifb",
+      title: "Home, Smarter",
+      client: "IFB",
+      category: "Digital & Social",
+      summary:
+        "Social and campaign content for IFB's home appliance range \u2014 washers, dishwashers and kitchen appliances \u2014 built around everyday life getting easier, one load at a time.",
+      impact:
+        "A steady stream of product-led creatives kept IFB present in the feed and tied features to real household moments.",
+      cover: {
+        src: `${v2img}work-ifb.webp`,
+        alt: "IFB campaign creative"
+      },
+      gallery: [
+        {
+          src: `${v2img}work-ifb.webp`,
+          alt: "IFB campaign creative"
+        }
+      ]
+    },
+    {
+      id: "croma",
+      title: "Everything Electronics",
+      client: "Croma",
+      category: "Retail & E-commerce",
+      summary:
+        "Retail and e-commerce content for Croma \u2014 instore campaign posters, POSM, Black Friday takeovers, product packaging, and A+ website and PDP content that carries the brand from the shop floor to the product page.",
+      impact:
+        "One visual system across store and screen \u2014 the same voice on a poster, a shelf strip, and a product detail page.",
+      cover: {
+        src: `${v2img}work-croma.webp`,
+        alt: "Croma \u2014 retail campaign creative"
+      },
+      gallery: [
+        {
+          src: `${v2img}work-croma.webp`,
+          alt: "Croma \u2014 retail campaign creative"
+        }
+      ]
+    },
+    {
       id: "south-indian-bank",
       title: "Trust meets Tech since 1929",
       client: "South Indian Bank",
