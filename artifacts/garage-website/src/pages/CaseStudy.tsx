@@ -1,10 +1,79 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useRoute } from "wouter";
 
 import { WorkBar, WorkFooter, workPageVars } from "../v3/WorkChrome";
 import { caseMedia } from "../lib/case-media";
 import { publicAsset } from "../lib/public-asset";
 import type { GarageContent } from "../lib/types";
+
+/* one carousel post = one box: swipe / arrows, auto-advance every 3s */
+function CaseCarousel({ srcs, resolve, client }: { srcs: string[]; resolve: (f: string) => string; client: string }) {
+  const track = useRef<HTMLDivElement>(null);
+  const idxRef = useRef(0);
+  const paused = useRef(false);
+  const [idx, setIdx] = useState(0);
+
+  const go = (i: number) => {
+    const el = track.current;
+    if (!el) return;
+    const n = ((i % srcs.length) + srcs.length) % srcs.length;
+    el.scrollTo({ left: n * el.clientWidth, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    const t = window.setInterval(() => {
+      if (!paused.current) go(idxRef.current + 1);
+    }, 3000);
+    return () => window.clearInterval(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [srcs.length]);
+
+  const onScroll = () => {
+    const el = track.current;
+    if (!el) return;
+    const n = Math.round(el.scrollLeft / Math.max(1, el.clientWidth));
+    idxRef.current = n;
+    setIdx(n);
+  };
+
+  const hold = () => {
+    paused.current = true;
+  };
+  const release = () => {
+    window.setTimeout(() => {
+      paused.current = false;
+    }, 3500);
+  };
+
+  return (
+    <div
+      className="v3-carousel"
+      onMouseEnter={hold}
+      onMouseLeave={() => {
+        paused.current = false;
+      }}
+      onTouchStart={hold}
+      onTouchEnd={release}
+    >
+      <div className="v3-carousel-track" ref={track} onScroll={onScroll}>
+        {srcs.map((f) => (
+          <img key={f} src={resolve(f)} alt={`${client} carousel creative`} loading="lazy" decoding="async" />
+        ))}
+      </div>
+      <button type="button" className="v3-carousel-btn v3-carousel-btn--prev" aria-label="Previous" onClick={() => go(idxRef.current - 1)}>
+        ‹
+      </button>
+      <button type="button" className="v3-carousel-btn v3-carousel-btn--next" aria-label="Next" onClick={() => go(idxRef.current + 1)}>
+        ›
+      </button>
+      <div className="v3-carousel-dots" aria-hidden="true">
+        {srcs.map((f, i) => (
+          <span key={f} className={i === idx ? "is-on" : ""} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 /* /work/:id — one campaign per page, modelled on
    whiteriversmedia.com/our-work/sharktankindia: big title, story,
@@ -45,15 +114,15 @@ export function CaseStudy({ content }: { content: GarageContent }) {
             </div>
           ) : (
             <>
-              {strips.map((s, i) =>
-                s.t === "strip" ? (
-                  <div className="v3-case-strip" key={`strip-${i}`} aria-label="Carousel post — scroll">
-                    {s.srcs.map((f) => (
-                      <img key={f} src={caseImg(f)} alt={`${project.client} carousel creative`} loading="lazy" decoding="async" />
-                    ))}
-                  </div>
-                ) : null
-              )}
+              {strips.length ? (
+                <div className="v3-case-carousels">
+                  {strips.map((s, i) =>
+                    s.t === "strip" ? (
+                      <CaseCarousel key={`strip-${i}`} srcs={s.srcs} resolve={caseImg} client={project.client} />
+                    ) : null
+                  )}
+                </div>
+              ) : null}
               <div className="v3-case-masonry">
                 {loose.map((m) =>
                   m.t === "vid" ? (

@@ -1350,3 +1350,73 @@
   /* two-up gallery on phones — keeps long pages (Nippon: 60+ posts) walkable */
   .v3-case-masonry { columns: 2; }
 }
+
+/* single-box carousels: one slide visible, swipe/arrows, 3s auto-advance */
+.v3-case-carousels {
+  margin-top: clamp(1.2rem, 2vw, 2.4rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.8rem, 1.4vw, 1.6rem);
+}
+.v3-carousel {
+  position: relative;
+  width: min(460px, 100%);
+  border: 2px solid var(--navy);
+  background: var(--cream);
+  overflow: hidden;
+}
+.v3-carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.v3-carousel-track::-webkit-scrollbar { display: none; }
+.v3-carousel-track img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: auto;
+  scroll-snap-align: start;
+  display: block;
+}
+.v3-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 2px solid var(--navy);
+  background: var(--cream);
+  color: var(--navy);
+  font-family: var(--leelu);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  padding-bottom: 0.15rem;
+  opacity: 0.85;
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+.v3-carousel-btn:hover { opacity: 1; transform: translateY(-50%) scale(1.08); }
+.v3-carousel-btn--prev { left: 0.55rem; }
+.v3-carousel-btn--next { right: 0.55rem; }
+.v3-carousel-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 0.55rem;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.32rem;
+}
+.v3-carousel-dots span {
+  width: 0.44rem;
+  height: 0.44rem;
+  border-radius: 50%;
+  background: rgba(246, 243, 202, 0.55);
+  border: 1px solid rgba(5, 5, 129, 0.5);
+  transition: background 140ms ease, transform 140ms ease;
+}
+.v3-carousel-dots span.is-on { background: var(--og); transform: scale(1.25); }
