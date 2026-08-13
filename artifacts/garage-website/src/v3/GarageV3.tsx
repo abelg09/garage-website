@@ -302,8 +302,11 @@ const WORK_FILTERS: { label: string; match: (p: Project) => boolean }[] = [
   { label: "Digital & Social", match: (p) => /digital|social/i.test(p.category) },
 ];
 
+/* these three show only on /work and their case pages, not the home grid */
+const HOME_WORK_HIDDEN = new Set(["croma", "johnson", "south-indian-bank"]);
+
 function WorkV3({ projects }: { projects: Project[] }) {
-  const shown = projects;
+  const shown = projects.filter((p) => !HOME_WORK_HIDDEN.has(p.id));
 
   return (
     <section id="work" className="v3-work" aria-labelledby="v3-work-title">
