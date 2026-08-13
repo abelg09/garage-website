@@ -548,7 +548,7 @@ function TeamFlip({
       >
         <span className="v3-team-switch-label">meet the</span>
         <span className="v3-team-switch-track" aria-hidden="true">
-          <i>{flipped ? "crew" : "og"}</i>
+          <i>{flipped ? "crew" : "ogs"}</i>
           <b />
         </span>
       </button>
