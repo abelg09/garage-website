@@ -528,7 +528,7 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
         aria-checked={flipped}
         onClick={() => setFlipped(!flipped)}
       >
-        <span className="v3-team-switch-label">{flipped ? "meet the ogs" : "meet the crew"}</span>
+        <span className="v3-team-switch-label">meet the</span>
         <span className="v3-team-switch-track" aria-hidden="true">
           <i>{flipped ? "crew" : "og"}</i>
           <b />
