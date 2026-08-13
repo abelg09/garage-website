@@ -36,6 +36,7 @@ export function GarageV3({ content }: { content: GarageContent }) {
   const [introDone, setIntroDone] = useState(() => typeof window !== "undefined" && !!window.location.hash);
   const [menuOpen, setMenuOpen] = useState(false);
   const [overCream, setOverCream] = useState(false);
+  const [teamFlipped, setTeamFlipped] = useState(false);
   const [, navigate] = useLocation();
 
   useEffect(() => {
@@ -88,8 +89,8 @@ export function GarageV3({ content }: { content: GarageContent }) {
       <HeroGarage active={introDone} />
       <AboutV3 />
       <WorkV3 projects={content.projects} />
-      <BrandsV3 clients={content.clients} />
-      <TeamFlip crew={content.crew} />
+      <BrandsV3 clients={content.clients} flipped={teamFlipped} />
+      <TeamFlip crew={content.crew} flipped={teamFlipped} setFlipped={setTeamFlipped} />
       <ContactV3 site={content.site} />
       <img className={`v3-wordmark-fixed${menuOpen || overCream ? " is-hidden" : ""}`} src={v2("wordmark-white")} alt="GARAGE" />
       <button
@@ -335,7 +336,7 @@ function WorkV3({ projects }: { projects: Project[] }) {
 }
 
 /* ── Brands (page 12) ── */
-function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
+function BrandsV3({ clients, flipped }: { clients: GarageContent["clients"]; flipped: boolean }) {
   const withLogos = clients.filter((c) => c.logo);
   return (
     <section className="v3-brands" aria-labelledby="v3-brands-title">
@@ -357,7 +358,14 @@ function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
           </div>
         </div>
       </div>
-      <img className="v3-torn-orange" src={v2("torn-navy")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img
+        className="v3-torn-orange"
+        src={v2(flipped ? "torn-og" : "torn-navy")}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        decoding="async"
+      />
     </section>
   );
 }
@@ -406,8 +414,15 @@ const CREW_ZONES: { name: string; role: string; x: number; y: number; w: number;
   { name: "Adwait", role: "Art Director", x: 71, y: 55, w: 16, h: 41, lx: 83.6, ly: 76.2 },
 ];
 
-function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
-  const [flipped, setFlipped] = useState(false);
+function TeamFlip({
+  crew,
+  flipped,
+  setFlipped,
+}: {
+  crew: GarageContent["crew"];
+  flipped: boolean;
+  setFlipped: (v: boolean) => void;
+}) {
   const [crewHover, setCrewHover] = useState<string | null>(null);
   const compact = useMax(900);
   const [ogActive, setOgActive] = useState<string | null>(null);
