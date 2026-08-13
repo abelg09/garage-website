@@ -216,6 +216,26 @@ export const fallbackContent: GarageContent = {
       ]
     },
     {
+      id: "johnson",
+      title: "Dada Jackson & Ram\u2013Shyam",
+      client: "H&R Johnson",
+      category: "Brand Films",
+      summary:
+        "An integrated campaign highlighting the real-world benefits of Johnson's innovative tile solutions through two lighthearted, performance-driven films. Dada Jackson demonstrates unshakable confidence on MaxGrip anti-skid tiles; Ram and Shyam deliver comic contrast showcasing Cool-Roof tiles.",
+      impact:
+        "By blending functional innovation with entertainment, the films achieved high recall and everyday relevance \u2014 making tile performance tangible and memorable for consumers.",
+      cover: {
+        src: `${v2img}work-johnson2.webp`,
+        alt: "H&R Johnson \u2014 corporate tiles campaign"
+      },
+      gallery: [
+        {
+          src: `${v2img}work-johnson2.webp`,
+          alt: "H&R Johnson \u2014 corporate tiles campaign"
+        }
+      ]
+    },
+    {
       id: "south-indian-bank",
       title: "Trust meets Tech since 1929",
       client: "South Indian Bank",

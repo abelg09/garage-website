@@ -357,7 +357,7 @@ function BrandsV3({ clients }: { clients: GarageContent["clients"] }) {
           </div>
         </div>
       </div>
-      <img className="v3-torn-orange" src={v2("torn-orange")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <img className="v3-torn-orange" src={v2("torn-navy")} alt="" aria-hidden="true" loading="lazy" decoding="async" />
     </section>
   );
 }
@@ -461,11 +461,26 @@ function TeamFlip({ crew }: { crew: GarageContent["crew"] }) {
                     i === 0 ? [part] : [<span key={`amp-${i}`} className="v3-amp">&</span>, part]
                   )}
                 </span>
-                <span className="v3-og-card-bio">
+                <span
+                  className="v3-og-card-bio"
+                  ref={(el) => {
+                    if (!el) return;
+                    const more = el.parentElement?.querySelector<HTMLElement>(".v3-og-card-more");
+                    if (more) more.style.opacity = el.scrollHeight > el.clientHeight + 12 ? "1" : "0";
+                  }}
+                  onScroll={(e) => {
+                    const el = e.currentTarget;
+                    const more = el.parentElement?.querySelector<HTMLElement>(".v3-og-card-more");
+                    if (more)
+                      more.style.opacity =
+                        el.scrollTop + el.clientHeight >= el.scrollHeight - 10 ? "0" : "1";
+                  }}
+                >
                   {zone.bio.map((para) => (
                     <span key={para.slice(0, 24)} className="v3-og-card-para">{para}</span>
                   ))}
                 </span>
+                <span className="v3-og-card-more" aria-hidden="true">↓</span>
               </span>
             ))}
           </div>

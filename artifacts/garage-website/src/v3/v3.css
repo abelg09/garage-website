@@ -418,9 +418,9 @@
   display: block;
   height: clamp(260px, 30vw, 470px);
   overflow: hidden;
-  background: var(--og);
+  background: var(--navy);
   text-decoration: none;
-  border: 2px solid rgba(5, 5, 129, 0.0);
+  border: 0;
   transition: transform 170ms ease, box-shadow 170ms ease;
 }
 .v3-work-card:hover { transform: translateY(-5px) rotate(-0.4deg); }
@@ -703,19 +703,19 @@
   align-items: center;
   width: clamp(86px, 7.4vw, 112px);
   height: clamp(34px, 3vw, 44px);
-  border: 2.5px solid var(--cream);
+  border: 2.5px solid var(--og-deep);
   border-radius: 999px;
-  background: var(--og);
+  background: var(--cream);
   transition: background 250ms ease;
 }
-.v3-team-switch.is-on .v3-team-switch-track { background: var(--og-deep); }
+.v3-team-switch.is-on .v3-team-switch-track { background: var(--cream); }
 .v3-team-switch-track i {
   position: absolute;
   right: 12px;
   font-style: normal;
   font-family: var(--lacquer);
   font-size: var(--fs-body);
-  color: var(--cream);
+  color: var(--og-deep);
   text-transform: lowercase;
 }
 .v3-team-switch.is-on .v3-team-switch-track i { right: auto; left: 12px; }
@@ -725,7 +725,7 @@
   width: clamp(24px, 2.2vw, 32px);
   height: clamp(24px, 2.2vw, 32px);
   border-radius: 50%;
-  background: var(--cream);
+  background: var(--og-deep);
   transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .v3-team-switch.is-on .v3-team-switch-track b {
@@ -1003,10 +1003,9 @@
   .v3-work-card-strip { padding: 2vw 1.3vw 0.65vw; }
   .v3-work-card-brand { font-size: 1.82vw; }
 
-  /* ── BRANDS (artboard p12) ── */
+  /* ── BRANDS (artboard p12, band shortened per client) ── */
   .v3-brands {
     padding: 3.05vw 0 0;
-    height: 56.25vw;               /* full artboard page incl. torn band */
     display: flex;
     flex-direction: column;
   }
@@ -1014,7 +1013,7 @@
   .v3-brands-title { font-size: 6.22vw; margin-bottom: 0.15vw; }
   .v3-brands-marquee { width: 84.4vw; margin: 0 auto; height: 10.6vw; border-width: 2px; }
   .v3-brand-box { width: 14vw; height: 10.6vw; }
-  .v3-torn-orange { margin: auto 0 0; min-width: 0; }
+  .v3-torn-orange { margin: 3vw 0 0; min-width: 0; }
 
   /* ── TEAM (artboards p13/p15) ── */
   .v3-team-face--ogs { padding: 0.55vw 0 0; overflow: hidden; }
@@ -1425,3 +1424,32 @@
 /* deck-extracted sources are small — show them near natural size */
 .v3-carousel--sm { width: min(300px, 100%); }
 .v3-case-img--sm { max-width: 300px; }
+
+/* scroll cue on the bio note */
+.v3-og-card-more {
+  position: absolute;
+  bottom: 0.5vw;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--lacquer);
+  font-size: clamp(0.9rem, 1.1vw, 22px);
+  color: var(--og-deep);
+  pointer-events: none;
+  animation: v3bob 1.6s ease-in-out infinite;
+  transition: opacity 200ms ease;
+  opacity: 0;
+}
+
+/* asset category sections on case pages (per the creds deck) */
+.v3-case-sec { margin-top: clamp(1.6rem, 3vw, 3.6rem); }
+.v3-case-cat {
+  margin: 0 0 clamp(0.6rem, 1vw, 1.2rem);
+  font-family: var(--mader);
+  font-size: clamp(1.3rem, 2.4vw, 46px);
+  line-height: 1;
+  color: var(--navy);
+  text-transform: lowercase;
+  border-bottom: 3px solid var(--og);
+  display: inline-block;
+  padding-bottom: 0.35rem;
+}

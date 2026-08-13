@@ -91,8 +91,6 @@ export function CaseStudy({ content }: { content: GarageContent }) {
   // fall back to the small gallery when a brand has no delivered folder
   const gallery = media ? [] : project.gallery.filter((g) => g.src !== project.cover.src);
   const others = content.projects.filter((p) => p.id !== project.id).slice(0, 3);
-  const strips = media?.filter((m) => m.t === "strip") ?? [];
-  const loose = media?.filter((m) => m.t !== "strip") ?? [];
 
   return (
     <div className="v3 v3-workpage" style={workPageVars()}>
@@ -113,40 +111,49 @@ export function CaseStudy({ content }: { content: GarageContent }) {
               ))}
             </div>
           ) : (
-            <>
-              {strips.length ? (
-                <div className="v3-case-carousels">
-                  {strips.map((s, i) =>
-                    s.t === "strip" ? (
-                      <CaseCarousel key={`strip-${i}`} srcs={s.srcs} resolve={caseImg} client={project.client} small={s.sm} />
-                    ) : null
-                  )}
-                </div>
-              ) : null}
-              <div className="v3-case-masonry">
-                {loose.map((m) =>
-                  m.t === "vid" ? (
-                    <video
-                      key={m.src}
-                      className="v3-case-video"
-                      src={caseImg(m.src)}
-                      controls
-                      playsInline
-                      preload="metadata"
-                    />
-                  ) : m.t === "img" ? (
-                    <img
-                      key={m.src}
-                      className={m.sm ? "v3-case-img--sm" : undefined}
-                      src={caseImg(m.src)}
-                      alt={`${project.client} campaign creative`}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  ) : null
-                )}
-              </div>
-            </>
+            media.map((sec) => {
+              const secStrips = sec.items.filter((m) => m.t === "strip");
+              const secLoose = sec.items.filter((m) => m.t !== "strip");
+              return (
+                <section className="v3-case-sec" key={sec.label} aria-label={sec.label}>
+                  <h2 className="v3-case-cat">{sec.label}</h2>
+                  {secStrips.length ? (
+                    <div className="v3-case-carousels">
+                      {secStrips.map((s, i) =>
+                        s.t === "strip" ? (
+                          <CaseCarousel key={`${sec.label}-strip-${i}`} srcs={s.srcs} resolve={caseImg} client={project.client} small={s.sm} />
+                        ) : null
+                      )}
+                    </div>
+                  ) : null}
+                  {secLoose.length ? (
+                    <div className="v3-case-masonry">
+                      {secLoose.map((m) =>
+                        m.t === "vid" ? (
+                          <video
+                            key={m.src}
+                            className="v3-case-video"
+                            src={caseImg(m.src)}
+                            controls
+                            playsInline
+                            preload="metadata"
+                          />
+                        ) : m.t === "img" ? (
+                          <img
+                            key={m.src}
+                            className={m.sm ? "v3-case-img--sm" : undefined}
+                            src={caseImg(m.src)}
+                            alt={`${project.client} — ${sec.label}`}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        ) : null
+                      )}
+                    </div>
+                  ) : null}
+                </section>
+              );
+            })
           )}
         </section>
 
