@@ -666,66 +666,33 @@
   background: transparent;
   cursor: pointer;
 }
-/* one member's card, placed exactly where the artboard puts it */
+/* one member's card — the designer's exact cut, placed where the artboard puts it */
 .v3-crew-card {
   position: absolute;
   z-index: 4;
   display: block;
-  background: #d86848;
-  color: var(--navy);
-  font-family: var(--leelu);
-  text-align: left;
-  padding: 1.3cqw 1.1cqw 1.1cqw;
-  clip-path: polygon(0% 4%, 3.5% 4%, 5.5% 0%, 7.5% 4%, 99% 0%, 100% 96%, 1.2% 100%);
   animation: v3crewpop 240ms ease both;
+}
+.v3-crew-card img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 @keyframes v3crewpop {
   from { opacity: 0; transform: translateY(0.8cqw); }
   to { opacity: 1; transform: none; }
 }
-.v3-crew-card-name {
-  display: block;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 1.35cqw;
-  line-height: 1.15;
-  letter-spacing: 0.02em;
-}
-.v3-crew-card-role {
-  display: block;
-  font-size: 0.95cqw;
-  line-height: 1.25;
-}
-.v3-crew-card-role::after {
-  content: "";
-  display: block;
-  width: 2.4cqw;
-  height: 0.14cqw;
-  background: var(--navy);
-  margin-top: 0.6cqw;
-}
-.v3-crew-card-bio {
-  display: block;
-  margin-top: 0.6cqw;
-  font-size: 0.92cqw;
-  line-height: 1.38;
-}
 /* phones: the artboard-scale card would be unreadable, so the tapped
-   member's card presents as a readable sheet at the frame's foot */
+   member's card presents enlarged at the frame's foot */
 @media (max-width: 900px) {
   .v3-crew-card {
     left: 50% !important;
     top: auto !important;
     bottom: 3%;
-    width: 78% !important;
-    margin-left: -39%;
-    padding: 0.7rem 0.8rem 0.75rem;
+    width: 72% !important;
+    margin-left: -36%;
     animation: none;
   }
-  .v3-crew-card-name { font-size: 0.95rem; }
-  .v3-crew-card-role { font-size: 0.72rem; }
-  .v3-crew-card-role::after { width: 1.4rem; height: 2px; margin-top: 0.35rem; }
-  .v3-crew-card-bio { font-size: 0.72rem; margin-top: 0.4rem; }
 }
 .v3-team-switch {
   position: absolute;
