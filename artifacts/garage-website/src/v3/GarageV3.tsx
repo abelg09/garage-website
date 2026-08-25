@@ -259,7 +259,7 @@ function AboutV3() {
         <img className="v3-about-horns" src={v2("horns-fill")} alt="" aria-hidden="true" />
         <div className="v3-about-navy-inner">
           <h2 className="v3-about-headline">
-            Historically, the best ideas have
+            The best ideas often have
             <br />
             one place in common. A garage.
           </h2>
@@ -277,15 +277,15 @@ function AboutV3() {
           <p className="v3-og-copy">
             HP in 1939. Apple in 1976. Amazon in 1994…{" "}
             <br />
-            the list goes on.{" "}
+            And here we are.{" "}
             <br />
-            We&rsquo;re continuing this rich tradition.{" "}
+            Fueled by (frankly, an insane amount of){" "}
             <br />
-            Fresh ideas, fresher faces, and the freshest{" "}
+            free bananas and fresh coffee,{" "}
             <br />
-            resources all come together to create{" "}
+            we&rsquo;re an unserious bunch that likes{" "}
             <br />
-            something real. And something that works.
+            to make seriously good work.
           </p>
         </div>
         <img className="v3-about-stairs" src={v2("stairs-new")} alt="" aria-hidden="true" />
@@ -376,14 +376,14 @@ function BrandsV3({ clients, flipped }: { clients: GarageContent["clients"]; fli
 /* ── Team flip (pages 13–16): OGs ⇄ Crew, flipped by the banana ── */
 const OG_ZONES = [
   {
-    key: "bryan", name: "Bryan Elijah", role: "Creative Head", left: "8%", width: "28%", cx: 22,
+    key: "bryan", name: "Bryan Elijah", role: "Creative Head", left: "9%", width: "27%", cx: 22,
     bio: [
       "Bryan Elijah is a seasoned creative professional with over 20 years of experience delivering innovative campaigns across digital media, integrated marketing, and branding. Known for his work in the luxury automobile and high-end sectors, his agency background includes Rediffusion, Creativeland, Law & Kenneth, and Percept.",
       "Bryan has crafted impactful brand experiences for leading clients like Mercedes-Benz, Taj Hotels, and Electrolux. His work has earned top industry honors at Goafest, Spikes Asia, Effies, DMA, and Adfest, along with finalist recognition at D&AD, One Show Design, and New York Festivals.",
     ],
   },
   {
-    key: "swati", name: "Swati Bobde", role: "Chief Operating Officer", left: "37%", width: "26%", cx: 50,
+    key: "swati", name: "Swati Bobde", role: "Chief Operating Officer", left: "69%", width: "27%", cx: 82,
     bio: [
       "Swati Bobde is a growth leader, entrepreneur, and brand strategist with over 20 years of experience scaling brands and agencies. With hands-on expertise across advertising, design, digital, and production, she brings a rare end-to-end perspective to brand building. Her work has earned top industry honors, including Cannes Lions and Kyoorius awards.",
       "Swati co-founded Clay Strategy & Design and held leadership roles at Publicis, JWT, and Rediffusion. She has partnered with Global and APAC leadership across Emerging Markets, driving strategy for top brands like Garnier, Lakm\u00e9, Kellogg's, Marico, Colgate, and HDFC Ergo.",
@@ -391,7 +391,7 @@ const OG_ZONES = [
     ],
   },
   {
-    key: "ashish", name: "Ashish Chakravarty", role: "Managing Partner & CCO", left: "64%", width: "28%", cx: 78,
+    key: "ashish", name: "Ashish Chakravarty", role: "Managing Partner & CCO", left: "38%", width: "30%", cx: 53,
     bio: [
       "Ashish Chakravarty is one of India's most awarded creative leaders, with over two decades of experience shaping iconic brands. Consistently ranked among the country's top creative directors, including Campaign India's No. 1 Creative Director (2026). He regularly chairs global award juries and mentors international talent through the London International Awards program.",
       "With nearly 500 awards from Cannes Lions, D&AD, One Show, Clio, Spikes Asia, and Effies, Ashish has led creative strategy at top agencies. His portfolio spans major global, homegrown, and political clients, including Nestl\u00e9, Coca-Cola, Dabur, Air India, Microsoft, Britannia, ITC, and the Government of India.",
@@ -401,21 +401,8 @@ const OG_ZONES = [
 ];
 
 // x/y/w/h = hover zone; lx/ly = the design's exact label anchor (page 16), % of the 16:9 frame
-const CREW_ZONES: { name: string; role: string; x: number; y: number; w: number; h: number; lx: number; ly: number }[] = [
-  { name: "Aryan", role: "Junior Visualizer", x: 10, y: 22, w: 11, h: 38, lx: 15.4, ly: 41 },
-  { name: "Rujvi", role: "Sr. Visualizer", x: 23, y: 33, w: 10, h: 36, lx: 24.6, ly: 46.4 },
-  { name: "Maithili", role: "Sr. Executive", x: 31, y: 13, w: 10, h: 32, lx: 31.3, ly: 25 },
-  { name: "Vedant", role: "Copywriter", x: 41, y: 31, w: 11, h: 38, lx: 40.4, ly: 46 },
-  { name: "Tanvi", role: "Sr. Visualizer", x: 48, y: 13, w: 10, h: 34, lx: 46.4, ly: 23.5 },
-  { name: "Aniket", role: "Sr. Copywriter", x: 55, y: 33, w: 11, h: 36, lx: 56.6, ly: 53 },
-  { name: "Kyle", role: "Account Manager", x: 64, y: 16, w: 12, h: 34, lx: 71.6, ly: 21.6 },
-  { name: "Saniya", role: "Visualizer", x: 74, y: 31, w: 11, h: 36, lx: 80.6, ly: 43.8 },
-  { name: "Mobaiyana", role: "Copywriter", x: 8, y: 60, w: 13, h: 36, lx: 10, ly: 76.2 },
-  { name: "Utsav", role: "Art Director", x: 26, y: 55, w: 11, h: 41, lx: 27.9, ly: 72.2 },
-  { name: "Samir", role: "Sr. Account Manager", x: 40, y: 53, w: 12, h: 43, lx: 51.8, ly: 68.6 },
-  { name: "Pranali", role: "Sr. Account Manager", x: 55, y: 56, w: 13, h: 40, lx: 66.4, ly: 73.7 },
-  { name: "Adwait", role: "Art Director", x: 71, y: 55, w: 16, h: 41, lx: 83.6, ly: 76.2 },
-];
+/* the crew artboard bakes every member's name/role/bio card into the
+   export itself, so the crew face is a single image with no zones */
 
 function TeamFlip({
   crew,
@@ -426,7 +413,6 @@ function TeamFlip({
   flipped: boolean;
   setFlipped: (v: boolean) => void;
 }) {
-  const [crewHover, setCrewHover] = useState<string | null>(null);
   const compact = useMax(900);
   const [ogActive, setOgActive] = useState<string | null>(null);
   // debounced hover: moving between a face zone and its card must never
@@ -449,7 +435,7 @@ function TeamFlip({
             meet the og<span className="v3-title-s">s</span>
           </h2>
           <div className="v3-ogs-stage">
-            <img src={v2("ogs13")} alt="The three Garage founders" loading="lazy" decoding="async" />
+            <img src={v2("ogs14")} alt="The three Garage founders" loading="lazy" decoding="async" />
             {OG_ZONES.map((zone) => (
               <button
                 key={`tap-${zone.key}`}
@@ -507,33 +493,7 @@ function TeamFlip({
         <div className="v3-team-face v3-team-face--crew v3-tex">
           <div className="v3-crew-stage">
             <div className="v3-crew-frame">
-            <img src={v2("crew-scene")} alt="The Garage crew" loading="lazy" decoding="async" />
-            {CREW_ZONES.map((zone) => (
-              <span
-                key={zone.name}
-                className="v3-crew-zone"
-                style={{ left: `${zone.x}%`, top: `${zone.y}%`, width: `${zone.w}%`, height: `${zone.h}%` }}
-                onMouseEnter={() => setCrewHover(zone.name)}
-                onMouseLeave={() => setCrewHover(null)}
-                onClick={() => setCrewHover(crewHover === zone.name ? null : zone.name)}
-              />
-            ))}
-            <AnimatePresence>
-              {CREW_ZONES.filter((z) => z.name === crewHover).map((zone) => (
-                <motion.span
-                  key={zone.name}
-                  className="v3-crew-label"
-                  style={{ left: `${zone.lx}%`, top: `${zone.ly}%` }}
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {zone.name}
-                  <small>{zone.role}</small>
-                </motion.span>
-              ))}
-            </AnimatePresence>
+              <img src={v2("crew-scene2")} alt="The Garage crew with their name cards" loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
