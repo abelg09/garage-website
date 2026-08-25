@@ -401,8 +401,25 @@ const OG_ZONES = [
 ];
 
 // x/y/w/h = hover zone; lx/ly = the design's exact label anchor (page 16), % of the 16:9 frame
-/* the crew artboard bakes every member's name/role/bio card into the
-   export itself, so the crew face is a single image with no zones */
+/* crew hover cards: zone = where the person stands on the clean scene,
+   card = the artboard's card box (both in % of the 16:9 frame) */
+const CREW_MEMBERS = [
+  { key: "maithili", name: "Maithili", role: "SR. Account Executive", bio: "Carries the weight of the room’s fitness journey. Always on ‘get set go’ mode.", zone: { x: 17, y: 8, w: 12, h: 30 }, card: { x: 18.5, y: 29.5, w: 13.3 } },
+  { key: "utsav", name: "Utsav", role: "Art Director", bio: "Weekly wallpaper supplier and heavy biker. Has a magic hat that he uses to keep pulling out references.", zone: { x: 31, y: 6, w: 12, h: 30 }, card: { x: 32.7, y: 25.6, w: 12.5 } },
+  { key: "abhay", name: "Abhay", role: "Account Executive", bio: "In-house sports and adventure junkie. Keeps plans A, B, C ready (up to Z if required).", zone: { x: 44, y: 4, w: 13, h: 28 }, card: { x: 44.7, y: 22.9, w: 15.1 } },
+  { key: "tanvi", name: "Tanvi", role: "SR. Visualizer", bio: "Dad-humour representative. Outpaces Ai when it comes to incorporating feedback.", zone: { x: 58, y: 7, w: 12, h: 29 }, card: { x: 60, y: 26.8, w: 11.8 } },
+  { key: "kyle", name: "Kyle", role: "Account Manager", bio: "CMMO - Chief music and magic officer. More resourceful than Doremon.", zone: { x: 70, y: 9, w: 12, h: 29 }, card: { x: 72.3, y: 26.3, w: 10.5 } },
+  { key: "aryan", name: "Aryan", role: "Junior Visualizer", bio: "Moves like Jaggu and loves birthdays & farewells (for the cake). The bigger the work-pile, the wider the smile.", zone: { x: 11, y: 38, w: 13, h: 28 }, card: { x: 12.9, y: 47.2, w: 12.5 } },
+  { key: "rujvi", name: "Rujvi", role: "SR. Visualizer", bio: "Quietest, until you really know her. Currently overthinking a layout and making ‘just one small change’ for the 47th time.", zone: { x: 26, y: 37, w: 13, h: 28 }, card: { x: 26.9, y: 48, w: 14.9 } },
+  { key: "vedant", name: "Vedant", role: "Copywriter", bio: "Part-time bartender, full time couch-hogger. Big fan of to-do lists.", zone: { x: 43, y: 34, w: 13, h: 29 }, card: { x: 44.4, y: 48.3, w: 10.6 } },
+  { key: "aniket", name: "Aniket", role: "SR. Copywriter", bio: "Loves rewatching movies and talking about movies and well, movies. The hindi dictionary of the office.", zone: { x: 59, y: 37, w: 13, h: 27 }, card: { x: 61.8, y: 48.7, w: 14.7 } },
+  { key: "saniya", name: "Saniya", role: "Visualizer", bio: "Resident party-planner and tea-giver. Works just as well in a team as she does solo.", zone: { x: 75, y: 37, w: 13, h: 28 }, card: { x: 77.1, y: 47.4, w: 12.7 } },
+  { key: "mobaiyana", name: "Mobaiyana", role: "Copywriter", bio: "Usual over-thinker, occasional song hummer, and often caught daydreaming (she’s just crafting a headline).", zone: { x: 13, y: 66, w: 14, h: 30 }, card: { x: 16, y: 75.8, w: 11.6 } },
+  { key: "madhurenu", name: "Madhurenu", role: "Creative Director", bio: "Turns thoughts into words and words into trouble. The good kind. Talks cars all the time. Lives in the Garage.", zone: { x: 28, y: 64, w: 14, h: 32 }, card: { x: 29, y: 79.6, w: 11.4 } },
+  { key: "samir", name: "Samir", role: "SR. Account Manager", bio: "Has more shoes than some people have clothes. Loves a good brainstorming sesh.", zone: { x: 43, y: 62, w: 14, h: 34 }, card: { x: 43.6, y: 75, w: 15 } },
+  { key: "pranali", name: "Pranali", role: "SR. Account Manager", bio: "Certified yapper and kadak chai lover. Powered by enthusiasm, especially if it’s Shawn Mendes-related.", zone: { x: 58, y: 65, w: 13, h: 31 }, card: { x: 60.8, y: 78.7, w: 11.5 } },
+  { key: "adwait", name: "Adwait", role: "Art Director", bio: "90% screen-time = football, remaining 10% = soccer. Has a filing system for his filing system.", zone: { x: 72, y: 63, w: 14, h: 33 }, card: { x: 73.5, y: 74.8, w: 12.5 } },
+];
 
 function TeamFlip({
   crew,
@@ -425,6 +442,16 @@ function TeamFlip({
   const ogLeave = () => {
     window.clearTimeout(ogTimer.current);
     ogTimer.current = window.setTimeout(() => setOgActive(null), 160);
+  };
+  const [crewActive, setCrewActive] = useState<string | null>(null);
+  const crewTimer = useRef<number | undefined>(undefined);
+  const crewEnter = (key: string) => {
+    window.clearTimeout(crewTimer.current);
+    setCrewActive(key);
+  };
+  const crewLeave = () => {
+    window.clearTimeout(crewTimer.current);
+    crewTimer.current = window.setTimeout(() => setCrewActive(null), 160);
   };
 
   return (
@@ -493,7 +520,32 @@ function TeamFlip({
         <div className="v3-team-face v3-team-face--crew v3-tex">
           <div className="v3-crew-stage">
             <div className="v3-crew-frame">
-              <img src={v2("crew-scene2")} alt="The Garage crew with their name cards" loading="lazy" decoding="async" />
+              <img src={v2("crew-scene3")} alt="The Garage crew" loading="lazy" decoding="async" />
+              {CREW_MEMBERS.map((m) => (
+                <button
+                  key={`tap-${m.key}`}
+                  type="button"
+                  className="v3-crew-zone"
+                  style={{ left: `${m.zone.x}%`, top: `${m.zone.y}%`, width: `${m.zone.w}%`, height: `${m.zone.h}%` }}
+                  aria-label={`Show ${m.name}`}
+                  onMouseEnter={compact ? undefined : () => crewEnter(m.key)}
+                  onMouseLeave={compact ? undefined : crewLeave}
+                  onClick={() => setCrewActive(crewActive === m.key ? null : m.key)}
+                />
+              ))}
+              {CREW_MEMBERS.filter((m) => m.key === crewActive).map((m) => (
+                <span
+                  key={m.key}
+                  className="v3-crew-card"
+                  style={{ left: `${m.card.x}%`, top: `${m.card.y}%`, width: `${m.card.w}%` } as React.CSSProperties}
+                  onMouseEnter={compact ? undefined : () => crewEnter(m.key)}
+                  onMouseLeave={compact ? undefined : crewLeave}
+                >
+                  <span className="v3-crew-card-name">{m.name}</span>
+                  <span className="v3-crew-card-role">{m.role}</span>
+                  <span className="v3-crew-card-bio">{m.bio}</span>
+                </span>
+              ))}
             </div>
           </div>
         </div>
