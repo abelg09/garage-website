@@ -11,9 +11,10 @@ export const fallbackContent: GarageContent = {
     title: "GARAGE",
     email: "hello@garage-india.in",
     address: [
-      "Ground floor, Dr. S. S. Rao Road,",
-      "Parel East, Parel, Mumbai,",
-      "Maharashtra 400012"
+      "Kohinoor Education Complex,",
+      "Kohinoor City Rd, Ali Yavar Jung,",
+      "Vidyavihar West, Kurla, Mumbai,",
+      "Maharashtra 400070"
     ],
     wordmark: {
       src: `${ppt}garage-wordmark.webp`,
