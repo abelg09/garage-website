@@ -374,28 +374,24 @@ function BrandsV3({ clients, flipped }: { clients: GarageContent["clients"]; fli
 }
 
 /* ── Team flip (pages 13–16): OGs ⇄ Crew, flipped by the banana ── */
-const OG_ZONES = [
+/* R5: the OGs are Bryan + Sid, cards always on view; positions are % of
+   the stage (artboard p14 cropped below the baked title) */
+const OG_DUO = [
   {
-    key: "bryan", name: "Bryan Elijah", role: "Creative Head", left: "9%", width: "27%", cx: 22,
+    key: "bryan", name: "bryan elijah", role: "creative head",
+    plate: { cx: 23.6, top: 52.5 }, note: { cx: 23.7, top: 68.5, w: 23.5 },
     bio: [
       "Bryan Elijah is a seasoned creative professional with over 20 years of experience delivering innovative campaigns across digital media, integrated marketing, and branding. Known for his work in the luxury automobile and high-end sectors, his agency background includes Rediffusion, Creativeland, Law & Kenneth, and Percept.",
       "Bryan has crafted impactful brand experiences for leading clients like Mercedes-Benz, Taj Hotels, and Electrolux. His work has earned top industry honors at Goafest, Spikes Asia, Effies, DMA, and Adfest, along with finalist recognition at D&AD, One Show Design, and New York Festivals.",
     ],
   },
   {
-    key: "swati", name: "Swati Bobde", role: "Chief Operating Officer", left: "69%", width: "27%", cx: 82,
+    key: "sid", name: "siddharth shah", role: "executive creative director",
+    plate: { cx: 73.5, top: 43.3 }, note: { cx: 73.9, top: 59.7, w: 29 },
     bio: [
-      "Swati Bobde is a growth leader, entrepreneur, and brand strategist with over 20 years of experience scaling brands and agencies. With hands-on expertise across advertising, design, digital, and production, she brings a rare end-to-end perspective to brand building. Her work has earned top industry honors, including Cannes Lions and Kyoorius awards.",
-      "Swati co-founded Clay Strategy & Design and held leadership roles at Publicis, JWT, and Rediffusion. She has partnered with Global and APAC leadership across Emerging Markets, driving strategy for top brands like Garnier, Lakm\u00e9, Kellogg's, Marico, Colgate, and HDFC Ergo.",
-      "As COO of Garage Worldwide, Swati shapes agency strategy and delivers measurable business impact by integrating creativity, technology, and culture.",
-    ],
-  },
-  {
-    key: "ashish", name: "Ashish Chakravarty", role: "Managing Partner & CCO", left: "38%", width: "30%", cx: 53,
-    bio: [
-      "Ashish Chakravarty is one of India's most awarded creative leaders, with over two decades of experience shaping iconic brands. Consistently ranked among the country's top creative directors, including Campaign India's No. 1 Creative Director (2026). He regularly chairs global award juries and mentors international talent through the London International Awards program.",
-      "With nearly 500 awards from Cannes Lions, D&AD, One Show, Clio, Spikes Asia, and Effies, Ashish has led creative strategy at top agencies. His portfolio spans major global, homegrown, and political clients, including Nestl\u00e9, Coca-Cola, Dabur, Air India, Microsoft, Britannia, ITC, and the Government of India.",
-      "As Managing Partner and CCO of Garage Worldwide, Ashish drives creative vision, brand strategy, and growth through bold, high-impact ideas.",
+      "Siddharth believes great work should make people laugh, think, feel something, or at the very least, forget they\u2019re watching an ad. His career has taken him through some of India\u2019s leading creative agencies, including FCB Ulka, L&K Saatchi & Saatchi, Lowe Lintas, BBH, Spring Marketing Capital (as part of its founding team), Wondrlab, Tilt Brand Solutions and McCann.",
+      "Along the way, he\u2019s worked on brands like KFC, Uber, Pepsi, Mountain Dew, Netflix, Dream11, Ather, BHIM UPI, Tata AIG, ACKO, BYJU\u2019S, HRX, Wakefit, Urban Company, Skybags, BookMyShow, Hotstar, Jockey, Emirates, Triumph Motorcycles, CaratLane, CARS24 and UltraTech Cement, among many others.",
+      "His philosophy on creativity is a lot like Mixed Martial Arts. You can\u2019t win every fight with the same move. Strategy, storytelling, writing, humour, design, technology; every skill needs to be sharpened and every weapon ready to be unleashed when the brief demands it. He has a soft spot for audacious ideas, unexpected punches and work that refuses to play it safe. Because boring is the only fight worth picking.",
     ],
   },
 ];
@@ -431,18 +427,6 @@ function TeamFlip({
   setFlipped: (v: boolean) => void;
 }) {
   const compact = useMax(900);
-  const [ogActive, setOgActive] = useState<string | null>(null);
-  // debounced hover: moving between a face zone and its card must never
-  // drop the card (the overlay steals the zone's mouseleave)
-  const ogTimer = useRef<number | undefined>(undefined);
-  const ogEnter = (key: string) => {
-    window.clearTimeout(ogTimer.current);
-    setOgActive(key);
-  };
-  const ogLeave = () => {
-    window.clearTimeout(ogTimer.current);
-    ogTimer.current = window.setTimeout(() => setOgActive(null), 160);
-  };
   const [crewActive, setCrewActive] = useState<string | null>(null);
   const crewTimer = useRef<number | undefined>(undefined);
   const crewEnter = (key: string) => {
@@ -462,57 +446,24 @@ function TeamFlip({
             meet the og<span className="v3-title-s">s</span>
           </h2>
           <div className="v3-ogs-stage">
-            <img src={v2("ogs14")} alt="The three Garage founders" loading="lazy" decoding="async" />
-            {OG_ZONES.map((zone) => (
-              <button
-                key={`tap-${zone.key}`}
-                type="button"
-                className="v3-og-tap"
-                style={{ left: zone.left, width: zone.width }}
-                aria-label={`Show ${zone.name}`}
-                onMouseEnter={compact ? undefined : () => ogEnter(zone.key)}
-                onMouseLeave={compact ? undefined : ogLeave}
-                onClick={() => setOgActive(ogActive === zone.key ? null : zone.key)}
-              />
-            ))}
-            {OG_ZONES.filter((z) => z.key === ogActive).map((zone) => (
-              <span
-                key={zone.key}
-                className={`v3-og-card v3-og-card--pop ${zone.cx < 35 ? "v3-og-card--edge-l" : zone.cx > 65 ? "v3-og-card--edge-r" : ""}`}
-                data-key={zone.key}
-                style={{ "--cx": `${zone.cx}%`, ...(zone.cx >= 35 && zone.cx <= 65 ? { left: `${zone.cx}%` } : null) } as React.CSSProperties}
-                onMouseEnter={compact ? undefined : () => ogEnter(zone.key)}
-                onMouseLeave={compact ? undefined : ogLeave}
+            <img src={v2("ogs-duo")} alt="Bryan Elijah and Siddharth Shah, the Garage OGs" loading="lazy" decoding="async" />
+            {OG_DUO.map((og) => (
+              <div
+                key={og.key}
+                className="v3-duo-card"
+                style={{ left: `${og.note.cx}%`, top: `${og.plate.top}%`, width: `${og.note.w}vw` }}
               >
-                <span className="v3-og-card-name">
-                  {zone.name}
+                <span className="v3-duo-plate">
+                  {og.name}
                   <br />
-                  {/* demo Mader maps "&" to a watermark glyph — draw it in Lacquer */}
-                  {zone.role.split("&").flatMap((part, i) =>
-                    i === 0 ? [part] : [<span key={`amp-${i}`} className="v3-amp">&</span>, part]
-                  )}
+                  {og.role}
                 </span>
-                <span
-                  className="v3-og-card-bio"
-                  ref={(el) => {
-                    if (!el) return;
-                    const more = el.parentElement?.querySelector<HTMLElement>(".v3-og-card-more");
-                    if (more) more.style.opacity = el.scrollHeight > el.clientHeight + 12 ? "1" : "0";
-                  }}
-                  onScroll={(e) => {
-                    const el = e.currentTarget;
-                    const more = el.parentElement?.querySelector<HTMLElement>(".v3-og-card-more");
-                    if (more)
-                      more.style.opacity =
-                        el.scrollTop + el.clientHeight >= el.scrollHeight - 10 ? "0" : "1";
-                  }}
-                >
-                  {zone.bio.map((para) => (
-                    <span key={para.slice(0, 24)} className="v3-og-card-para">{para}</span>
+                <div className="v3-duo-note">
+                  {og.bio.map((para) => (
+                    <p key={para.slice(0, 24)}>{para}</p>
                   ))}
-                </span>
-                <span className="v3-og-card-more" aria-hidden="true">↓</span>
-              </span>
+                </div>
+              </div>
             ))}
           </div>
         </div>
