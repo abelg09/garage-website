@@ -662,7 +662,7 @@ function ContactV3({ site }: { site: GarageContent["site"] }) {
             </div>
             <div className="v3-field v3-field--message">
               <label htmlFor="v3-message">Message</label>
-              <textarea id="v3-message" value={form.message} onChange={update("message")} />
+              <textarea id="v3-message" rows={1} value={form.message} onChange={update("message")} />
             </div>
             <div className="v3-form-actions">
               <button type="submit" className="v3-submit" disabled={submitting}>

@@ -844,7 +844,9 @@
   padding: 0.4rem 0.1rem;
   outline: none;
 }
-.v3-field textarea { resize: none; min-height: 84px; }
+/* message grows line by line so the text always sits on its rule
+   (field-sizing where supported; elsewhere it stays one ruled line) */
+.v3-field textarea { resize: none; min-height: 0; height: auto; overflow: hidden; field-sizing: content; }
 .v3-field input:focus-visible,
 .v3-field textarea:focus-visible { border-bottom-color: var(--og); }
 .v3-form-actions {
@@ -956,7 +958,7 @@
 @media (min-width: 901px) {
   /* ── fixed chrome: wordmark + banana sized off the artboards ── */
   .v3-wordmark-fixed { width: 11vw; left: 2vw; top: 1.9vw; }
-  .v3-banana-corner { width: 5.9vw; right: 2.1vw; top: 1.85vw; }
+  .v3-banana-corner { width: 4.5vw; right: 2.1vw; top: 1.85vw; }
 
   /* ── ABOUT (artboard p10) ── */
   .v3-about-navy {
@@ -977,9 +979,9 @@
   /* chandelier overlaps the headline start, like the file */
   .v3-about-horns {
     position: absolute;
-    left: 16.2vw;
-    top: 2.87vw;
-    width: 15vw;
+    left: 13.4vw;
+    top: 1.5vw;
+    width: 19vw;
     max-width: none;
     margin: 0;
   }
@@ -1001,7 +1003,7 @@
     align-items: center;
   }
   .v3-og-title { font-size: 5.85vw; line-height: 0.85; margin: 0; }
-  .v3-og-copy { font-size: 2.19vw; line-height: 1.1; }
+  .v3-og-copy { font-size: 1.85vw; line-height: 1.16; }
   .v3-about-stairs {
     position: absolute;
     right: 9.64vw;
@@ -1082,9 +1084,9 @@
   .v3-contact-social a { width: 2vw; height: 2vw; }
   .v3-field label { font-size: 1.56vw; letter-spacing: 0.02em; }
   .v3-field input, .v3-field textarea { font-size: 1.3vw; }
-  /* message = col-1 only, one clean ruled line; button sits beside it (p17) */
+  /* message = col-1 only, one clean ruled line that grows with the text */
   .v3-field textarea {
-    min-height: 4.6vw;
+    min-height: 0;
     border-bottom-width: 2px;
     background-image: none;
     resize: none;
@@ -1093,7 +1095,8 @@
   .v3-field { gap: 0; }
   .v3-field input, .v3-field textarea { margin-top: -0.5vw; padding: 0 0.1vw 0.25vw; }
   .v3-field textarea { padding-top: 0.3vw; }
-  .v3-field--message { grid-column: 1; }
+  /* don't stretch to the button row's height — the rule hugs the text */
+  .v3-field--message { grid-column: 1; align-self: start; align-content: start; }
   .v3-form-actions { grid-column: 2; align-self: start; justify-content: flex-start; margin: 5vw 0 0 1vw; }
   .v3-submit { font-size: 1.39vw; padding: 0.5vw 1.2vw; }
 }
