@@ -734,7 +734,7 @@
   color: var(--navy);
   font-family: var(--outfit);
   font-weight: 330;
-  font-size: clamp(0.62rem, 0.8vw, 0.95rem);
+  font-size: clamp(0.56rem, 0.8vw, 0.95rem);
   line-height: 1.52;
   text-align: center;
   padding: 1vw 1.1vw 1.1vw;
@@ -742,8 +742,9 @@
 }
 .v3-duo-note p { margin: 0 0 0.6em; }
 .v3-duo-note p:last-child { margin-bottom: 0; }
-@media (max-width: 900px) {
-  /* phones: the cards stack under the photo at readable sizes */
+/* below ~1240px the artboard-scale cards run out of room (the text has a
+   px floor), so the tapped card presents under the photo instead */
+@media (max-width: 1240px) {
   .v3-duo-card {
     position: static;
     transform: none;
@@ -754,7 +755,7 @@
     margin: 1.1rem auto 0;
     max-width: 560px;
   }
-  .v3-duo-note { margin-top: 0.5rem; padding: 0.8rem 0.9rem; }
+  .v3-duo-note { margin-top: 0.5rem; padding: 0.8rem 0.9rem; font-size: 0.78rem; }
 }
 
 .v3-team-switch {
@@ -1023,13 +1024,13 @@
   .v3-wordmark-fixed { width: 11vw; left: 2vw; top: 1.9vw; }
   .v3-banana-corner { width: 4.5vw; right: 2.1vw; top: 1.85vw; }
 
-  /* ── ABOUT (artboard p10) ── */
+  /* ── ABOUT — R5 p9: a full navy artboard, headline beside the chandelier ── */
   .v3-about-navy {
     position: relative;
-    height: 26.44vw;                /* navy band: 47% of page height */
-    padding: 0 10vw 0 29.6vw;
+    height: 49vw;
+    padding: 15.2vw 10vw 0 43.1vw;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     clip-path: polygon(0 0, 100% 0, 100% 82.7%, 88% 84.6%, 75% 86.4%, 62% 88.6%, 50% 90.1%, 38% 92.3%, 25% 94.2%, 12% 96.8%, 0 100%);
   }
   .v3-about-navy-inner {
@@ -1037,31 +1038,31 @@
     width: 100%;
     max-width: none;
     margin: 0;
-    transform: translateY(-1.7vw);
+    transform: none;
   }
-  /* chandelier overlaps the headline start, like the file */
+  /* chandelier left of the headline, as the file places it */
   .v3-about-horns {
     position: absolute;
-    left: 13.4vw;
-    top: 1.5vw;
-    width: 19vw;
+    left: 12.8vw;
+    top: 5.7vw;
+    width: 24.7vw;
     max-width: none;
     margin: 0;
   }
   .v3-about-headline { font-size: 2.56vw; line-height: 1.32; letter-spacing: 0.02em; }
+  /* ── R5 p10: a full cream artboard, title over copy, big stairs right ── */
   .v3-about-cream {
     position: relative;
-    height: 29.81vw;                /* rest of the artboard */
-    padding: 0 17.5vw 0 12.5vw;
+    height: 50vw;
+    padding: 0 17.5vw 0 15.6vw;
     display: flex;
     align-items: center;
   }
-  /* R5: title stacked above the copy, both left-aligned */
   .v3-about-cream-inner {
     width: 100%;
     max-width: none;
     margin: 0;
-    transform: translateY(-1.4vw);
+    transform: translateY(1vw);
     grid-template-columns: 30vw;
     gap: 1.2vw;
     align-items: start;
@@ -1070,10 +1071,11 @@
   .v3-og-copy { font-size: 1.37vw; line-height: 1.18; }
   .v3-about-stairs {
     position: absolute;
-    right: 9.64vw;
-    top: 42.3%;
-    transform: translateY(-50%);
-    width: 10.96vw;
+    right: 0.5vw;
+    top: auto;
+    bottom: 3.5vw;
+    transform: none;
+    width: 28vw;
     max-width: none;
     margin: 0;
     display: block;
