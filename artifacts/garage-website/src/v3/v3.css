@@ -144,8 +144,8 @@
 .v3-menu nav button {
   border: 0;
   background: none;
-  font-family: var(--mader);
-  font-size: clamp(1.05rem, 4.69vw, 90px);
+  font-family: var(--lacquer);
+  font-size: clamp(1.05rem, 3.51vw, 68px);
   letter-spacing: 0.03em;
   color: var(--og);
   cursor: pointer;
@@ -699,12 +699,23 @@
     animation: none;
   }
 }
-/* ── R5 OGs: Bryan + Sid with their cards always on view (p14) ── */
+/* ── R5 OGs: Bryan + Sid, card pops on hover like the crew's (p14) ── */
+.v3-duo-zone {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  z-index: 2;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
 .v3-duo-card {
   position: absolute;
   z-index: 3;
   transform: translateX(-50%);
   text-align: center;
+  animation: v3cardpop 240ms ease both;
 }
 .v3-duo-plate {
   display: inline-block;
@@ -736,6 +747,7 @@
   .v3-duo-card {
     position: static;
     transform: none;
+    animation: none;
     width: auto !important;
     left: auto !important;
     top: auto !important;
@@ -1138,19 +1150,19 @@
   .v3-contact-social a { width: 2vw; height: 2vw; }
   .v3-field label { font-size: 1.56vw; letter-spacing: 0.02em; }
   .v3-field input, .v3-field textarea { font-size: 1.3vw; }
-  /* message = three ruled lines (R5 p17); keeps growing if the text does */
+  /* message = three ruled lines, dashed like the other fields (R5 p17) */
   .v3-field textarea {
     min-height: 6.35vw;
     line-height: 1.95vw;
     border-bottom: 0;
     background-origin: content-box;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent calc(1.95vw - 2px),
-      rgba(246, 243, 202, 0.85) calc(1.95vw - 2px),
-      rgba(246, 243, 202, 0.85) 1.95vw
-    );
+    background-image:
+      repeating-linear-gradient(to right, rgba(246, 243, 202, 0.9) 0 9px, transparent 9px 16px),
+      repeating-linear-gradient(to right, rgba(246, 243, 202, 0.9) 0 9px, transparent 9px 16px),
+      repeating-linear-gradient(to right, rgba(246, 243, 202, 0.9) 0 9px, transparent 9px 16px);
+    background-size: 100% 2px;
+    background-repeat: no-repeat;
+    background-position: 0 calc(1.95vw - 2px), 0 calc(3.9vw - 2px), 0 calc(5.85vw - 2px);
     resize: none;
   }
   .v3-form { max-width: none; grid-template-columns: 21.8vw 21.8vw; gap: 1.9vw 4.6vw; }

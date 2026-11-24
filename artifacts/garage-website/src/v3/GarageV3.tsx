@@ -379,7 +379,7 @@ function BrandsV3({ clients, flipped }: { clients: GarageContent["clients"]; fli
 const OG_DUO = [
   {
     key: "bryan", name: "bryan elijah", role: "creative head",
-    plate: { cx: 23.6, top: 52.5 }, note: { cx: 23.7, top: 68.5, w: 23.5 },
+    zone: { x: 26, w: 24 }, plate: { cx: 23.6, top: 52.5 }, note: { cx: 23.7, top: 68.5, w: 23.5 },
     bio: [
       "Bryan Elijah is a seasoned creative professional with over 20 years of experience delivering innovative campaigns across digital media, integrated marketing, and branding. Known for his work in the luxury automobile and high-end sectors, his agency background includes Rediffusion, Creativeland, Law & Kenneth, and Percept.",
       "Bryan has crafted impactful brand experiences for leading clients like Mercedes-Benz, Taj Hotels, and Electrolux. His work has earned top industry honors at Goafest, Spikes Asia, Effies, DMA, and Adfest, along with finalist recognition at D&AD, One Show Design, and New York Festivals.",
@@ -387,7 +387,7 @@ const OG_DUO = [
   },
   {
     key: "sid", name: "siddharth shah", role: "executive creative director",
-    plate: { cx: 73.5, top: 43.3 }, note: { cx: 73.9, top: 59.7, w: 29 },
+    zone: { x: 50, w: 23 }, plate: { cx: 73.5, top: 43.3 }, note: { cx: 73.9, top: 59.7, w: 29 },
     bio: [
       "Siddharth believes great work should make people laugh, think, feel something, or at the very least, forget they\u2019re watching an ad. His career has taken him through some of India\u2019s leading creative agencies, including FCB Ulka, L&K Saatchi & Saatchi, Lowe Lintas, BBH, Spring Marketing Capital (as part of its founding team), Wondrlab, Tilt Brand Solutions and McCann.",
       "Along the way, he\u2019s worked on brands like KFC, Uber, Pepsi, Mountain Dew, Netflix, Dream11, Ather, BHIM UPI, Tata AIG, ACKO, BYJU\u2019S, HRX, Wakefit, Urban Company, Skybags, BookMyShow, Hotstar, Jockey, Emirates, Triumph Motorcycles, CaratLane, CARS24 and UltraTech Cement, among many others.",
@@ -427,6 +427,16 @@ function TeamFlip({
   setFlipped: (v: boolean) => void;
 }) {
   const compact = useMax(900);
+  const [duoActive, setDuoActive] = useState<string | null>(null);
+  const duoTimer = useRef<number | undefined>(undefined);
+  const duoEnter = (key: string) => {
+    window.clearTimeout(duoTimer.current);
+    setDuoActive(key);
+  };
+  const duoLeave = () => {
+    window.clearTimeout(duoTimer.current);
+    duoTimer.current = window.setTimeout(() => setDuoActive(null), 160);
+  };
   const [crewActive, setCrewActive] = useState<string | null>(null);
   const crewTimer = useRef<number | undefined>(undefined);
   const crewEnter = (key: string) => {
@@ -448,10 +458,24 @@ function TeamFlip({
           <div className="v3-ogs-stage">
             <img src={v2("ogs-duo")} alt="Bryan Elijah and Siddharth Shah, the Garage OGs" loading="lazy" decoding="async" />
             {OG_DUO.map((og) => (
+              <button
+                key={`tap-${og.key}`}
+                type="button"
+                className="v3-duo-zone"
+                style={{ left: `${og.zone.x}%`, width: `${og.zone.w}%` }}
+                aria-label={`Show ${og.name}`}
+                onMouseEnter={compact ? undefined : () => duoEnter(og.key)}
+                onMouseLeave={compact ? undefined : duoLeave}
+                onClick={() => setDuoActive(duoActive === og.key ? null : og.key)}
+              />
+            ))}
+            {OG_DUO.filter((og) => og.key === duoActive).map((og) => (
               <div
                 key={og.key}
                 className="v3-duo-card"
                 style={{ left: `${og.note.cx}%`, top: `${og.plate.top}%`, width: `${og.note.w}vw` }}
+                onMouseEnter={compact ? undefined : () => duoEnter(og.key)}
+                onMouseLeave={compact ? undefined : duoLeave}
               >
                 <span className="v3-duo-plate">
                   {og.name}
